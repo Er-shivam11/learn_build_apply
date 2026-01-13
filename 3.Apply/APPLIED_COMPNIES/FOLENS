@@ -1,0 +1,64 @@
+Build clean, scalable, and well-structured FastAPI services and REST APIs
+
+Design efficient data models, write performant queries, and ensure data consistency across systems
+
+Develop and maintain backend services supporting the product roadmap and platform architecture
+
+Follow TDD practices — write automated tests before writing implementation code
+
+Ensure backend code is reliable, maintainable, and production-ready
+
+Integrate external services such as payment gateways, AI APIs, and cloud storage tools
+
+Design robust, fault-tolerant integration patterns for high availability
+
+Work with AWS cloud-native services including S3, RDS, EKS, CloudWatch, IAM, EC2
+
+Build scalable backend systems optimized for performance, reliability, and cost
+
+Set up and maintain monitoring and alerting using Prometheus, Grafana, Sentry, and AWS tools
+
+Ensure systems are observable, debug-able, and meet uptime requirements
+
+Work closely with Product, Design, Engineering and DevOps to deliver features efficiently
+
+Participate in pair programming, code reviews, and cross-functional discussions
+
+
+Must Have Skills
+
+Python programming
+
+Test-Driven Development (TDD)
+
+AWS services (S3, RDS, EKS, CloudWatch, IAM, EC2)
+
+FastAPI or similar frameworks (Flask, Django)
+
+PostgreSQL or RDBMS
+
+Good To Have Skills
+
+AWS, GCP, or serverless frontend hosting (Vercel, Netlify, Cloudflare)
+
+CI/CD, containerization, or devops for frontend
+
+AI-based development tooling (GitHub Copilot, Cursor, Tabnine)
+
+Docker and Kubernetes
+
+Prometheus and Grafana
+
+Sentry
+
+API integration (payments, AI models, third-party vendors)
+
+Soft Skills
+
+Strong communication skills
+
+Ability to collaborate in cross-functional teams
+
+Exceptional hunger to learn fast and own things
+
+Additional Information

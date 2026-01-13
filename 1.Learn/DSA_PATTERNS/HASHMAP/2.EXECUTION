@@ -1,0 +1,23 @@
+
+| # | Problem                            | Pattern     | Status          |
+| - | ---------------------------------- | ----------- | --------------- |
+| 1 | **Unique & Duplicates**            | set + list  | ✅ DONE          |
+| 2 | **First Unique Character**         | dict + loop | ✅ DONE          |
+| 3 | **Two Sum**                        | dict        | ✅ DONE          |
+| 4 | **Contains Duplicate**             | set         | ✅ DONE          |
+| 5 | **Remove Duplicates (keep order)** | list + set  | ✅ DONE          |
+| 6 | **Group Anagrams**                 | dict + list | ✅ DONE          |
+| 7 | **Top K Frequent Elements**        | dict + heap | ⏳ **REMAINING** |
+
+❓ Do I need order → List
+❓ Do I need unique → Set
+❓ Do I need mapping/grouping → Dict
+
+
+| Question says | Use         |
+| ------------- | ----------- |
+| Unique        | set         |
+| Duplicate     | set         |
+| Count         | dict        |
+| Most / Least  | dict + heap |
+| Order matters | list        |
