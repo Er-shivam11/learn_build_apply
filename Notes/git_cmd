@@ -1,0 +1,4 @@
+Remove-Item .git -Recurse -Force 
+
+1.git init //at main folder
+2.
