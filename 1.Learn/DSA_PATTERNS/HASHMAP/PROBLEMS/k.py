@@ -1,6 +1,13 @@
 # “Sort = arrange all, Heap = keep only needed.”
 # “Heap is more efficient for large data as it avoids full sorting.”
 # count of num or str both same logic applies
+
+import pandas as pd;
+num=[1,2,3,2,1,5]
+k=2
+counts = pd.Series(num).value_counts().index[:k].to_list()
+
+
 from collections import Counter
 
 def topKFrequent(nums, k):
@@ -10,6 +17,18 @@ def topKFrequent(nums, k):
 nums = [1,1,1,2,2,3]
 k = 2
 print(topKFrequent(nums, k))
+
+
+
+from collections import Counter
+num = [1, 2, 3, 2, 1, 5]
+k = 2
+
+# One-liner to get just the top k elements
+top_k = [item for item, count in Counter(num).most_common(k)]
+print(top_k)  # Output: [1, 2]
+
+
 
 
 import heapq

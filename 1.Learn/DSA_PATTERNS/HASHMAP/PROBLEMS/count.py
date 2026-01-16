@@ -22,6 +22,16 @@ for num in nums:
 print(count)
 
 
+from collections import Counter
+
+# num=[1,2,3,2,1,5]
+# counts = Counter(num)
+# print(counts)
+
+import pandas as pd; 
+counts = pd.Series(nums).value_counts().index.to_dict()
+print(counts)
+
 ### 3️⃣ Using `collections.Counter`
 
 

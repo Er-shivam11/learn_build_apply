@@ -1,0 +1,77 @@
+If interviewer asks:
+
+“What happens when you type a URL and hit enter?”
+
+Correct structure:
+
+DNS resolution
+
+TCP/TLS connection
+
+HTTP request
+
+Load balancer
+
+Web server
+
+App server
+
+Framework (Django)
+
+DB
+
+Response back
+
+If you start with:
+
+“It goes to urls.py…”
+
+============================
+
+Now technical.
+
+Nginx
+
+A web server + reverse proxy
+
+Handles:
+
+Incoming connections
+
+Static files (CSS, JS, images)
+
+Load balancing
+
+SSL termination
+
+It is written in C, very fast, non-blocking.
+
+Gunicorn
+
+WSGI server (Web Server Gateway Interface)
+
+Used for sync Django / Flask
+
+It runs multiple Python worker processes
+
+Each worker handles one request at a time
+
+Best for:
+
+Traditional Django apps
+
+Uvicorn
+
+ASGI server (Asynchronous Server Gateway Interface)
+
+Used for:
+
+FastAPI
+
+Async Django
+
+WebSockets
+
+Best for:
+
+Real-time apps, async, high concurrency

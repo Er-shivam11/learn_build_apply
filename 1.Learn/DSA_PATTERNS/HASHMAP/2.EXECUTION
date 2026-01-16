@@ -21,3 +21,13 @@
 | Count         | dict        |
 | Most / Least  | dict + heap |
 | Order matters | list        |
+============================================================================
+
+| Problem                   | Why Important                      |
+| ------------------------- | ---------------------------------- |
+| Valid Palindrome          | String cleaning + pointer movement |
+| Reverse String            | Pointer basics                     |
+| Container With Most Water | Interview favourite                |
+| Move Zeroes               | Array in-place logic               |
+| Squares of Sorted Array   | Merge-style pointer thinking       |
+
