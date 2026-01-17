@@ -1,0 +1,47 @@
+dat aenginer 
+
+Hi, I’m Shivam, a Data Engineer with a strong Python and SQL background.
+I’ve worked across data pipelines, automation, and backend systems, primarily in production environments.
+
+In my recent role, I built and maintained Python-based ETL workflows, worked with structured and semi-structured data, and optimized SQL queries for reporting and operational use cases.
+I’ve handled data ingestion, transformation, validation, and downstream consumption through dashboards and APIs.
+
+I’ve also worked on data quality checks, batch processing, and pipeline monitoring, and collaborated closely with backend and business teams to ensure reliable data delivery.
+
+Earlier in my career, I worked on Python backend systems like OCR automation and transaction workflows, which strengthened my understanding of data correctness, scale, and reliability — all of which directly apply to data engineering.
+
+Right now, my focus is on building scalable, production-grade data pipelines using Python, SQL, and modern data tools, and growing deeper as a Data Engineer
+
+================================================================================================
+python dev
+Hi, I’m Shivam. I’ve been working primarily as a Python backend engineer, building production-grade systems using Django and REST APIs.
+
+I started my career with an internship as a Software Engineer, and later joined Data Workstation Pvt Ltd, where I worked on multiple real-world backend systems.
+
+One major project was a track-and-trace automation system for medical packaging, where I built Python services to generate barcodes, automate smart-printer workflows, and manage batch-level inspections using databases and backend logic.
+
+I also worked on document automation using OCR, extracting structured fields from invoices and utility bills and integrating them into backend workflows.
+
+Alongside this, I built a full-stack e-commerce platform where I designed Django REST APIs for product management, authentication, checkout, and payments. I also integrated an AI feature that generated product descriptions from Excel uploads using a generative AI API.
+
+Overall, my strength lies in Python, Django, API design, backend automation, and integrating external services. I enjoy building systems that are reliable, scalable, and production-ready, and
+ I’m now looking to grow deeper into backend engineering roles.”
+ 
+ THEN INTERVIWER ASKED ME FEW QUESTION:
+ 
+ In React I use functional components with hooks like useState, useEffect, and useContext. 
+I structure the app into reusable components.  
+For API calls I use axios with interceptors to attach JWT tokens automatically.
+I have also worked with routing, props drilling, and lifting state up.
+
+
+Inheritance: IS-A relationship, reuse behavior from parent class.
+Composition: HAS-A relationship, build complex objects by combining simpler ones.
+Prefer composition — it gives loose coupling.
+
+
+1. list1.extend(list2)
+2. list1 + list2
+3. list1.append(list2)   (nested list)
+4. list1 = [*list1, *list2]  (unpacking)
+5. import itertools; list(itertools.chain(list1, list2))

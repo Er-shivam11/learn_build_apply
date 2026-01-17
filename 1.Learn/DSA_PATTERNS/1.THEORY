@@ -64,6 +64,24 @@ We’ll map **Python LeetCode + SQL problems** to these.
 
 ---
 
+| **Deciding Factors / Trigger Words (any one appears)**                                                             | **Pattern Name**            |
+| ------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| appears twice, seen before, frequency, count, unique, duplicate, lookup, mapping, anagram, group by, record exists | **HashMap**                 |
+| sorted array, left & right, move inward, pair sum, reverse, palindrome, merge sorted, remove duplicates            | **Two Pointers**            |
+| subarray, substring, continuous, window, longest, shortest, fixed k, variable k, no repeating, at most k           | **Sliding Window**          |
+| running sum, cumulative, prefix, range sum, left sum, right sum, subarray sum = k, balance index                   | **Prefix Sum (Piggy Bank)** |
+| sorted, search, first/last occurrence, minimum possible, maximum possible, monotonic, optimize value               | **Binary Search**           |
+| parentheses, balanced, LIFO, next greater, previous smaller, undo, expression evaluation, reverse                  | **Stack**                   |
+| level order, shortest path, nearest, minimum steps, queue, breadth first                                           | **BFS (Queue)**             |
+| depth, traverse, recursion, backtracking, explore path, tree, graph                                                | **DFS**                     |
+| schedule, intervals, maximum meetings, optimal choice, earliest finish, sort then pick                             | **Greedy**                  |
+| top k, most frequent, least frequent, k largest, k smallest                                                        | **Heap (Priority Queue)**   |
+| overlapping intervals, merge intervals, meeting rooms                                                              | **Greedy + Sorting**        |
+| connected components, cycles, islands                                                                              | **DFS / BFS (Graph)**       |
+| monotonic increasing/decreasing, next greater/smaller                                                              | **Monotonic Stack**         |
+| optimal substructure, overlapping subproblems, choices                                                             | **Dynamic Programming**     |
+
+
 # 🧠 PART 1 — PYTHON (LeetCode-style)
 
 ### **ALL IMPORTANT PROBLEMS — PATTERN-WISE**
