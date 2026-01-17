@@ -62,3 +62,18 @@ This saves:
 Time (O(n) instead of O(n²))
 
 Memory (no extra arrays)
+
+| Question                             | If YES                   |
+| ------------------------------------ | ------------------------ |
+| Do I have two ends (start + end)?    | Use two pointers         |
+| Do pointers move based on condition? | Use `while`              |
+| Do I stop when they meet/cross?      | Use `while left < right` |
+| Is movement not fixed?               | NEVER use `for`          |
+
+
+| What you want   | Syntax                    |
+| --------------- | ------------------------- |
+| Get element     | `arr[index]`              |
+| Loop until meet | `while left < right`      |
+| Compare         | `arr[left] == arr[right]` |
+| Move pointers   | `left += 1`, `right -= 1` |
