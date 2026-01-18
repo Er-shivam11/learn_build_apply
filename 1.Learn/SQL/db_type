@@ -1,0 +1,24 @@
+| Database Type                       | Paid / Unpaid |
+| ----------------------------------- | ------------- |
+| MySQL (Docker)                      | Free          |
+| PostgreSQL (Docker)                 | Free          |
+| MSSQL (Docker)                      | Free          |
+| Redis (Docker)                      | Free          |
+| MongoDB (Docker)                    | Free          |
+| SQLite (file-based)                 | Free          |
+| AWS RDS (any engine)                | Paid          |
+| Azure SQL Database                  | Paid          |
+| Azure Database for MySQL/PostgreSQL | Paid          |
+| Google Cloud SQL                    | Paid          |
+| Snowflake                           | Paid          |
+| MongoDB Atlas                       | Paid          |
+| Elastic Cloud                       | Paid          |
+
+
+<!-- db setup -->
+<!-- to start -->
+docker run -d --name postgres-alpine -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=demo -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:alpine
+<!-- volueme -->
+docker volume ls
+
+<!-- to remove -->
