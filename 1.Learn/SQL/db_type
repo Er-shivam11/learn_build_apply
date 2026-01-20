@@ -20,4 +20,20 @@ docker run -d --name postgres-alpine -e POSTGRES_PASSWORD=postgres -e POSTGRES_D
 <!-- volueme -->
 docker volume ls
 
-<!-- to remove -->
+Important Docker Commands:
+
+Task	Command
+List containers	docker ps (running) / docker ps -a (all)
+Run container	docker run -d --name <name> <image>
+Stop container	docker stop <container_id>
+Start container	docker start <container_id>
+Remove container	docker rm <container_id>
+View logs	docker logs <container_id>
+List images	docker images
+Pull image	docker pull <image_name>
+Remove image	docker rmi <image_id>
+Build image	docker build -t <tag> .
+Inspect container	docker inspect <container_id>
+Execute command	docker exec -it <container_id> <command>
+View container stats	docker stats
+Prune unused resources	docker system prune
