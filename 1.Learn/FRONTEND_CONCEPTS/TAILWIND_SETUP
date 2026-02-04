@@ -1,0 +1,206 @@
+# Tailwind CSS Setup Guide (Vite + React)
+
+This document explains **step-by-step** how to correctly set up **Tailwind CSS** in a **Vite + React (TypeScript)** project.
+
+This guide intentionally uses **Tailwind CSS v3**, which is the most stable and widely supported version for production apps.
+
+---
+
+## ✅ Prerequisites
+
+Make sure you have:
+
+* Node.js **v18+** (v20 LTS recommended)
+* npm **v9+**
+* Vite + React project already created
+
+Check versions:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## STEP 1: Install Tailwind CSS (Stable v3)
+
+Run this inside your **frontend root folder**:
+
+```bash
+npm install -D tailwindcss@3 postcss autoprefixer
+```
+
+---
+
+## STEP 2: Initialize Tailwind & PostCSS
+
+```bash
+npx tailwindcss init -p
+```
+
+This creates:
+
+```
+- tailwind.config.js
+- postcss.config.js
+```
+
+---
+
+## STEP 3: Configure Tailwind Content Paths
+
+Open `tailwind.config.js` and update it:
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+This ensures Tailwind scans **all React files**, including deep DDD folder structures.
+
+---
+
+## STEP 4: Configure PostCSS
+
+Open `postcss.config.js`:
+
+```js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+⚠️ Important: **Do NOT use Tailwind v4 config** here.
+
+---
+
+## STEP 5: Add Tailwind Directives to CSS
+
+Open or create:
+
+```
+src/index.css
+```
+
+Add:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+---
+
+## STEP 6: Import CSS in React Entry File
+
+Open `src/main.tsx` and ensure:
+
+```ts
+import './index.css'
+```
+
+Example:
+
+```ts
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+```
+
+---
+
+## STEP 7: Restart Vite Server
+
+Always restart after Tailwind setup:
+
+```bash
+npm run dev
+```
+
+---
+
+## STEP 8: Verify Tailwind Is Working
+
+Temporary test component:
+
+```tsx
+export default function App() {
+  return (
+    <div className="h-screen bg-green-500 flex items-center justify-center">
+      <h1 className="text-white text-4xl font-bold">Tailwind Working ✅</h1>
+    </div>
+  )
+}
+```
+
+If you see a **green screen**, Tailwind is successfully installed.
+
+---
+
+## ❌ Common Errors & Fixes
+
+### Error: "Trying to use tailwindcss directly as a PostCSS plugin"
+
+Cause:
+
+* Tailwind v4 installed accidentally
+
+Fix:
+
+```bash
+npm uninstall tailwindcss
+npm install -D tailwindcss@3 postcss autoprefixer
+```
+
+---
+
+### Error: Styles not applying
+
+Checklist:
+
+* `index.css` contains Tailwind directives
+* `index.css` imported in `main.tsx`
+* `content` paths correct in `tailwind.config.js`
+* Vite server restarted
+
+---
+
+## ✅ Recommended Version Policy
+
+* Tailwind CSS: **v3.x (stable)**
+* Avoid v4 unless explicitly required
+* Works best with Vite + React + TypeScript
+
+---
+
+## 🎯 Next Steps
+
+* Build reusable UI components (Button, Input, Card)
+* Create Auth layouts (Login / Register)
+* Add dark mode support
+* Design system with Tailwind tokens
+
+---
+
+**Author:** Shivam
