@@ -1,0 +1,50 @@
+s = "aaabbcddd"
+
+result = ""
+count = 1
+
+for i in range(1, len(s)):
+    if s[i] == s[i - 1]:
+        count += 1
+    else:
+        result += s[i - 1] + str(count)
+        count = 1
+
+result += s[-1] + str(count)
+print(result)
+
+
+records = [
+    {"id": 1, "value": "A", "ts": 100},
+    {"id": 1, "value": "B", "ts": 200},
+    {"id": 2, "value": "C", "ts": 150},
+    {"id": 1, "value": "D", "ts": 50},
+]
+
+latest_records = {}
+
+for record in records:
+    record_id = record["id"]
+
+    if (
+        record_id not in latest_records
+        or record["ts"] > latest_records[record_id]["ts"]
+    ):
+        latest_records[record_id] = record
+
+result = list(latest_records.values())
+
+print(result)
+Find customers who never placed an order
+SELECT c.customer_id
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
+2.
+//dictionary list find its uniqueness soemthingwas there
+
+3.
+dictionary each key value sepaatrte count each word and occurence of each word
+
+4.

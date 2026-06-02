@@ -1,0 +1,1177 @@
+Your fastest ROI now is NOT solving more coding questions.
+
+Your highest ROI is:
+
+* understanding REAL-TIME DATA ENGINEERING FLOW
+* explaining architecture confidently
+* knowing WHY technologies are used
+* understanding batch vs streaming
+* understanding Spark internals
+* understanding Kafka flow
+* understanding Delta Lake concepts
+* understanding orchestration + CDC + SCD + partitioning
+
+That is exactly what Celebal + Reliance project interviews will test.
+
+
+
+# PROJECT FOLDER STRUCTURE
+
+```text
+reliance_realtime_pipeline/
+
+├── docker-compose.yml
+│
+├── app/
+│   ├── producer/
+│   │   └── kafka_producer.py
+│   │
+│   ├── consumer/
+│   │   └── spark_streaming_job.py
+│   │
+│   ├── warehouse/
+│   │   ├── load_to_snowflake.py
+│   │   └── transformations.sql
+│   │
+│   ├── airflow/
+│   │   └── retail_pipeline_dag.py
+│   │
+│   ├── dashboard/
+│   │   └── streamlit_app.py
+│   │
+│   ├── configs/
+│   │   └── pipeline.yaml
+│   │
+│   ├── utils/
+│   │   ├── logger.py
+│   │   └── helper.py
+│   │
+│   ├── snowflake_connection.py
+│   └── requirements.txt
+│
+└── README.md
+```
+
+---
+
+# SINGLE DOCKER COMMAND
+
+```bash
+docker-compose up --build
+```
+
+---
+
+# docker-compose.yml
+
+```yaml
+version: '3'
+
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  spark:
+    image: bitnami/spark:latest
+    ports:
+      - "8080:8080"
+
+  streamlit:
+    image: python:3.11
+    volumes:
+      - .:/app
+    working_dir: /app/app/dashboard
+    command: streamlit run streamlit_app.py
+    ports:
+      - "8501:8501"
+```
+
+---
+
+# KAFKA PRODUCER
+
+## kafka_producer.py
+
+```python
+from kafka import KafkaProducer
+import json
+import time
+from datetime import datetime
+import random
+
+producer = KafkaProducer(
+    bootstrap_servers='localhost:9092',
+    value_serializer=lambda v: json.dumps(v).encode('utf-8')
+)
+
+while True:
+
+    data = {
+        "order_id": random.randint(1000, 9999),
+        "customer_id": random.randint(1, 100),
+        "amount": random.randint(100, 10000),
+        "timestamp": str(datetime.now())
+    }
+
+    producer.send("retail_orders", data)
+
+    print("Sent:", data)
+
+    time.sleep(2)
+```
+
+---
+
+# PYSPARK STREAMING CONSUMER
+
+## spark_streaming_job.py
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+spark = SparkSession.builder \
+    .appName("RetailStreaming") \
+    .getOrCreate()
+
+df = spark.readStream \
+    .format("kafka") \
+    .option("kafka.bootstrap.servers", "localhost:9092") \
+    .option("subscribe", "retail_orders") \
+    .load()
+
+json_df = df.selectExpr("CAST(value AS STRING)")
+
+parsed = json_df.select(
+    from_json(
+        col("value"),
+        "order_id INT, customer_id INT, amount INT, timestamp STRING"
+    ).alias("data")
+).select("data.*")
+
+final_df = parsed \
+    .withColumn("ingestion_time", current_timestamp()) \
+    .dropDuplicates(["order_id"])
+
+query = final_df.writeStream \
+    .format("console") \
+    .outputMode("append") \
+    .start()
+
+query.awaitTermination()
+```
+
+---
+
+# IMPORTANT INTERVIEW CONCEPTS INSIDE THIS CODE
+
+| Concept                | Where                |
+| ---------------------- | -------------------- |
+| Streaming              | readStream           |
+| Real-time ingestion    | Kafka                |
+| Deduplication          | dropDuplicates       |
+| Metadata column        | ingestion_time       |
+| Transformation         | withColumn           |
+| Schema parsing         | from_json            |
+| Distributed compute    | Spark                |
+| Fault tolerance        | Kafka offsets        |
+| Lazy evaluation        | Spark DAG            |
+| Batch micro-processing | Structured Streaming |
+
+---
+
+# LOAD TO SNOWFLAKE
+
+## load_to_snowflake.py
+
+```python
+from snowflake_connection import get_snowflake_connection
+
+conn, cursor = get_snowflake_connection()
+
+cursor.execute(\"\"\"
+CREATE TABLE IF NOT EXISTS retail_orders (
+    order_id INT,
+    customer_id INT,
+    amount INT,
+    timestamp STRING
+)
+\"\"\")
+
+print(\"table created\")
+```
+
+---
+
+# AIRFLOW DAG
+
+## retail_pipeline_dag.py
+
+```python
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+
+with DAG(
+    dag_id='retail_pipeline',
+    start_date=datetime(2025,1,1),
+    schedule='@hourly',
+    catchup=False
+) as dag:
+
+    producer = BashOperator(
+        task_id='producer',
+        bash_command='python kafka_producer.py'
+    )
+
+    consumer = BashOperator(
+        task_id='consumer',
+        bash_command='python spark_streaming_job.py'
+    )
+
+    producer >> consumer
+```
+
+---
+
+# STREAMLIT DASHBOARD
+
+## streamlit_app.py
+
+```python
+import streamlit as st
+import pandas as pd
+import random
+
+st.title("Reliance Retail Live Dashboard")
+
+df = pd.DataFrame({
+    "sales": [random.randint(1000,5000) for _ in range(10)]
+})
+
+st.line_chart(df)
+```
+
+---
+
+
+
+This is enough to perform strongly in a 3–8 year DE interview discussion if you explain confidently from your existing backend + Snowflake experience.
+======================================================
+
+Yes. For your Celebal interview, after Python and SQL, the biggest differentiator is:
+
+**PySpark > Kafka > Data Engineering Concepts > Airflow > Snowflake > Delta Lake**
+
+If they already shortlisted you from your resume, they will likely spend less time on Python coding and more on:
+
+* How data moves
+* How Spark processes data
+* How you design pipelines
+* How you handle scale
+* How you troubleshoot failures
+
+---
+
+
+
+# 10 DATA ENGINEERING CONCEPTS THEY MAY ASK
+
+1. CDC
+2. SCD Type 1
+3. SCD Type 2
+4. Fact Table
+5. Dimension Table
+6. Star Schema
+7. Snowflake Schema
+8. Partitioning
+9. Data Lake vs Warehouse
+10. ETL vs ELT
+
+If you can answer the 45 questions above confidently, plus your Python + SQL preparation, you'll cover most of the core discussion areas for this JD.
+=============================================================
+
+# MOST IMPORTANT INTERVIEW EXPLANATIONS
+
+# Batch Processing
+
+```text
+Large scheduled jobs.
+Example:
+daily sales processing.
+```
+
+---
+
+# Streaming Processing
+
+```text
+Continuous real-time ingestion.
+Example:
+live orders from Reliance stores.
+```
+
+---
+
+# Why Kafka?
+
+```text
+Decouples producer and consumer.
+Highly scalable.
+Fault tolerant.
+Real-time ingestion.
+```
+
+---
+
+# Why Spark?
+
+```text
+Distributed processing.
+Can handle TB/PB scale data.
+Supports batch + streaming.
+```
+
+---
+
+# Why Snowflake?
+
+```text
+Cloud-native warehouse.
+Separation of compute/storage.
+Scalable analytics.
+```
+
+---
+
+# Why Partitioning?
+
+```text
+Parallel processing.
+Faster querying.
+Reduced shuffle.
+```
+
+---
+
+# Why Caching?
+
+```text
+Avoid recomputation.
+Improve repeated query performance.
+```
+
+---
+
+# Why Delta Lake?
+
+```text
+Reliable streaming storage.
+ACID guarantees.
+Supports MERGE/UPSERT.
+```
+
+---
+
+# WHAT TO REVISE TONIGHT
+
+Priority order:
+
+1. Spark transformations/actions
+2. Kafka architecture
+3. Batch vs streaming
+4. CDC + SCD
+5. Partitioning + shuffle
+6. Airflow DAG flow
+7. Snowflake warehouse concepts
+8. Delta Lake basics
+9. PySpark DataFrame operations
+10. Real production ETL explanation
+========================================
+
+# IMPORTANT JD TERMINOLOGIES YOU MUST KNOW
+
+## PySpark
+
+| Topic                 | Meaning                      |
+| --------------------- | ---------------------------- |
+| Transformation        | lazy operations              |
+| Action                | triggers execution           |
+| Narrow Transformation | no shuffle                   |
+| Wide Transformation   | shuffle required             |
+| Partitioning          | divide data across executors |
+| Caching               | memory optimization          |
+| DAG                   | execution graph              |
+| Executor              | worker process               |
+| Driver                | main controller              |
+| Shuffle               | data movement between nodes  |
+| Lazy Evaluation       | optimize before execution    |
+
+---
+
+# Kafka
+
+| Topic          | Meaning               |
+| -------------- | --------------------- |
+| Producer       | sends data            |
+| Consumer       | reads data            |
+| Topic          | logical queue         |
+| Partition      | parallelism           |
+| Offset         | message position      |
+| Consumer Group | scalable consumers    |
+| Retention      | data storage duration |
+| Streaming      | continuous ingestion  |
+
+---
+
+# Airflow
+
+| Topic      | Meaning         |
+| ---------- | --------------- |
+| DAG        | workflow        |
+| Task       | individual step |
+| Scheduler  | triggers DAG    |
+| Operator   | executes work   |
+| Retry      | fault tolerance |
+| Dependency | execution order |
+
+---
+
+# Delta Lake
+
+| Topic            | Meaning                |
+| ---------------- | ---------------------- |
+| ACID             | reliable writes        |
+| Time Travel      | restore old versions   |
+| Merge            | upsert                 |
+| Schema Evolution | handle changing schema |
+| Versioning       | track changes          |
+
+---
+
+# CDC INTERVIEW ANSWER
+
+CDC means Change Data Capture.
+
+Instead of loading entire table every time:
+
+* load only changed records
+* detect INSERT/UPDATE/DELETE
+
+Used for:
+
+* incremental pipelines
+* lower cost
+* faster processing
+
+Example:
+
+```sql
+updated_at > last_run_timestamp
+```
+
+---
+
+# SCD TYPE 2 INTERVIEW ANSWER
+
+Maintain historical versions.
+
+Example:
+Customer address changed.
+
+Instead of overwrite:
+
+* expire old row
+* insert new row
+
+Columns:
+
+```text
+start_date
+end_date
+is_current
+```
+
+---
+
+
+# TOP 15 PYSPARK QUESTIONS
+
+## 1. Difference between RDD, DataFrame, Dataset?
+
+**Answer**
+
+RDD:
+
+* Low level
+* No schema
+* Less optimized
+
+DataFrame:
+
+* Schema based
+* Optimized by Catalyst Optimizer
+* Most used
+
+Dataset:
+
+* Typed DataFrame
+* Mostly Scala
+
+Interview answer:
+
+> In production I prefer DataFrames because they provide schema enforcement and Spark optimization.
+
+---
+
+## 2. What is Lazy Evaluation?
+
+**Answer**
+
+Spark does not execute transformations immediately.
+
+```python
+df.filter(...)
+df.select(...)
+```
+
+Execution happens only when action occurs:
+
+```python
+df.show()
+df.count()
+```
+
+Benefit:
+
+* query optimization
+* reduced execution
+
+---
+
+## 3. Transformation vs Action
+
+Transformations:
+
+```python
+filter
+select
+join
+groupBy
+withColumn
+```
+
+Actions:
+
+```python
+count
+show
+collect
+write
+```
+
+---
+
+## 4. What is DAG?
+
+DAG = Directed Acyclic Graph
+
+Spark creates execution plan.
+
+Example:
+
+```text
+Read CSV
+   ↓
+Filter
+   ↓
+Join
+   ↓
+Group By
+   ↓
+Write
+```
+
+Spark optimizes DAG before execution.
+
+---
+
+## 5. What is Partitioning?
+
+Large dataset divided into chunks.
+
+Example:
+
+```text
+100M rows
+
+Partition 1
+Partition 2
+Partition 3
+Partition 4
+```
+
+Workers process simultaneously.
+
+Benefit:
+
+* parallelism
+* faster execution
+
+---
+
+## 6. What is Shuffle?
+
+Most asked.
+
+Data movement across executors.
+
+Example:
+
+```python
+groupBy
+join
+distinct
+repartition
+```
+
+Causes:
+
+* network traffic
+* disk I/O
+
+Expensive operation.
+
+---
+
+## 7. Repartition vs Coalesce
+
+Repartition:
+
+```python
+df.repartition(10)
+```
+
+* increase or decrease partitions
+* shuffle
+
+Coalesce:
+
+```python
+df.coalesce(2)
+```
+
+* decrease only
+* minimal shuffle
+
+---
+
+## 8. Cache vs Persist
+
+Cache:
+
+```python
+df.cache()
+```
+
+memory only
+
+Persist:
+
+```python
+df.persist()
+```
+
+memory + disk options
+
+Use when DataFrame reused multiple times.
+
+---
+
+## 9. Narrow vs Wide Transformation
+
+Narrow:
+
+```python
+filter
+map
+select
+```
+
+No shuffle.
+
+Wide:
+
+```python
+join
+groupBy
+distinct
+```
+
+Shuffle required.
+
+---
+
+## 10. Broadcast Join
+
+Small table sent to all executors.
+
+```python
+broadcast(dim_table)
+```
+
+Avoids shuffle.
+
+Very common optimization.
+
+---
+
+## 11. How to Handle Skewed Data?
+
+Example:
+
+90% records belong to one customer.
+
+Solutions:
+
+* salting
+* repartitioning
+* broadcast joins
+
+---
+
+## 12. How to Remove Duplicates?
+
+```python
+df.dropDuplicates(["id"])
+```
+
+Streaming:
+
+```python
+dropDuplicates()
+withWatermark()
+```
+
+---
+
+## 13. What is Watermark?
+
+Streaming concept.
+
+Used to handle late arriving events.
+
+Example:
+
+```python
+withWatermark("timestamp","10 minutes")
+```
+
+---
+
+## 14. Explain Spark Architecture
+
+```text
+Driver
+  ↓
+Cluster Manager
+  ↓
+Executors
+  ↓
+Tasks
+```
+
+Driver:
+
+* creates DAG
+
+Executor:
+
+* executes tasks
+
+---
+
+## 15. Why Spark Faster Than Pandas?
+
+Pandas:
+
+```text
+Single Machine
+```
+
+Spark:
+
+```text
+Distributed
+Parallel
+Cluster
+```
+
+Can process TBs of data.
+
+---
+
+# TOP 15 KAFKA / STREAMING QUESTIONS
+
+## 1. What is Kafka?
+
+Distributed event streaming platform.
+
+Used for:
+
+* real-time ingestion
+* streaming analytics
+
+---
+
+## 2. Producer?
+
+Sends data.
+
+```text
+App → Kafka
+```
+
+---
+
+## 3. Consumer?
+
+Reads data.
+
+```text
+Kafka → Spark
+```
+
+---
+
+## 4. Topic?
+
+Logical queue.
+
+Example:
+
+```text
+orders
+payments
+customers
+```
+
+---
+
+## 5. Partition?
+
+Most important.
+
+Enables parallelism.
+
+```text
+orders-topic
+
+partition1
+partition2
+partition3
+```
+
+---
+
+## 6. Offset?
+
+Position of message.
+
+```text
+0
+1
+2
+3
+4
+```
+
+Consumer tracks offsets.
+
+---
+
+## 7. Consumer Group?
+
+Multiple consumers.
+
+```text
+Consumer Group
+
+Consumer1
+Consumer2
+Consumer3
+```
+
+Improves throughput.
+
+---
+
+## 8. Why Kafka Over Database Polling?
+
+Database polling:
+
+```text
+Repeated SELECT
+```
+
+Kafka:
+
+```text
+Event Driven
+```
+
+Lower latency.
+
+---
+
+## 9. What Happens If Consumer Fails?
+
+Kafka stores offset.
+
+Consumer resumes from last committed offset.
+
+---
+
+## 10. Retention?
+
+How long Kafka keeps messages.
+
+Example:
+
+```text
+7 days
+```
+
+---
+
+## 11. At Most Once
+
+May lose data.
+
+No duplicates.
+
+---
+
+## 12. At Least Once
+
+No data loss.
+
+Duplicates possible.
+
+Most common.
+
+---
+
+## 13. Exactly Once
+
+No duplicates.
+
+No data loss.
+
+Most expensive.
+
+---
+
+## 14. Batch vs Streaming
+
+Batch:
+
+```text
+Daily Sales File
+```
+
+Streaming:
+
+```text
+Live Orders
+```
+
+---
+
+## 15. Real Reliance Architecture
+
+```text
+Store Orders
+      ↓
+Kafka
+      ↓
+Spark Streaming
+      ↓
+Bronze
+      ↓
+Silver
+      ↓
+Gold
+      ↓
+Snowflake
+      ↓
+Dashboard
+```
+
+---
+
+# TOP 15 AIRFLOW QUESTIONS
+
+## 1. What is Airflow?
+
+Workflow orchestration tool.
+
+---
+
+## 2. What is DAG?
+
+Directed Acyclic Graph.
+
+Pipeline definition.
+
+---
+
+## 3. What is Task?
+
+Single step in DAG.
+
+---
+
+## 4. What is Operator?
+
+Execution unit.
+
+Examples:
+
+```python
+PythonOperator
+BashOperator
+```
+
+---
+
+## 5. Scheduler?
+
+Triggers DAG execution.
+
+---
+
+## 6. Executor?
+
+Runs tasks.
+
+---
+
+## 7. Sequential vs Parallel Tasks
+
+Sequential:
+
+```text
+A → B → C
+```
+
+Parallel:
+
+```text
+      A
+    /   \
+   B     C
+```
+
+B and C run simultaneously.
+
+---
+
+## 8. How to Run Tasks Parallel?
+
+```python
+A >> [B,C]
+```
+
+---
+
+## 9. How to Retry Failed Tasks?
+
+```python
+retries=3
+```
+
+---
+
+## 10. How to Handle Dependencies?
+
+```python
+task1 >> task2
+```
+
+---
+
+## 11. What Happens If Task Fails?
+
+Retry.
+
+If retries exhausted:
+
+```text
+Failed
+```
+
+---
+
+## 12. Logging in Airflow?
+
+Every task produces logs.
+
+UI:
+
+```text
+Task Instance
+ → Logs
+```
+
+---
+
+## 13. Backfill?
+
+Run historical dates.
+
+Useful when data missing.
+
+---
+
+## 14. Catchup?
+
+```python
+catchup=False
+```
+
+Prevents historical execution.
+
+Very common interview question.
+
+---
+
+## 15. Example Production DAG
+
+```text
+Extract CRM
+       ↓
+Transform Spark
+       ↓
+Load Snowflake
+       ↓
+Data Quality Check
+       ↓
+Notify Teams
+```
+
+---
