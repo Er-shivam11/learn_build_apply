@@ -78,6 +78,7 @@ FROM departments;
 
 
 -- 27. Write a query using a subquery to filter based on aggregated value.
+select salary ,name from employees where salary>(select avg(salary) from employees);
 -- 28. Use EXISTS to check related records in another table.
 -- 29. Use ANY to compare salary with HR department salaries.
 -- 30. Use ALL to compare salary with all HR department salaries.
@@ -88,26 +89,67 @@ FROM departments;
 -- 35. Define a PRIMARY KEY in a table.
 -- 36. Define a FOREIGN KEY relationship between tables.
 -- 37. Create a VIEW for high salary employees.
+CREATE VIEW high_salary_employees AS
+SELECT *
+FROM employees
+WHERE salary > 60000;
+
+
 -- 38. Create an INDEX on a column.
+CREATE INDEX idx_salary
+ON employees(salary);
+--Table 'EMPLOYEES' is not a hybrid table.
 -- 39. Assign row numbers to employees based on salary.
+
+SELECT
+    name,
+    salary,
+    ROW_NUMBER() OVER(ORDER BY salary DESC) AS row_num
+FROM employees;
+--sSTART
 -- 40. Rank employees by salary using RANK().
+SELECT NAME,SALARY,
+RANK() OVER (ORDER BY SALARY) AS SALARY_RANK FROM EMPLOYEES;
+
 -- 41. Rank employees by salary using DENSE_RANK().
+SELECT NAME,SALARY,
+DENSE_RANK() OVER (ORDER BY SALARY) AS SALARY_RANK FROM EMPLOYEES;
 -- 42. Use PARTITION BY with ranking by department.
+select name,department,rank() over(partition by department order by name) as rank_dep from employees;
 -- 43. Use LEAD function to get next salary.
+select name,salary,lead(salary) over(order by name) as lead_salary from employees;
 -- 44. Use LAG function to get previous salary.
+select name,salary,lag(salary) over(order by name) as lead_salary from employees;
 -- 45. Create a CTE for high earning employees.
+with cte as(
+select name,salary from employees where salary>50000)
+select name ,salary from cte;
 -- 46. Find the second highest salary.
+select name,salary from employees where salary<(select max(salary) from employees) limit 1;
+select name,salary,rank() over(order by salary) as rnk from employees where rnk=2;
 -- 47. Find the Nth highest salary.
+select max(salary) from employees;
 -- 48. Find duplicate records in employees table.
+select count(*),emp_id from employees where count>1;
 -- 49. Delete duplicate records while keeping one entry.
+
 -- 50. Replace NULL values using COALESCE.
 -- 51. Use NULLIF to handle identical values.
 -- 52. Convert names to uppercase using UPPER().
+select upper(name) as name from employees;
 -- 53. Convert names to lowercase using LOWER().
+select lower(name) as name from employees;
 -- 54. Find length of employee names.
+select name,length(name) from employees;
 -- 55. Get current date.
+select current_date();
 -- 56. Get current date and time.
+SELECT CURRENT_TIMESTAMP();
 -- 57. Get top 3 salaries from employees.
+SELECT SALARY,NAME RANK FROM(SELECT SALARY,NAME,RANK() 
+OVER(ORDER BY SALARY DESC) AS RNK FROM EMPLOYEES ) AS DELIVERTABLE WHERE RNK<=3;
 -- 58. Calculate age of employees from date of birth.
+SELECT NAME,DOB,TIMESTAMPDIFF(YEAR,DOB,CURRENT_DATE()) AS AGE FROM EMPLOYEES;
 -- 59. Find employees who have no orders.
--- 60. Find highest paid employee in each department.
+SELECT E.NAME,E.EMP_ID,O.EMP_ID FROM EMPLOYEES E LEFT JOIN ORDERS O ON E.EMP_ID=O.EMP_ID WHERE EMP_ID is null;
+-- 60. Highest paid employee in each department
