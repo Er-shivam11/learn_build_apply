@@ -48,3 +48,165 @@ You can answer:
 * How do you design warehouse schema?
 
 👉 This alone is enough for **70% DE interviews**
+❄️ 1. SNOWFLAKE CORE (TOPICS)
+❄️ Snowflake
+
+Easy (MUST KNOW - Non negotiable):
+Architecture, Cloud-native model, Storage vs Compute vs Services, Databases, Schemas, Tables, Warehouses, Roles, Users, Stages, Internal vs External Stages, File Formats, COPY INTO, Time Travel, Zero Copy Clone, Query History Basics, Auto Suspend/Resume
+
+Medium (MUST KNOW - Interview core):
+Streams (CDC), Tasks, Snowpipe, Transient vs Permanent Tables, Clustering Basics, Query Profile, Caching, Secure Views, Multi-stage Loading, Metadata Columns, Warehouse Scaling Basics, ACCOUNT_USAGE Views, UNDROP Objects
+
+Hard (IMPORTANT - for strong candidates):
+Multi-cluster Warehouses, Performance Tuning Basics, RBAC Design, Micro-partitions, Partition Pruning, Cost Optimization Basics, Fail-safe vs Time Travel, Basic Monitoring & Troubleshooting
+
+🧠 SQL
+
+Easy (MUST KNOW):
+SELECT, WHERE, ORDER BY, GROUP BY, HAVING, DISTINCT, CASE WHEN, NULL Handling, INNER/LEFT JOIN, Basic Aggregations
+
+Medium (MUST KNOW):
+CTE, Subqueries, Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD), Views, Temp Tables, Date Functions, Semi / Anti Joins
+
+Hard (IMPORTANT):
+SCD logic in SQL, MERGE, Incremental queries, Query optimization basics
+
+🐍 PYTHON
+
+Easy (MUST KNOW):
+Variables, Functions, Loops, File Handling, CSV/JSON/Parquet, Requests, Pandas Basics, Datetime
+
+Medium (MUST KNOW):
+Logging, Exception Handling, API ingestion, Generators, Decorators, Config handling, CLI scripts
+
+Hard (OPTIONAL EARLY):
+Async basics, multiprocessing basics, large file handling
+
+🔥 PySpark
+
+Easy (OPTIONAL START):
+Spark basics, DataFrame API, read/write CSV/JSON/Parquet, filter/select, schema basics
+
+Medium (IMPORTANT):
+Joins, Aggregations, Window Functions, Partitioning, Repartition vs Coalesce, Broadcast joins, Spark SQL
+
+Hard (LATER):
+Shuffle understanding, skew handling basics, caching strategy, job debugging
+
+🧱 dbt
+
+Easy (MUST KNOW):
+Models, refs, sources, seeds, dbt run, dbt test
+
+Medium (MUST KNOW):
+Incremental models, snapshots, staging/silver/gold layering, exposures, freshness checks
+
+Hard (OPTIONAL):
+Macros, Jinja, CI/CD basics
+
+🌪️ Airflow
+
+Easy (MUST KNOW):
+DAGs, Tasks, Operators, Scheduling, Dependencies, Retries
+
+Medium (MUST KNOW):
+Sensors, XCom, Variables, Connections, Backfills, Catchup, Task Groups
+
+Hard (OPTIONAL EARLY):
+Dynamic DAGs, monitoring basics, production patterns
+
+☁️ AWS
+
+Easy (MUST KNOW):
+S3 (VERY IMPORTANT), IAM basics
+
+Medium (OPTIONAL):
+Lambda basics, CloudWatch basics
+
+Hard:
+Skip for now
+
+🐘 PostgreSQL
+
+Easy (MUST KNOW):
+Tables, Schemas, CRUD, Primary/Foreign keys, Joins
+
+Medium (IMPORTANT):
+Transactions, Indexing basics, Views, JSONB basics
+
+Hard:
+Skip for now
+
+📊 STREAMLIT
+
+Easy (OPTIONAL):
+Layout, widgets, charts, tables
+
+Medium:
+Session state, filters
+
+Hard:
+Skip
+
+🏗 DATA ENGINEERING CORE
+
+Easy (MUST KNOW - FOUNDATION):
+ETL vs ELT, Batch vs Streaming, OLTP vs OLAP, Data lifecycle, Structured vs Unstructured data
+
+Medium (VERY IMPORTANT):
+CDC, SCD, Data modeling basics, Fact vs Dimension tables, Incremental loads, Schema evolution
+
+Hard (IMPORTANT):
+Fault-tolerant pipelines, Data reconciliation, Observability basics, SLA/SLO concepts
+
+📐 DATA MODELING
+
+Easy (MUST KNOW):
+Fact tables, Dimension tables, PK/FK, Relationships
+
+Medium (MUST KNOW):
+Star schema, Snowflake schema, SCD Type 1 & 2, Surrogate keys
+
+Hard (OPTIONAL):
+Kimball basics
+
+🌊 STREAMING / KAFKA
+
+Easy (OPTIONAL START):
+Kafka basics, Topics, Producers, Consumers, Partitions, Offsets
+
+Medium (IMPORTANT):
+Consumer groups, At-least-once vs exactly-once, Retention, Partition strategy
+
+Hard (LATER):
+Rebalancing, DLQ, event-driven architecture
+
+🧪 TESTING / DATA QUALITY
+
+Easy (MUST KNOW):
+Null checks, duplicate checks, row count validation
+
+Medium (IMPORTANT):
+Schema validation, freshness checks, basic pipeline testing
+
+Hard:
+Advanced observability (skip early)
+
+🏢 PRODUCTION DATA OPERATIONS
+
+Easy (OPTIONAL):
+Basic pipeline monitoring
+
+Medium (IMPORTANT):
+Debugging failures, metadata tracking, data migration basics
+
+🤖 AI / PROMPT ENGINEERING (OPTIONAL BONUS)
+
+Easy:
+Prompt basics, LLM basics
+
+Medium:
+RAG basics, embeddings
+
+Hard:
+Skip for now

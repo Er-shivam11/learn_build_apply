@@ -327,3 +327,36 @@ topics:
 **Easy:** Prompting Basics, Tokens, Context Window, Temperature, LLM Use Cases
 **Medium:** Structured Output, Tool Calling, Embeddings, Vector Search, RAG Basics, Prompt Templates
 **Hard:** Multi-agent Systems, Memory Systems, LLM Caching, Secure AI Pipelines, Snowflake Cortex, AI + Data Engineering Architecture
+
+
+
+
+book_store/
+├── backend/                  # Django OLTP (Untouched source of truth)
+└── data_platform/
+    ├── ingestion/
+    │   ├── config/           # YAML per entity (users, books, orders)
+    │   ├── extractors/       # Postgres pull logic
+    │   ├── loaders/          # s3_loader.py, local_loader.py
+    │   ├── storage/          # S3 simulation (raw/, processed/, archive/)
+    │   └── manifests/        # Meta JSONs per run
+    ├── warehouse/            # Strict landing zone setup
+    │   ├── ddl/              # ONLY raw landing tables (staging/marts managed by dbt)
+    │   ├── stages/           # Snowflake external/internal stages
+    │   └── client.py         # Snowflake connector
+    ├── transform/            # dbt project root (owns all downstream DDL/DML)
+    │   ├── models/
+    │   │   ├── staging/      # Raw -> Cleaned. Includes yml data quality tests.
+    │   │   ├── intermediate/ # Joins & Business logic
+    │   │   └── marts/        # Final analytics tables
+    │   ├── snapshots/        # SCD Type 2 logic
+    │   ├── tests/            # Custom data quality rules
+    │   └── dbt_project.yml
+    ├── orchestration/        # Airflow
+    │   ├── dags/             # ingestion_dag, dbt_dag (triggers dbt run/test)
+    │   └── plugins/          # Custom operators
+    ├── quality/              # Cross-system audits only
+    │   └── reconciliation/   # Postgres vs Snowflake row count checks
+    ├── cdc/                  # Debezium / Kafka (Placeholder for future scale)
+    └── utils/                # Shared utilities (db_connections, logger)
+
