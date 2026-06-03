@@ -267,6 +267,15 @@ book_store/
 
 
 
+
+1.step 1 learning
+🧠 SIMPLE RULES TO REMEMBER (INTERVIEW GOLD)
+🟡 JSON = ingestion + flexibility
+🟢 Parquet = performance + analytics
+🔴 CSV = legacy / simple exports only
+🔵 CDC = incremental changes (event-based JSON most of the time)
+
+==========================================
 glad and noted we will start phase 2 with proper undertsanding of each concept in right way as
 we cant miss any concept fall under this stack or nay topic we wil have all types and topic 
 subtopic integration learning n yu will ask implment this even though pipeline will ready but
