@@ -275,6 +275,26 @@ book_store/
 🔴 CSV = legacy / simple exports only
 🔵 CDC = incremental changes (event-based JSON most of the time)
 
+
+1. Full load initially, then incremental using updated_at watermark strategy
+
+2. Raw data stored in JSON (or Parquet in production). YAML used only for schema metadata and validation rules
+
+3. Table-wise extraction (users, books, orders separately)
+
+4. Data safety ensured via:
+   - idempotent ingestion (no duplicate writes)
+   - checkpointing (last successful timestamp stored)
+   - deduplication logic
+   - schema validation before load
+
+
+In ingestion layer, I prefer JSON because it preserves raw structure and supports schema flexibility.
+
+For analytics and warehouse storage, I prefer Parquet because it is columnar, compressed, and optimized for query performance.
+
+CSV is mostly used in legacy systems or simple data exports.
+
 ==========================================
 glad and noted we will start phase 2 with proper undertsanding of each concept in right way as
 we cant miss any concept fall under this stack or nay topic we wil have all types and topic 
