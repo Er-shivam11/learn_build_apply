@@ -120,35 +120,6 @@ This approach lets you leverage your existing experience while also becoming eli
 | CI/CD               | Automated factory                 | Deploys code automatically            | Production engineering                | Data analytics                       |
 
 
-
-| #  | Project / Task               | Scenario                                     | Business Need / Ask                            | Data Type & Volume                         | Typical Tools                                  | Processing Type     |
-| -- | ---------------------------- | -------------------------------------------- | ---------------------------------------------- | ------------------------------------------ | ---------------------------------------------- | ------------------- |
-| 1  | E-commerce Sales Analytics   | Online store generates orders daily          | Revenue, top products, customer trends         | Structured, thousands to millions rows/day | SQL, Python, Airflow, Snowflake, dbt, Power BI | Batch               |
-| 2  | CDC Pipeline                 | Database updates continuously                | Sync only changed records                      | Structured transactional data              | CDC, Debezium, Kafka, Snowflake/Databricks     | Near Real-Time      |
-| 3  | Live Food Delivery Dashboard | Orders arrive every second                   | Active orders, delivery status, rider tracking | Streaming event data                       | Kafka, Spark Streaming, Databricks, Power BI   | Real-Time           |
-| 4  | Fraud Detection System       | Credit card transactions occur continuously  | Detect suspicious transactions instantly       | High-volume financial transactions         | Kafka, Spark Streaming, ML, Databricks         | Real-Time           |
-| 5  | IoT Sensor Analytics         | Factory machines send readings every second  | Predict failures, monitor health               | Time-series sensor data                    | Kafka, Databricks, Delta Lake, Spark           | Real-Time           |
-| 6  | Application Log Analytics    | Applications generate logs continuously      | Error monitoring, API performance              | Semi-structured logs (JSON)                | Kafka, Spark, Databricks, ELK/Grafana          | Real-Time           |
-| 7  | Recommendation Engine        | User clicks and views products/videos        | Personalized recommendations                   | User events, clickstream data              | Kafka, Spark, Databricks, ML Features          | Real-Time           |
-| 8  | Social Media Analytics       | Likes, comments, shares generated constantly | Trending content and engagement metrics        | Event streams, semi-structured             | Kafka, Spark Streaming, Databricks             | Real-Time           |
-| 9  | Stock Market Analytics       | Market prices change every second            | Live dashboards and alerts                     | High-frequency time-series data            | Kafka, Spark Streaming, Databricks             | Real-Time           |
-| 10 | AI / LLM Knowledge Pipeline  | Documents uploaded continuously              | Search and chat over company knowledge         | PDFs, Docs, Emails, Text                   | Python, Airflow, Spark, Vector DB, LLMs        | Batch + Incremental |
-
-
-| Priority | Area            | Tool / Skill | Purpose                                      | Modulr Equivalent               |
-| :------- | :-------------- | :----------- | :------------------------------------------- | :------------------------------ |
-| 1        | Querying        | SQL          | Joins, analytics, transformations, reporting | SQL Transformations             |
-| 2        | Coding          | Python       | ETL scripts, APIs, automation                | Python Pipelines                |
-| 3        | Big Data        | PySpark      | Large-scale distributed processing           | Advanced ETL / Scale Processing |
-| 4        | Warehouse       | Snowflake    | Cloud analytics warehouse                    | Snowflake                       |
-| 5        | Orchestration   | Airflow      | Scheduling, DAGs, dependencies               | Matillion                       |
-| 6        | Transformation  | dbt          | Models, tests, lineage, documentation        | SQL + YAML Logic                |
-| 7        | Database        | PostgreSQL   | Source transactional database                | PostgreSQL Sources              |
-| 8        | Cloud           | AWS Basics   | S3, IAM, EC2 fundamentals                    | AWS Environment                 |
-| 9        | Version Control | Git          | Code management, teamwork, CI/CD             | Git                             |
-| 10       | Dashboard       | Streamlit    | Internal apps, KPI dashboards, analytics UI  | ModSight                        |
-
-
 # HIGH LEVEL SYSTEM DESIGN
 
 ```text Customer Orders  => Kafka Producer => Kafka Topic => PySpark Streaming Consumer => Bronze Layer (Raw) => Silver Layer (Cleaned) => Gold Layer (Business KPIs)  => Snowflake Warehouse => Streamlit Dashboard

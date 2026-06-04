@@ -48,7 +48,9 @@ You can answer:
 * How do you design warehouse schema?
 
 👉 This alone is enough for **70% DE interviews**
+
 ❄️ 1. SNOWFLAKE CORE (TOPICS)
+
 ❄️ Snowflake
 
 Easy (MUST KNOW - Non negotiable):
