@@ -1,5 +1,9 @@
 # Learn → Build → Apply
 
+📁 01_Learn → Concepts, Notes, Books, Lectures and basic
+📁 02_Build → Practice, PYQs, MCQs, Tests, Assignments medium to hard
+📁 03_Apply → Revision, Mock Tests, Exam Simulation, Weak Areas
+
 This repository tracks my daily practice as a Data Engineer.
 
 - Learn: SQL, Python, DSA, Data Engineering concepts

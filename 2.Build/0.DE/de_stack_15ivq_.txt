@@ -1,18 +1,3 @@
-Your fastest ROI now is NOT solving more coding questions.
-
-Your highest ROI is:
-
-* understanding REAL-TIME DATA ENGINEERING FLOW
-* explaining architecture confidently
-* knowing WHY technologies are used
-* understanding batch vs streaming
-* understanding Spark internals
-* understanding Kafka flow
-* understanding Delta Lake concepts
-* understanding orchestration + CDC + SCD + partitioning
-
-That is exactly what Celebal + Reliance project interviews will test.
-
 
 
 # PROJECT FOLDER STRUCTURE
@@ -268,24 +253,6 @@ st.line_chart(df)
 
 ---
 
-
-
-This is enough to perform strongly in a 3–8 year DE interview discussion if you explain confidently from your existing backend + Snowflake experience.
-======================================================
-
-Yes. For your Celebal interview, after Python and SQL, the biggest differentiator is:
-
-**PySpark > Kafka > Data Engineering Concepts > Airflow > Snowflake > Delta Lake**
-
-If they already shortlisted you from your resume, they will likely spend less time on Python coding and more on:
-
-* How data moves
-* How Spark processes data
-* How you design pipelines
-* How you handle scale
-* How you troubleshoot failures
-
----
 
 
 
