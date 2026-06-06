@@ -1,0 +1,261 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .wrap { padding: 1rem 0; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .filters select, .filters input { font-size: 13px; padding: 6px 10px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); }
+  .filters input { min-width: 160px; }
+  .count { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 10px; }
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+  thead th { background: var(--color-background-secondary); font-weight: 500; font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); text-align: left; white-space: nowrap; cursor: pointer; user-select: none; }
+  thead th:hover { color: var(--color-text-primary); }
+  tbody tr { border-bottom: 0.5px solid var(--color-border-tertiary); }
+  tbody tr:hover { background: var(--color-background-secondary); }
+  td { padding: 7px 10px; color: var(--color-text-primary); vertical-align: top; line-height: 1.4; }
+  .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 100px; font-weight: 500; white-space: nowrap; }
+  .b-green { background: var(--color-background-success); color: var(--color-text-success); }
+  .b-blue { background: var(--color-background-info); color: var(--color-text-info); }
+  .b-amber { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .b-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  .b-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .tag { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 4px; margin: 1px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+  .co { font-weight: 500; font-size: 12px; color: var(--color-text-primary); }
+  .co small { font-weight: 400; font-size: 10px; color: var(--color-text-secondary); display: block; margin-top: 1px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; font-size: 11px; }
+  .legend span { display: flex; align-items: center; gap: 4px; color: var(--color-text-secondary); }
+  .sort-arrow { font-size: 10px; margin-left: 2px; }
+  th { min-width: 80px; }
+  th:nth-child(1) { width: 14%; }
+  th:nth-child(2) { width: 10%; }
+  th:nth-child(3) { width: 8%; }
+  th:nth-child(4) { width: 10%; }
+  th:nth-child(5) { width: 8%; }
+  th:nth-child(6) { width: 11%; }
+  th:nth-child(7) { width: 12%; }
+  th:nth-child(8) { width: 27%; }
+</style>
+<h2 class="sr-only">100 hidden-gem non-Indian tech companies hiring data engineers and Python SDEs with visa sponsorship, showing India presence, salary, and tech stack</h2>
+<div class="wrap">
+<div class="filters">
+  <input type="text" id="search" placeholder="Search company, stack, country..." oninput="render()">
+  <select id="visa" onchange="render()">
+    <option value="">All visa options</option>
+    <option value="Yes">Free visa</option>
+    <option value="No">No visa</option>
+  </select>
+  <select id="remote" onchange="render()">
+    <option value="">All work modes</option>
+    <option value="Yes">Remote allowed</option>
+    <option value="No">No remote</option>
+  </select>
+  <select id="india" onchange="render()">
+    <option value="">All India presence</option>
+    <option value="Yes">India office</option>
+    <option value="Remote only">Remote only from India</option>
+    <option value="No">No India presence</option>
+  </select>
+  <select id="country" onchange="render()">
+    <option value="">All origin countries</option>
+  </select>
+</div>
+<div class="legend">
+  <span><span class="badge b-green">Yes</span> Free visa / India office / Remote</span>
+  <span><span class="badge b-amber">Partial</span> Limited or selective</span>
+  <span><span class="badge b-gray">No</span> Not offered</span>
+</div>
+<div class="count" id="count"></div>
+<div class="tbl-wrap">
+<table id="tbl">
+<thead>
+<tr>
+  <th onclick="sort(0)">Company <span class="sort-arrow" id="sa0"></span></th>
+  <th onclick="sort(1)">India presence <span class="sort-arrow" id="sa1"></span></th>
+  <th onclick="sort(2)">Origin <span class="sort-arrow" id="sa2"></span></th>
+  <th onclick="sort(3)">Free visa <span class="sort-arrow" id="sa3"></span></th>
+  <th onclick="sort(4)">Remote <span class="sort-arrow" id="sa4"></span></th>
+  <th onclick="sort(5)">DE salary <span class="sort-arrow" id="sa5"></span></th>
+  <th onclick="sort(6)">Python SDE salary <span class="sort-arrow" id="sa6"></span></th>
+  <th>Stack</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+
+<script>
+const data = [
+  ["Adyen","Bengaluru","Netherlands","Yes","No","€70–120K","€75–130K","Java, Python, Kafka, Spark, BigQuery, Kubernetes"],
+  ["Revolut","Bangalore (remote)","UK","Yes","Yes","£65–110K","£70–120K","Python, Go, Kafka, Spark, Redshift, dbt"],
+  ["Wise (TransferWise)","Bengaluru","UK","Yes","Yes","£60–105K","£65–115K","Python, Kotlin, Postgres, Kafka, BigQuery, dbt"],
+  ["Monzo","Remote India eligible","UK","Yes","Yes","£60–100K","£65–110K","Go, Python, Cassandra, Snowflake, dbt, Airflow"],
+  ["Checkout.com","Remote India eligible","UK","Yes","Yes","$90–150K","$100–160K","Python, Kafka, Spark, BigQuery, Airflow, dbt"],
+  ["Blenheim Chalcot","Mumbai, London","UK","Yes","Partial","£45–75K","£50–85K","Python, FastAPI, Azure, Snowflake, GenAI tooling"],
+  ["Fospha","Mumbai","UK","Yes","Partial","£45–70K","£50–80K","Python, dbt, Snowflake, Airflow, Azure"],
+  ["Modulr","Remote India eligible","UK","Yes","Yes","£55–90K","£60–100K","Python, Postgres, Kafka, AWS, dbt"],
+  ["Starling Bank","No","UK","Yes","No","£65–105K","£70–115K","Java, Python, Kafka, Postgres, GCP, dbt"],
+  ["GoCardless","Remote India eligible","UK","Yes","Yes","£65–100K","£70–110K","Ruby, Python, Postgres, BigQuery, Airflow, dbt"],
+  ["Brex","Remote India eligible","USA","Yes","Yes","$120–180K","$130–200K","Python, Go, Spark, Snowflake, dbt, Airflow"],
+  ["Ramp","No","USA","Yes","No","$130–190K","$135–200K","Python, Spark, Airflow, Snowflake, Databricks"],
+  ["Plaid","No","USA","Yes","No","$130–185K","$140–200K","Python, Go, Kafka, Spark, Redshift, dbt"],
+  ["Stripe","Bengaluru","USA","Yes","Yes","$130–200K","$140–210K","Python, Go, Spark, BigQuery, dbt, Airflow"],
+  ["Datadog","Hyderabad","USA","Yes","Yes","$120–180K","$130–190K","Go, Python, Kafka, Postgres, Snowflake, dbt"],
+  ["Grafana Labs","Remote India","USA","Yes","Yes","$110–170K","$115–175K","Go, Python, Prometheus, Grafana, Postgres, BigQuery"],
+  ["Contentful","No","Germany","Yes","Yes","€70–115K","€75–125K","Node.js, Python, Kafka, Postgres, BigQuery, dbt"],
+  ["Personio","No","Germany","Yes","Partial","€70–110K","€75–120K","Python, Kotlin, Postgres, Redshift, dbt, Airflow"],
+  ["Celonis","Remote India","Germany","Yes","Yes","€75–120K","€80–130K","Python, Spark, Snowflake, Azure, dbt"],
+  ["Thought Machine","No","UK","Yes","No","£70–110K","£75–120K","Go, Python, Kafka, Postgres, BigQuery, GCP"],
+  ["Tractable","No","UK","Yes","Partial","£65–100K","£70–110K","Python, PyTorch, Spark, GCP, BigQuery, dbt"],
+  ["Onfido","No","UK","Yes","Partial","£60–95K","£65–105K","Python, FastAPI, Postgres, AWS, Redshift, Airflow"],
+  ["Pendo","No","USA","Yes","No","$100–150K","$110–165K","Python, Go, Kafka, Redshift, dbt, Airflow"],
+  ["Monte Carlo Data","No","USA","Yes","Yes","$120–175K","$125–180K","Python, Spark, Snowflake, dbt, Airflow, AWS"],
+  ["Airbyte","No","USA","Yes","Yes","$120–170K","$130–185K","Python, Java, dbt, Postgres, Kubernetes, Airbyte"],
+  ["Atlan","Gurgaon, Noida","Singapore","Yes","Yes","₹40–90L","₹45–95L","Python, FastAPI, dbt, Snowflake, Airflow, Kafka"],
+  ["Sprinklr","Gurgaon","USA","Yes","Yes","$90–140K","$95–150K","Python, Java, Kafka, Spark, Cassandra, AWS"],
+  ["Limeade","No","USA","Yes","Yes","$90–135K","$95–145K","Python, Azure, Snowflake, dbt, Power BI"],
+  ["Observe.AI","Bengaluru","USA","Yes","Yes","$100–155K","$105–160K","Python, FastAPI, Kafka, GCP, BigQuery, dbt"],
+  ["Postman","Bengaluru","USA","Yes","Yes","$110–165K","$115–175K","Node.js, Python, Mongo, Kafka, GCP, BigQuery"],
+  ["Hasura","Bengaluru","USA","Yes","Yes","$100–150K","$110–165K","Haskell, Python, FastAPI, Postgres, Hasura, GraphQL"],
+  ["Setu (Pine Labs sub)","Bengaluru, Delhi","India HQ","Yes","Partial","₹30–70L","₹35–75L","Python, Django, Postgres, AWS, Redshift, Kafka"],
+  ["Darktrace","No","UK","Yes","No","£65–105K","£70–115K","Python, Go, Kafka, Postgres, AWS, BigQuery"],
+  ["Paxos","No","USA","Yes","Yes","$120–175K","$130–185K","Python, Go, Postgres, Kafka, AWS, Airflow"],
+  ["Deel","Remote India","USA","Yes","Yes","$110–165K","$120–175K","Python, Node.js, Postgres, BigQuery, dbt, Airflow"],
+  ["Remote.com","Remote India","Netherlands","Yes","Yes","$100–150K","$110–160K","Python, Elixir, Postgres, BigQuery, dbt, Airflow"],
+  ["Oyster HR","Remote India","USA","Yes","Yes","$95–140K","$100–155K","Python, Postgres, Snowflake, dbt, Airflow, AWS"],
+  ["Rippling","Bengaluru","USA","Yes","Yes","$115–170K","$120–180K","Python, Go, Mongo, Postgres, BigQuery, dbt"],
+  ["Samsara","No","USA","Yes","Partial","$115–170K","$120–175K","Python, Go, Kafka, Postgres, Snowflake, dbt"],
+  ["Glean","No","USA","Yes","No","$130–190K","$135–200K","Python, Go, Elasticsearch, GCP, Vertex AI, Airflow"],
+  ["Cohere","No","Canada","Yes","Yes","$120–175K","$130–190K","Python, FastAPI, PyTorch, GCP, BigQuery, dbt"],
+  ["Anyfin","No","Sweden","Yes","Yes","SEK 700K–1M","SEK 750K–1.1M","Go, Python, BigQuery, GKE, dbt, Postgres"],
+  ["Klarna","No","Sweden","Yes","Yes","€75–120K","€80–130K","Python, Go, Kafka, Postgres, Snowflake, dbt"],
+  ["Pleo","No","Denmark","Yes","Yes","€65–105K","€70–115K","Python, TypeScript, Kafka, Postgres, dbt, BigQuery"],
+  ["Sumup","No","Germany","Yes","Partial","€65–100K","€70–110K","Python, Go, Kafka, Postgres, Redshift, dbt"],
+  ["Mambu","No","Germany","Yes","Yes","€70–110K","€75–120K","Java, Python, Kafka, Postgres, BigQuery, dbt"],
+  ["Scalable Capital","No","Germany","Yes","No","€75–115K","€80–125K","Python, Scala, Spark, Snowflake, dbt, Airflow"],
+  ["Trade Republic","No","Germany","Yes","No","€80–125K","€85–135K","Python, Kotlin, Kafka, Postgres, Snowflake, dbt"],
+  ["N26","No","Germany","Yes","Partial","€70–110K","€75–120K","Kotlin, Python, Kafka, Postgres, Snowflake, dbt"],
+  ["Moss","No","Germany","Yes","Yes","€65–100K","€70–108K","Python, Postgres, dbt, Airflow, AWS, Snowflake"],
+  ["Freetrade","No","UK","Yes","Partial","£55–90K","£60–100K","Python, Go, BigQuery, Airflow, dbt, Postgres"],
+  ["Tide","No","UK","Yes","Partial","£55–90K","£60–100K","Python, Java, Kafka, Postgres, Snowflake, dbt"],
+  ["OakNorth","No","UK","Yes","No","£65–100K","£70–110K","Python, Spark, AWS, Redshift, dbt, Airflow"],
+  ["Zopa","No","UK","Yes","Partial","£60–95K","£65–105K","Python, Scala, Kafka, Postgres, Snowflake, dbt"],
+  ["Cleo","No","UK","Yes","Partial","£60–100K","£65–110K","Python, Node.js, Postgres, BigQuery, dbt, Airflow"],
+  ["Curve","No","UK","Yes","Partial","£55–88K","£60–98K","Python, Go, Postgres, Kafka, AWS, dbt"],
+  ["ClearBank","No","UK","Yes","No","£60–95K","£65–105K","C#, Python, Azure, Cosmos DB, Snowflake, dbt"],
+  ["Griffin","No","UK","Yes","Partial","£65–100K","£70–110K","Clojure, Python, Postgres, AWS, Airflow, dbt"],
+  ["Causal","No","UK","Yes","Yes","£60–95K","£65–105K","Python, TypeScript, Postgres, BigQuery, dbt, Airflow"],
+  ["Codat","No","UK","Yes","Partial","£60–92K","£65–100K","Python, C#, Postgres, AWS, Snowflake, dbt"],
+  ["Form3","No","UK","Yes","Yes","£70–110K","£75–120K","Go, Python, Kafka, Postgres, AWS, dbt"],
+  ["Yapily","No","UK","Yes","Partial","£60–95K","£65–105K","Java, Python, Postgres, Kafka, GCP, BigQuery"],
+  ["Liberis","No","UK","Yes","Partial","£55–88K","£60–95K","Python, SQL, AWS, Redshift, Airflow, dbt"],
+  ["Copper","No","UK","Yes","Partial","£65–100K","£70–110K","Python, Go, Postgres, Kafka, AWS, dbt"],
+  ["Moody's Analytics","Mumbai","USA","Yes","No","$90–140K","$95–155K","Python, Spark, Azure, Snowflake, dbt, Airflow"],
+  ["Axway","No","France","Yes","Partial","€65–100K","€70–110K","Python, Java, Kafka, Azure, Postgres, dbt"],
+  ["Alan","No","France","Yes","Partial","€70–110K","€75–120K","Python, Elixir, Postgres, BigQuery, dbt, Airflow"],
+  ["Qonto","No","France","Yes","Partial","€70–108K","€75–118K","Ruby, Python, Postgres, Kafka, BigQuery, dbt"],
+  ["Pennylane","No","France","Yes","Partial","€65–100K","€70–110K","Python, Ruby, Postgres, BigQuery, dbt, Airflow"],
+  ["PayFit","No","France","Yes","Partial","€65–100K","€70–110K","TypeScript, Python, Postgres, BigQuery, dbt, Airflow"],
+  ["Spendesk","No","France","Yes","Partial","€65–100K","€70–108K","Node.js, Python, Postgres, Snowflake, dbt, Airflow"],
+  ["Hokodo","No","UK/France","Yes","Partial","£60–92K","£65–100K","Python, Postgres, AWS, Redshift, Airflow, dbt"],
+  ["Factorial","No","Spain","Yes","Partial","€55–88K","€60–95K","Ruby, Python, Postgres, Redshift, dbt, Airflow"],
+  ["Glovo","No","Spain","Yes","Partial","€70–110K","€75–120K","Scala, Python, Kafka, Spark, BigQuery, dbt"],
+  ["Typeform","No","Spain","Yes","Partial","€65–100K","€70–110K","Node.js, Python, Postgres, Redshift, dbt, Airflow"],
+  ["Miro","No","Netherlands","Yes","Yes","€80–130K","€85–140K","Python, Go, Kafka, Postgres, BigQuery, dbt"],
+  ["Dealroom","No","Netherlands","Yes","Partial","€65–100K","€70–110K","Python, Postgres, BigQuery, dbt, Django, Airflow"],
+  ["Mollie","No","Netherlands","Yes","Partial","€70–110K","€75–120K","PHP, Python, Postgres, Kafka, BigQuery, dbt"],
+  ["Mambu","No","Netherlands","Yes","Yes","€70–110K","€75–120K","Java, Python, Kafka, Postgres, BigQuery, dbt"],
+  ["Swan","No","France","Yes","Yes","€68–105K","€72–115K","Elixir, Python, Postgres, BigQuery, dbt, Airflow"],
+  ["Featurespace","No","UK","Yes","No","£60–95K","£65–105K","Python, Spark, Kafka, AWS, Redshift, dbt"],
+  ["Sift","No","USA","Yes","Partial","$100–155K","$110–165K","Python, Kafka, Spark, BigQuery, dbt, Airflow"],
+  ["Forter","No","USA","Yes","Partial","$110–160K","$120–175K","Python, Go, Kafka, Postgres, Redshift, dbt"],
+  ["Nuvei","No","Canada","Yes","Partial","$100–150K","$110–165K","Python, Scala, Kafka, Postgres, Snowflake, dbt"],
+  ["Amount","No","USA","Yes","Partial","$100–150K","$110–160K","Python, Go, Postgres, AWS, Redshift, dbt"],
+  ["Threecolts","Remote India","UK","Yes","Yes","$90–140K","$95–150K","Python, Django, Postgres, AWS, Snowflake, dbt"],
+  ["Sprinto","Bengaluru","India (non-IT HQ)","Yes","Yes","₹30–60L","₹35–65L","Python, FastAPI, Postgres, AWS, Snowflake, dbt"],
+  ["Leapfrog Tech","Remote India","Nepal/USA","No","Yes","$50–90K","$55–95K","Python, Django, FastAPI, Postgres, AWS, dbt"],
+  ["Tines","No","Ireland","Yes","Partial","€70–108K","€75–118K","Ruby, Python, Postgres, BigQuery, dbt, Airflow"],
+  ["Intercom","No","Ireland","Yes","Partial","$100–155K","$110–165K","Ruby, Python, Kafka, Postgres, BigQuery, dbt"],
+  ["Zendesk","No","USA","Yes","No","$110–165K","$115–175K","Ruby, Python, Kafka, Postgres, Snowflake, dbt"],
+  ["Zuora","No","USA","Yes","Partial","$100–155K","$110–165K","Java, Python, Postgres, Snowflake, dbt, Airflow"],
+  ["Pricefx","No","Germany/Czech","Yes","Yes","€65–100K","€70–110K","Java, Python, Kafka, Snowflake, Azure, dbt"],
+  ["PPRO","No","UK","Yes","Partial","£60–95K","£65–105K","Python, Java, Kafka, Postgres, BigQuery, dbt"],
+  ["Marqeta","No","USA","Yes","Partial","$110–165K","$120–175K","Python, Java, Kafka, Postgres, Snowflake, dbt"],
+  ["TrueLayer","No","UK","Yes","Partial","£65–100K","£70–110K","C#, Python, Postgres, BigQuery, dbt, Airflow"],
+  ["Banked","No","UK","Yes","Partial","£60–95K","£65–105K","Python, Go, Postgres, Kafka, AWS, dbt"],
+  ["Primer","No","UK","Yes","Yes","£65–100K","£70–110K","Python, Kotlin, Postgres, BigQuery, dbt, Airflow"],
+  ["Nium","Bengaluru","Singapore","Yes","Yes","$90–140K","$95–150K","Python, Java, Kafka, Postgres, AWS, Snowflake, dbt"],
+  ["Airwallex","Bengaluru","Australia","Yes","Yes","$95–150K","$100–160K","Python, Java, Kafka, Spark, Postgres, Snowflake, dbt"],
+  ["Paidy (PayPal sub)","No","Japan/USA","Yes","Partial","$80–130K","$85–140K","Python, Scala, Kafka, Postgres, BigQuery, dbt"],
+  ["Payoneer","Bangalore","USA","Yes","Yes","$90–140K","$95–150K","Python, Java, Postgres, Redshift, Snowflake, dbt"],
+  ["Flywire","No","USA","Yes","Partial","$100–150K","$110–165K","Python, Go, Postgres, BigQuery, dbt, Airflow"],
+  ["Clearbit (HubSpot)","No","USA","Yes","Yes","$110–165K","$120–175K","Python, Ruby, Postgres, BigQuery, dbt, Airflow"],
+];
+
+let sortCol = -1, sortAsc = true;
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const visa = document.getElementById('visa').value;
+  const remote = document.getElementById('remote').value;
+  const india = document.getElementById('india').value;
+  const country = document.getElementById('country').value;
+  let rows = data.filter(r => {
+    const full = r.join(' ').toLowerCase();
+    if (q && !full.includes(q)) return false;
+    if (visa && r[3] !== visa) return false;
+    if (remote) {
+      if (remote === 'Yes' && r[4] === 'No') return false;
+      if (remote === 'No' && r[4] !== 'No') return false;
+    }
+    if (india) {
+      const ip = r[1].toLowerCase();
+      if (india === 'Yes' && !/(bengaluru|bangalore|mumbai|gurgaon|hyderabad|noida|delhi|pune)/.test(ip)) return false;
+      if (india === 'Remote only' && !ip.includes('remote')) return false;
+      if (india === 'No' && /(bengaluru|bangalore|mumbai|gurgaon|hyderabad|noida|delhi|pune|remote)/.test(ip)) return false;
+    }
+    if (country && r[2] !== country) return false;
+    return true;
+  });
+  if (sortCol >= 0) {
+    rows.sort((a, b) => {
+      const av = a[sortCol], bv = b[sortCol];
+      return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+    });
+  }
+  document.getElementById('count').textContent = rows.length + ' companies shown';
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = rows.map(r => {
+    const visa_badge = r[3] === 'Yes' ? '<span class="badge b-green">Yes</span>' : '<span class="badge b-red">No</span>';
+    const remote_badge = r[4] === 'Yes' ? '<span class="badge b-green">Yes</span>' : r[4] === 'Partial' ? '<span class="badge b-amber">Partial</span>' : '<span class="badge b-gray">No</span>';
+    const stack = r[7].split(', ').map(s => `<span class="tag">${s}</span>`).join('');
+    return `<tr>
+      <td><span class="co">${r[0]}<small>${r[2]}</small></span></td>
+      <td style="font-size:11px;color:var(--color-text-secondary)">${r[1]}</td>
+      <td style="font-size:11px">${r[2]}</td>
+      <td>${visa_badge}</td>
+      <td>${remote_badge}</td>
+      <td style="font-size:11px">${r[5]}</td>
+      <td style="font-size:11px">${r[6]}</td>
+      <td>${stack}</td>
+    </tr>`;
+  }).join('');
+}
+
+function sort(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  for (let i = 0; i < 8; i++) {
+    const el = document.getElementById('sa' + i);
+    if (el) el.textContent = i === col ? (sortAsc ? '▲' : '▼') : '';
+  }
+  render();
+}
+
+const countries = [...new Set(data.map(r => r[2]))].sort();
+const sel = document.getElementById('country');
+countries.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o); });
+
+render();
+</script>

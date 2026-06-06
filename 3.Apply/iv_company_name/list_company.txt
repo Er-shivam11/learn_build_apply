@@ -1,0 +1,6 @@
+Twilio, Okta, Elastic, Palantir, CrowdStrike, HashiCorp, MongoDB, Figma,
+Coinbase, RudderStack, Smartly.io, Klaviyo, AppsFlyer, Project44,
+Veeva Systems, Quantexa, Snowflake, Databricks, dbt Labs, Confluent,
+InfoSum, Adjust, Contentsquare, FourKites, Mapbox, Tempus, Sportradar,
+Genius Sports, Voodoo, Playtika, Supermetrics, Funnel.io, 
+SoundCloud, Envestnet Yodlee, Cloudera, Affirm, Addepar
