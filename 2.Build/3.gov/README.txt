@@ -1,4 +1,32 @@
-Here's the **combined master table** for a B.Tech CSE / Software Engineer candidate.
+| Subject                      | GATE Weightage | Banking SO Weightage | ROI   |
+| ---------------------------- | -------------- | -------------------- | ----- |
+| DBMS                         | 7–9 Marks      | 15–18 Questions      | ⭐⭐⭐⭐⭐ |
+| Computer Networks            | 7–9 Marks      | 12–15 Questions      | ⭐⭐⭐⭐⭐ |
+| Operating Systems            | 7–9 Marks      | 5–7 Questions        | ⭐⭐⭐⭐  |
+| Data Structures & Algorithms | 10–12 Marks    | 5–6 Questions        | ⭐⭐⭐⭐  |
+| COA                          | 6–8 Marks      | 3–4 Questions        | ⭐⭐⭐   |
+| Digital Logic                | 4–6 Marks      | 1–2 Questions        | ⭐⭐    |
+
+Gate Smashers → DBMS, CN, OS
+Abdul Bari → DSA, OOPs, Interview Prep
+Neso Academy → COA, Digital Logic
+RBR Lectures → Maths, TOC, Compiler
+
+
+
+
+| Phase                  | Subjects                                             |
+| ---------------------- | ---------------------------------------------------- |
+| Phase 1 (Highest ROI)  | DBMS, Computer Networks                              |
+| Phase 2                | Operating Systems, DSA                               |
+| Phase 3                | COA, Digital Logic                                   |
+| Phase 4 (GATE Only)    | Mathematics, TOC, Compiler Design                    |
+| Phase 5 (Banking Only) | Software Engineering, Cyber Security, Web Tech, OOPs |
+
+
+
+GATE CSE: Mathematics, Theory of Computation, Compiler Design, DBMS, CN, OS, DSA, COA, Digital Logic.
+Banking SO IT: Software Engineering, Web Tech, Cyber Security, DBMS, CN, OS, DSA, COA, Digital Logic.
 
 | Exam / Job              | Age                   | Selection Process             | Starting CTC | Mid-Career CTC | Main Subjects                                                                | Best Resources                                           |
 | ----------------------- | --------------------- | ----------------------------- | ------------ | -------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -14,6 +42,7 @@ Here's the **combined master table** for a B.Tech CSE / Software Engineer candid
 | **PFRDA Grade A IT**    | Up to 30              | Phase 1 → Phase 2 → Interview | ₹18–25+ LPA  | ₹30–50+ LPA    | Quant, Reasoning, English, IT, Pension Sector Awareness                      | Adda247 Regulatory                                       |
 
 ---
+
 
 ## Syllabus Overlap (Very Important)
 
