@@ -1,0 +1,84 @@
+Yes. For **RRB SO IT Officer, SBI SO (IT), IBPS SO IT Officer, and most PSU/Bank IT Officer recruitments in 2026**, the syllabus has evolved slightly from the 2022 version. The **Prelims** remain mostly aptitude-based, while the **Professional Knowledge (Mains)** now expects stronger fundamentals in databases, networking, cybersecurity, cloud, and software engineering.
+
+# RRB / SBI / IBPS SO IT Officer Syllabus 2026
+
+## Prelims Syllabus
+
+| Subject                   | Topics                                                                                                                                                                                                                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Reasoning Ability**     | Puzzles, Seating Arrangement, Blood Relation, Syllogism, Inequality, Coding-Decoding, Direction Sense, Order & Ranking, Alphanumeric Series, Input-Output, Data Sufficiency, Logical Reasoning                                                                                  |
+| **English Language**      | Reading Comprehension, Cloze Test, Error Detection, Fill in the Blanks, Sentence Improvement, Para Jumbles, Vocabulary, Synonyms & Antonyms, Active & Passive Voice, Direct & Indirect Speech                                                                                   |
+| **Quantitative Aptitude** | Percentage, Profit & Loss, Ratio & Proportion, Average, Time & Work, Time Speed Distance, Simple Interest, Compound Interest, Mixture & Allegation, Permutation & Combination, Probability, Number Series, Simplification, Approximation, Data Interpretation, Data Sufficiency |
+
+---
+
+# Mains (Professional Knowledge)
+
+| Subject                                        | Topics                                                                                                           |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Database Management Systems (DBMS)**         | ER Model, Normalization, SQL, Transactions, Concurrency Control, Indexing, Query Processing, Recovery Management |
+| **Data Structures & Algorithms**               | Arrays, Linked List, Stack, Queue, Tree, BST, Heap, Graph, Hashing, Sorting, Searching, Complexity Analysis      |
+| **Operating Systems (OS)**                     | Process Management, Scheduling, Deadlock, Memory Management, Paging, Segmentation, Virtual Memory, File Systems  |
+| **Computer Networks (CN)**                     | OSI Model, TCP/IP, Routing, Switching, DNS, HTTP/HTTPS, FTP, SMTP, Network Security                              |
+| **Computer Organization & Architecture (COA)** | CPU Organization, Memory Hierarchy, Cache Memory, Instruction Cycle, Pipelining, Input-Output Organization       |
+| **Object-Oriented Programming (OOP)**          | Classes, Objects, Inheritance, Polymorphism, Abstraction, Encapsulation, Exception Handling                      |
+| **Software Engineering**                       | SDLC, Agile, Waterfall, Testing, UML, Requirement Analysis, Design Patterns                                      |
+| **Cyber Security**                             | Cryptography, Authentication, Authorization, Firewalls, IDS/IPS, VPN, Digital Signatures, Cyber Attacks          |
+| **Web Technologies**                           | HTML, CSS, JavaScript, HTTP, REST APIs, Web Security                                                             |
+| **Cloud Computing**                            | IaaS, PaaS, SaaS, Virtualization, Containers, AWS/Azure Basics                                                   |
+| **Computer Fundamentals**                      | Number Systems, Logic Gates, Boolean Algebra, Digital Electronics Basics                                         |
+| **Programming Concepts**                       | C, C++, Java, Python Fundamentals, Functions, Pointers, OOP Concepts                                             |
+| **Information Systems**                        | MIS, DSS, ERP, Banking Technology, Core Banking Systems                                                          |
+| **Information Security & Banking IT**          | RBI Guidelines, Digital Banking, UPI, Payment Systems, Risk Management                                           |
+
+---
+
+# High-Weightage Topics (80/20 Rule)
+
+| Subject              | Must Do Topics                                  |
+| -------------------- | ----------------------------------------------- |
+| DBMS                 | SQL, Normalization, Transactions, Indexing      |
+| DSA                  | Trees, Graphs, Sorting, Complexity              |
+| OS                   | Process Scheduling, Deadlock, Memory Management |
+| CN                   | TCP/IP, OSI, Routing, DNS, HTTP                 |
+| OOP                  | Inheritance, Polymorphism, Abstraction          |
+| Software Engineering | SDLC, Testing, Agile                            |
+| Cyber Security       | Cryptography, Firewalls, Authentication         |
+| COA                  | Cache Memory, Pipelining, Memory Hierarchy      |
+
+---
+
+# Best Books for 2026 Preparation
+
+| Subject              | Book                                                 |
+| -------------------- | ---------------------------------------------------- |
+| DBMS                 | Database System Concepts                             |
+| OS                   | Operating System Concepts                            |
+| CN                   | Computer Networks                                    |
+| DSA                  | Data Structures and Algorithms Made Easy             |
+| COA                  | Computer Organization and Architecture               |
+| Software Engineering | Software Engineering                                 |
+| Aptitude             | Quantitative Aptitude for Competitive Examinations   |
+| Reasoning            | A Modern Approach to Verbal and Non-Verbal Reasoning |
+| English              | Objective General English                            |
+
+# For You (Software Engineer Background)
+
+Since you already know Python, SQL, APIs, ETL, Django, FastAPI, and Data Engineering concepts, your strongest overlap is:
+
+✅ DBMS
+✅ SQL
+✅ OOP
+✅ Software Engineering
+✅ Computer Networks (basic)
+✅ Programming Concepts
+
+Focus heavily on:
+
+1. Operating Systems
+2. Computer Organization & Architecture
+3. Data Structures & Algorithms
+4. Cyber Security
+5. Banking Awareness (if required by notification)
+
+These subjects usually create the biggest gap between software engineers and top-ranking IT Officer candidates.
