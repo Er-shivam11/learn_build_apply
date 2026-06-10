@@ -1,4 +1,160 @@
-```text id="v5sl9m"
+-- =====================================================
+-- 1. SECOND HIGHEST SALARY
+-- =====================================================
+
+-- Method 1: Using MAX()
+
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (
+SELECT MAX(salary)
+FROM employees
+);
+
+---
+
+-- Method 2: Using DENSE_RANK()
+
+WITH salary_rank AS (
+SELECT emp_id,
+salary,
+DENSE_RANK() OVER (
+ORDER BY salary DESC
+) AS rn
+FROM employees
+)
+SELECT emp_id,
+salary
+FROM salary_rank
+WHERE rn = 2;
+
+-- =====================================================
+-- 2. WINDOW FUNCTION EXAMPLE
+-- =====================================================
+
+SELECT emp_id,
+salary,
+ROW_NUMBER() OVER (
+ORDER BY salary DESC
+) AS row_num,
+
+```
+   RANK() OVER (
+       ORDER BY salary DESC
+   ) AS rank_num,
+
+   DENSE_RANK() OVER (
+       ORDER BY salary DESC
+   ) AS dense_rank_num
+```
+
+FROM employees;
+
+-- =====================================================
+-- 3. DIFFERENCE BETWEEN RANK AND DENSE_RANK
+-- =====================================================
+
+SELECT emp_id,
+salary,
+
+```
+   RANK() OVER (
+       ORDER BY salary DESC
+   ) AS rank_num,
+
+   DENSE_RANK() OVER (
+       ORDER BY salary DESC
+   ) AS dense_rank_num
+```
+
+FROM employees;
+
+## -- Example:
+
+-- Salary   Rank   Dense_Rank
+-- 100      1      1
+-- 100      1      1
+-- 90       3      2
+-- 80       4      3
+
+-- =====================================================
+-- 4. SECOND HIGHEST SALARY PER BRANCH
+-- =====================================================
+
+WITH branch_salary_rank AS (
+SELECT emp_id,
+branch_id,
+salary,
+
+```
+       DENSE_RANK() OVER (
+           PARTITION BY branch_id
+           ORDER BY salary DESC
+       ) AS rn
+
+FROM employees
+```
+
+)
+
+SELECT emp_id,
+branch_id,
+salary
+
+FROM branch_salary_rank
+
+WHERE rn = 2;
+
+-- =====================================================
+-- 5. FIND DUPLICATES
+-- =====================================================
+
+SELECT email,
+COUNT(*) AS duplicate_count
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+-- =====================================================
+-- 6. REMOVE DUPLICATES
+-- =====================================================
+
+WITH duplicate_cte AS (
+SELECT *,
+ROW_NUMBER() OVER (
+PARTITION BY email
+ORDER BY id
+) AS rn
+FROM users
+)
+
+DELETE FROM users
+WHERE id IN (
+SELECT id
+FROM duplicate_cte
+WHERE rn > 1
+);
+
+-- =====================================================
+-- 7. WHERE vs HAVING
+-- =====================================================
+
+-- WHERE = Before Aggregation
+
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+---
+
+-- HAVING = After Aggregation
+
+SELECT department,
+COUNT(*) AS employee_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5;
+
 =====================================================
 1. WINDOW FUNCTION SHORTCUT TABLE
 =====================================================
