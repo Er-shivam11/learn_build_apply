@@ -1,0 +1,86 @@
+```
+1. Select the existing page for all models utilized definition of the LLM user document and utilized methods, gapy metrics, a string boolean. (Django Models)
+
+2. Use Django questions about model serializer definition. All the existing fields like objects, IntegerField, DateTimeField/DocumentField, SerializerMethodField, CharField, BooleanField, etc.
+
+3. List all valid Django model fields.
+
+4. DRF Test.
+
+5. This decorator should be used to specify that a method is a class method instead of an instance method.
+
+6. What is the name of the validation method for the field "title" that should be used to create field-level validation in a serializer?
+
+7. List all DRF Mixins.
+
+8. If in settings.py I have set DEFAULT_FILTER_BACKENDS with SearchFilter, where will it apply: Model, View, or Serializer?
+
+9. Filtering in DRF.
+
+10. In DRF, can Session Authentication and Token Authentication both be configured simultaneously, or only one can work?
+
+11. What are the default keys returned by the list() method of a DRF ViewSet when pagination is enabled?
+
+12. Create a detail view for the Book model in DRF.
+
+13. You are developing a blogging platform using Django. Only the author of a blog post should be allowed to edit or delete it. Which decorator/mixin/permission should be used?
+
+14. You are developing an e-commerce application. The Product model has fields like name, price, and quantity. Which type of testing should be used to verify that the model fields are correctly defined?
+    - Unit Testing
+    - Integration Testing
+    - Regression Testing
+    - Acceptance Testing
+
+15. For importing external data into a Django application, which should be used?
+    - assertRedirects
+    - assertRaises
+    - assertTemplateUsed
+    - call_command
+
+16. Your application has LocaleMiddleware enabled. How will you set the language for the Django test client?
+
+17. You are developing a blogging platform where blog posts can have multiple tags. Which approach using InlineModelAdmin should be used to manage tags from the BlogPost admin?
+
+18. You are customizing the Django Admin interface. You want to display the category field alongside the product name in the product list page. What approach should you use?
+
+19. You are developing a social media application with a form that accepts a user's age. The age must be between 18 and 99 (inclusive). How should the age field be implemented?
+
+20. FastAPI: You want every request to contain a secret handshake integer in the HTTP headers. Which endpoint parameter should you use?
+
+21. FastAPI: A booking system requires a three-letter passport country code and a passport scan image. Which endpoint parameters should you use to receive both?
+
+22. FastAPI: Routes have already been grouped inside an APIRouter. How should you expose them under a prefix like /v1/letters/?
+
+23. Number Series:
+    25, 49, 97, ?
+
+24. Aptitude:
+    A student scores 200 marks and fails by 20 marks. Passing marks are 50% of the total. Find the total marks.
+
+25. Work & Time:
+    Person 1 completes 1/5,
+    Person 2 completes 1/6,
+    Person 3 completes 1/4,
+    Person 4 completes 1/7.
+    Person 5 completes the remaining work. Is Person 5's share more than or less than 25%?
+
+26. Work & Time:
+    20 women complete a task in 16 days.
+    16 men complete the same task in 15 days.
+    Find the ratio of a man's work capacity to a woman's work capacity.
+
+27. Number Series:
+    3, 15, 35, ?, 99
+
+28. Number Series:
+    240, 240, 120, ?, 10, 2
+
+29. Percentage:
+    A car increases its speed by 30% and then by another 10%.
+    What is the total percentage increase over the original speed?
+
+30. Number/Data Interpretation (incomplete):
+    Stock 1: 123, 4, 200, 300
+    Stock 2: 185, 14, ?, 360
+    Index: 900, 20, 700, 1200, 1800
+```
