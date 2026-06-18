@@ -1,0 +1,364 @@
+Absolutely. Below is the **master interview checklist** we've covered. This is the list I'd expect a **3–6 year Python Backend/Data Engineer** candidate to be comfortable with. Save it as your interview revision sheet.
+
+```text
+==========================
+PHASE 1 : INTRODUCTION
+==========================
+
+1. Tell me about yourself.
+2. Explain one project end-to-end.
+3. OCR Project Architecture.
+4. Biggest Challenge.
+5. Biggest Achievement.
+6. Why are you looking for a change?
+7. Why should we hire you?
+8. Salary Expectation?
+9. Current CTC vs Expected CTC.
+10. Leadership/Ownership examples.
+
+====================================================
+PHASE 2 : PYTHON FUNDAMENTALS
+====================================================
+
+1. List vs Tuple vs Set vs Dictionary
+2. Mutable vs Immutable
+3. Deep Copy vs Shallow Copy
+4. *args vs **kwargs
+5. Lambda Functions
+6. Map vs Filter vs Reduce
+7. List Comprehension
+8. Dictionary Comprehension
+9. Iterators
+10. Generators (yield)
+11. Iterator vs Generator
+12. Exception Handling
+13. Custom Exceptions
+14. Context Managers (__enter__, __exit__)
+15. Type Hinting
+16. Dataclasses
+17. Collections Module
+      - Counter
+      - defaultdict
+      - deque
+18. Heapq
+19. Mutable Default Arguments (TRICKY)
+20. is vs == (TRICKY)
+
+====================================================
+PHASE 3 : ADVANCED PYTHON
+====================================================
+
+1. Garbage Collection
+2. Reference Counting
+3. GIL (Global Interpreter Lock)
+4. Multithreading vs Multiprocessing
+5. Asyncio
+6. Event Loop
+7. Closures
+8. Late Binding (TRICKY)
+9. Decorators
+10. Decorators with Arguments
+11. Method Overriding
+12. Method Overloading
+13. MRO (Method Resolution Order)
+14. Class Method vs Static Method
+15. __init__ vs __new__
+16. __str__ vs __repr__
+17. Monkey Patching
+18. Metaclasses (Basics)
+19. Thread Safety
+20. Python Memory Management
+
+====================================================
+PHASE 4 : OOPS
+====================================================
+
+1. Encapsulation
+2. Abstraction
+3. Inheritance
+4. Polymorphism
+5. Composition vs Inheritance
+6. SOLID Principles
+7. Singleton Pattern
+8. Factory Pattern
+9. Strategy Pattern
+10. Dependency Injection
+11. Interfaces using ABC
+
+====================================================
+PHASE 5 : DJANGO
+====================================================
+
+1. Django Architecture (MVT)
+2. Project Structure
+3. Apps
+4. Models
+5. ORM
+6. QuerySets
+7. Managers
+8. Middleware
+9. Signals
+10. Authentication
+11. Sessions
+12. Permissions
+13. Caching
+14. Celery
+15. Pagination
+16. select_related()
+17. prefetch_related()
+18. N+1 Query Problem
+19. Django Performance Optimization
+20. Static vs Media Files
+
+====================================================
+PHASE 6 : FASTAPI
+====================================================
+
+1. FastAPI Architecture
+2. Dependency Injection
+3. Pydantic
+4. Request Validation
+5. Response Models
+6. Middleware
+7. Sync vs Async
+8. Async Endpoints
+9. Background Tasks
+10. Uvicorn
+11. Gunicorn
+12. Production Deployment
+
+====================================================
+PHASE 7 : REST APIs
+====================================================
+
+1. REST Principles
+2. HTTP Methods
+3. Status Codes
+4. PUT vs PATCH
+5. Authentication
+6. Authorization
+7. JWT
+8. OAuth2
+9. Refresh Token
+10. API Versioning
+11. Pagination
+12. Rate Limiting
+13. Caching
+14. API Gateway
+15. Webhooks
+16. CORS
+17. CSRF
+18. Idempotency
+19. Monolith vs Microservices
+
+====================================================
+PHASE 8 : SQL
+====================================================
+
+1. Joins
+2. Self Join
+3. CTE
+4. Subqueries
+5. Correlated Subqueries
+6. Window Functions
+7. ROW_NUMBER()
+8. RANK()
+9. DENSE_RANK()
+10. Aggregate Functions
+11. GROUP BY
+12. WHERE vs HAVING
+13. UNION vs UNION ALL
+14. EXISTS vs IN
+15. Primary Key vs Unique Key
+16. DELETE vs TRUNCATE vs DROP
+17. Index
+18. Composite Index
+19. Clustered vs Non Clustered Index
+20. Explain Plan
+21. Query Optimization
+22. Normalization
+23. Denormalization
+
+SQL Coding:
+- Second Highest Salary
+- Nth Highest Salary
+- Running Total
+- Top N per Group
+- Duplicate Records
+- Remove Duplicates
+- Consecutive Records
+- Latest Record per User
+
+====================================================
+PHASE 9 : AWS
+====================================================
+
+1. EC2
+2. S3
+3. RDS
+4. IAM
+5. VPC
+6. Security Groups
+7. Load Balancer
+8. Auto Scaling
+9. CloudWatch
+10. Lambda
+11. API Gateway
+12. Deployment Strategies
+13. High Availability
+14. Snapshot vs Image (IMPORTANT)
+15. AMI vs Snapshot
+16. EBS Snapshot
+
+====================================================
+PHASE 10 : TESTING
+====================================================
+
+1. Unit Testing
+2. Integration Testing
+3. Mocking
+4. Pytest
+5. Fixtures
+6. API Testing
+7. Coverage
+
+====================================================
+PHASE 11 : DOCKER & CI/CD
+====================================================
+
+1. Docker Image
+2. Container
+3. Dockerfile
+4. Docker Compose
+5. Volumes
+6. Networking
+7. Bind Mount vs Volume
+8. Image vs Container
+9. CI/CD
+10. GitHub Actions
+11. Jenkins
+12. Deployment Pipeline
+
+====================================================
+PHASE 12 : REACT BASICS
+====================================================
+
+1. Components
+2. Props
+3. State
+4. Hooks
+5. useState
+6. useEffect
+7. API Calls
+8. Component Lifecycle
+
+====================================================
+PHASE 13 : DATA ENGINEERING
+====================================================
+
+1. ETL vs ELT
+2. Batch vs Streaming
+3. CDC
+4. Snowflake Architecture
+5. Snowpipe
+6. Partitioning
+7. Clustering
+8. SCD Type 1
+9. SCD Type 2
+10. Airflow
+11. DAG
+12. Incremental Loading
+13. Data Quality Checks
+14. Watermarking
+
+====================================================
+PHASE 14 : SYSTEM DESIGN
+====================================================
+
+1. Scalability
+2. Availability
+3. Load Balancer
+4. Redis
+5. Database Scaling
+6. CAP Theorem
+7. Message Queue
+8. Kafka Basics
+9. RabbitMQ Basics
+10. Event Driven Architecture
+11. Rate Limiter Design
+12. URL Shortener
+13. Notification Service
+14. API Design
+15. Caching Strategy
+
+====================================================
+PHASE 15 : BEHAVIORAL
+====================================================
+
+1. Biggest Production Issue
+2. Debugging Story
+3. Team Conflict
+4. Leadership
+5. Ownership
+6. Deadline Pressure
+7. Failure Story
+8. Achievement
+9. Layoff Discussion
+10. Career Goals
+
+====================================================
+PHASE 16 : CODING
+====================================================
+
+Easy:
+- Reverse String
+- Palindrome
+- Anagram
+- Two Sum
+- FizzBuzz
+
+Medium:
+- LRU Cache
+- Merge Intervals
+- Group Anagrams
+- Top K Frequent
+- Longest Substring Without Repeating Characters
+
+Medium-Hard:
+- Producer Consumer
+- Thread-safe Singleton
+- Rate Limiter
+- Mini URL Shortener
+- API Retry with Exponential Backoff
+
+====================================================
+MOST TRICKY QUESTIONS (VERY COMMON)
+====================================================
+
+✓ Mutable Default Arguments
+✓ is vs ==
+✓ Deep vs Shallow Copy
+✓ GIL
+✓ Generator vs Iterator
+✓ Thread vs Process vs Async
+✓ MRO
+✓ __new__ vs __init__
+✓ __str__ vs __repr__
+✓ Method Overloading in Python
+✓ Decorators
+✓ Closures
+✓ Late Binding
+✓ Monkey Patching
+✓ Interface using ABC
+✓ JWT Flow
+✓ N+1 Query Problem
+✓ Index Drawbacks
+✓ Composite Index
+✓ Snapshot vs Image
+✓ Docker Image vs Container
+✓ Redis vs Database
+✓ Rate Limiter
+✓ Transaction & Rollback
+```
+
+This covers **95%+ of the questions** you're likely to face in Python Backend, Django/FastAPI, and Data Engineering interviews for the experience level you're targeting.

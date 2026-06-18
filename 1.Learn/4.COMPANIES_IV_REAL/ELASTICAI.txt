@@ -1,0 +1,17 @@
+1. Tree Constructor (Binary Tree Validation)
+2. SQL Join, GROUP BY and COUNT (Vendor Information)
+3. Convert String to Snake Case
+4. Time Complexity of Binary Search
+5. Hash Table – Unsupported Operation (Finding Median)
+6. Algorithm Using Priority Queue (Dijkstra's Algorithm)
+7. Nearest Smaller Element Using Stack
+8. Bottom-Up Approach (Dynamic Programming – Tabulation)
+9. Binary Search Tree vs Binary Tree Property
+10. Height of a Binary Tree
+11. Embeddings in a RAG Pipeline
+12. Importance of Chunking in RAG
+13. Vector Databases Used in RAG (FAISS, Chroma, Pinecone, Weaviate, Milvus)
+14. Typical Use Cases of RAG (Question Answering over Documents)
+15. Truth-Tellers and Liars Puzzle (Round Table)
+16. Age Puzzle (Tom, John, Paul)
+17. Ingredient/Sequence Ordering (Logical Arrangement)
