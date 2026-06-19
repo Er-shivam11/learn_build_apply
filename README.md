@@ -15,30 +15,13 @@ Focus: Consistency over perfection.
 https://leetcode.com/studyplan/top-sql-50/
 https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
-
-# List comprehension
-
-+----------------------+-------------------------------------------+------------------------------------------+
-| Problem              | Normal Loop Version                       | Comprehension Version                    |
-+----------------------+-------------------------------------------+------------------------------------------+
-| Square Numbers       | for x in arr:                             | [x**2 for x in arr]                      |
-|                      |     r.append(x**2)                        |                                          |
-+----------------------+-------------------------------------------+------------------------------------------+
-| Even Numbers         | for x in arr:                             | [x for x in arr if x%2==0]               |
-|                      |     if x%2==0:                            |                                          |
-|                      |         r.append(x)                       |                                          |
-+----------------------+-------------------------------------------+------------------------------------------+
-| Uppercase Names      | for x in names:                           | [x.upper() for x in names]               |
-|                      |     r.append(x.upper())                   |                                          |
-+----------------------+-------------------------------------------+------------------------------------------+
-| Add 10               | for x in arr:                             | [x+10 for x in arr]                      |
-|                      |     r.append(x+10)                        |                                          |
-+----------------------+-------------------------------------------+------------------------------------------+
-| String to List       | for ch in s:                              | [ch for ch in s]                         |
-|                      |     r.append(ch)                          |                                          |
-+----------------------+-------------------------------------------+------------------------------------------+
-
-
+| Problem             | Normal Loop Version                                                                    | List Comprehension Version                |
+| ------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------- |
+| **Square Numbers**  | `result = []`<br>`for x in arr:`<br>    `result.append(x ** 2)`                        | `result = [x ** 2 for x in arr]`          |
+| **Even Numbers**    | `result = []`<br>`for x in arr:`<br>    `if x % 2 == 0:`<br>        `result.append(x)` | `result = [x for x in arr if x % 2 == 0]` |
+| **Uppercase Names** | `result = []`<br>`for x in names:`<br>    `result.append(x.upper())`                   | `result = [x.upper() for x in names]`     |
+| **Add 10**          | `result = []`<br>`for x in arr:`<br>    `result.append(x + 10)`                        | `result = [x + 10 for x in arr]`          |
+| **String to List**  | `result = []`<br>`for ch in s:`<br>    `result.append(ch)`                             | `result = [ch for ch in s]`               |
 
 | #  | Problem              | Status | Core Shortcut                         | Loop / Condition Flow Memory                            | Key Logic Memory                                        | Approach Type              |
 |----|----------------------|--------|---------------------------------------|---------------------------------------------------------|---------------------------------------------------------|----------------------------|
