@@ -1,4 +1,14 @@
 
+| What You Know | Azure Equivalent                         |
+| ------------- | ---------------------------------------- |
+| PostgreSQL    | Azure Database for PostgreSQL            |
+| S3            | Azure Data Lake Storage (ADLS)           |
+| Snowflake     | Azure Synapse / Snowflake on Azure       |
+| Airflow       | Azure Data Factory (or Airflow on Azure) |
+| dbt           | dbt (same)                               |
+| Docker        | Azure Container Apps / AKS               |
+| AWS EC2       | Azure Virtual Machine                    |
+| AWS S3        | ADLS Blob Storage                        |
 
 # PROJECT FOLDER STRUCTURE
 
