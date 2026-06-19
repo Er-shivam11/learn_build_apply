@@ -16,6 +16,7 @@ https://leetcode.com/studyplan/top-sql-50/
 https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
 
+#### List comprehension
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
 | **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
