@@ -15,6 +15,7 @@ Focus: Consistency over perfection.
 https://leetcode.com/studyplan/top-sql-50/
 https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
+
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
 | **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
@@ -22,6 +23,8 @@ https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnad
 | **Uppercase Names** | ``` result = []; for x in names: result.append(x.upper()) ``` | ``` result = [x.upper() for x in names] ``` |
 | **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
+
+
 | #  | Problem              | Status | Core Shortcut                         | Loop / Condition Flow Memory                            | Key Logic Memory                                        | Approach Type              |
 |----|----------------------|--------|---------------------------------------|---------------------------------------------------------|---------------------------------------------------------|----------------------------|
 | 1  | Reverse String       | ✅      | `s[::-1]`                             | direct reverse slicing                                  | reverse whole string                                    | String                     |
