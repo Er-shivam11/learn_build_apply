@@ -17,120 +17,48 @@ https://leetcode.com/studyplan/top-sql-50/
 ## leetcode python dsa
 https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
+---
 
+## 🏆 Master Revision Roadmap (Python SDE + Data Engineering)
+|  Phase | Domain                            |
+| :----: | --------------------------------- |
+|  **1** | 🐍 Basic Coding (Python + SQL)    |
+|  **2** | 🐍 Python                         |
+|  **3** | 🧱 OOPS / Design Principles       |
+|  **4** | 🧠 Data Structures & Algorithms   |
+|  **5** | 🗄️ SQL + PostgreSQL               |
+|  **6** | 🌐 Django                         |
+|  **7** | 🔐 Auth / Security                |
+|  **8** | 🧩 System Design                  |
+|  **9** | ⚙️ Performance & Scalability      |
+| **10** | 🏗️ Data Engineering Core          |
+| **11** | 📐 Data Modelling                 |
+| **12** | ❄️ Snowflake                      |
+| **13** | 🔥 PySpark                        |
+| **14** | 🧱 dbt                            |
+| **15** | ☁️ AWS                            |
+| **16** | 🌪️ Airflow                        |
+| **17** | 🤖 AI / Prompt Engineering for DE |
+| **18** | 🌊 Streaming / Kafka / Real-time  |
+| **19** | 🧪 Testing / Data Quality         |
+| **20** | 📈 Observability / DevOps / Git   |
+| **21** | 🏢 Production Data Operations     |
+| **22** | 🧪 Data Engineering Systems       |
+| **23** | 🌊 Streaming / Big Data Systems   |
+| **24** | ⚙️ Production / Scaling Systems   |
+| **25** | 🧱 Core SDE System Design Systems |
+| **26** | 🧠 Low Level Design (LLD) Systems |
+| **27** | 📊 Streamlit                      |
+| **28** | 📘 HTML                           |
+| **29** | 🎨 CSS                            |
+| **30** | ⚡ JavaScript                     |
+| **31** | ⚛️ React                          |
 
-## Revision flow
-# 🏆 Master Revision Roadmap (Python SDE + Data Engineering)
-
-| Phase | Domain                            |
-| :---: | :---------------------------------|
-|   1   | 🐍 Basic coding py+sql            |
-|   2   | 🐍 Python                         |
-|   3   | 🧱 OOPS / Design Principles       |
-|   4   | 🧠 Data Structures & Algorithms   |
-|   5   | 🧠 SQL                            |
-|   6   | 🐘 PostgreSQL                     |
-|   7   | 📐 Data Modelling                 |
-|   8   | 🏗️ Data Engineering Core          |
-|   9   | 🌐 Django                         |
-|   10  | 🔐 Auth / Security                |
-|   11  | ❄️ Snowflake                      |
-|   12  | 🔥 PySpark                        |
-|   13  | 🧱 dbt                            |
-|   14  | 🌪️ Airflow                        |
-|   15  | ☁️ AWS                            |
-|   16  | 🌊 Streaming / Kafka / Real-time  |
-|   17  | 🧪 Testing / Data Quality         |
-|   18  | 📈 Observability / DevOps / Git   |
-|   19  | 🏢 Production Data Operations     |
-|   20  | ⚙️ Performance & Scalability      |
-|   21  | 🧪 Dev / Deployment               |
-|   22  | 🧩 System Design                  |
-|   23  | 🧪 Data Engineering Systems       |
-|   24  | 🌊 Streaming / Big Data Systems   |
-|   25  | ⚙️ Production / Scaling Systems   |
-|   26  | 🧱 Core SDE System Design Systems |
-|   27  | 🧠 Low Level Design (LLD) Systems |
-|   28  | 🤖 AI / Prompt Engineering for DE |
-|   29  | ⚡ JavaScript                     |
-|   30  | ⚛️ React                          |
-|   31  | 📘 HTML                           |
-|   32  | 🎨 CSS                            |
-|   33  | 📊 Streamlit                      |
 
 ---
 
 
 
-# ⭐ If I were designing a curriculum for FAANG or top product companies, I'd simplify it into **7 blocks**:
-
-### 🟢 Block 1 — Core Programming
-
-* 🐍 Coding basic
-* 🐍 Python
-* 🧱 OOPS in Python
-* 🧱 Design Principles
-* 🧠 DSA
-
----
-
-### 🟢 Block 2 — Data Fundamentals
-
-* 🧠 SQL
-* 🐘 PostgreSQL
-* 📐 Data Modelling
-* 🏗️ Data Engineering Core
-
----
-
-### 🟢 Block 3 — Backend Engineering
-
-* 🌐 Django
-* 🔐 Auth
-* ⚙️ Performance
-* 🧪 Deployment
-
----
-
-### 🟢 Block 4 — Modern Data Engineering
-
-* ❄️ Snowflake
-* 🔥 PySpark
-* 🧱 dbt
-* 🌪️ Airflow
-* ☁️ AWS
-* 🌊 Kafka
-
----
-
-### 🟢 Block 5 — Production Engineering
-
-* 🧪 Testing
-* 📈 Observability
-* 🏢 Production Operations
-
----
-
-### 🟢 Block 6 — Architecture
-
-* 🧩 System Design
-* 🧪 Data Engineering Systems
-* 🌊 Big Data Systems
-* ⚙️ Scaling
-* 🧠 LLD
-
----
-
-### 🟢 Block 7 — Supporting Technologies
-
-* 🤖 AI
-* ⚡ JavaScript
-* ⚛️ React
-* 📘 HTML
-* 🎨 CSS
-* 📊 Streamlit
-
----
 
 
 This repository tracks my daily practice as a Data Engineer.
