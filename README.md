@@ -11,14 +11,21 @@
 | 🐍 DE & SDE Python – 60 Coding Questions | [📄 Open PDF](https://github.com/Er-shivam11/learn_build_apply/blob/main/3.Apply/DE_SDE_CODING_BASIC_SOLUTION/0.DEIV_PY60_CODING.pdf) |
 | 🧠 DE & SDE SQL – 60 Coding Questions | [📄 Open PDF](https://github.com/Er-shivam11/learn_build_apply/blob/main/3.Apply/DE_SDE_CODING_BASIC_SOLUTION/1.DEIV_SQL60_CODING.pdf) |
 
+## leetcode sql
+https://leetcode.com/studyplan/top-sql-50/
+
+## leetcode python dsa
+https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
+
+
+
 ## Revision flow
 # 🏆 Master Revision Roadmap (Python SDE + Data Engineering)
 
 | Phase | Domain                            |
 | :---: | :---------------------------------|
 |   1   | 🐍 Basic coding py+sql            |
-|   1   | 🐍 Python                         |
-|   2   | 🧱 OOPS in Python                 |
+|   2   | 🐍 Python                         |
 |   3   | 🧱 OOPS / Design Principles       |
 |   4   | 🧠 Data Structures & Algorithms   |
 |   5   | 🧠 SQL                            |
@@ -133,7 +140,4 @@ This repository tracks my daily practice as a Data Engineer.
 - Apply: Resume-ready implementations and interview preparation
 
 Focus: Consistency over perfection.
-
-https://leetcode.com/studyplan/top-sql-50/
-https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
