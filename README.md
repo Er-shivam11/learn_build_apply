@@ -15,15 +15,13 @@ Focus: Consistency over perfection.
 https://leetcode.com/studyplan/top-sql-50/
 https://leetcode.com/discuss/post/460599/blind-75-leetcode-questions-by-krishnade-9xev/
 
-# Python List Comprehension Examples
-
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
-| **Square Numbers** | ```python<br>result = []<br>for x in arr:<br>&nbsp;&nbsp;&nbsp;&nbsp;result.append(x ** 2)``` | ```python<br>result = [x ** 2 for x in arr]``` |
-| **Even Numbers** | ```python<br>result = []<br>for x in arr:<br>&nbsp;&nbsp;&nbsp;&nbsp;if x % 2 == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result.append(x)``` | ```python<br>result = [x for x in arr if x % 2 == 0]``` |
-| **Uppercase Names** | ```python<br>result = []<br>for x in names:<br>&nbsp;&nbsp;&nbsp;&nbsp;result.append(x.upper())``` | ```python<br>result = [x.upper() for x in names]``` |
-| **Add 10** | ```python<br>result = []<br>for x in arr:<br>&nbsp;&nbsp;&nbsp;&nbsp;result.append(x + 10)``` | ```python<br>result = [x + 10 for x in arr]``` |
-| **String to List** | ```python<br>result = []<br>for ch in s:<br>&nbsp;&nbsp;&nbsp;&nbsp;result.append(ch)``` | ```python<br>result = [ch for ch in s]``` |
+| **Square Numbers** | ~~~ result = []; for x in arr: result.append(x ** 2) ~~~ | ~~~ result = [x ** 2 for x in arr] ~~~ |
+| **Even Numbers** | ~~~ result = []; for x in arr: if x % 2 == 0: result.append(x) ~~~ | ~~~ result = [x for x in arr if x % 2 == 0] ~~~ |
+| **Uppercase Names** | ~~~ result = []; for x in names: result.append(x.upper()) ~~~ | ~~~ result = [x.upper() for x in names] ~~~ |
+| **Add 10** | ~~~ result = []; for x in arr: result.append(x + 10) ~~~ | ~~~ result = [x + 10 for x in arr] ~~~ |
+| **String to List** | ~~~ result = []; for ch in s: result.append(ch) ~~~ | ~~~ result = [ch for ch in s] ~~~ |
 | #  | Problem              | Status | Core Shortcut                         | Loop / Condition Flow Memory                            | Key Logic Memory                                        | Approach Type              |
 |----|----------------------|--------|---------------------------------------|---------------------------------------------------------|---------------------------------------------------------|----------------------------|
 | 1  | Reverse String       | ✅      | `s[::-1]`                             | direct reverse slicing                                  | reverse whole string                                    | String                     |
