@@ -1,3 +1,51 @@
+<details>
+<summary>Python Topics</summary>
+
+### Python Topics
+## 🧱 Phase 1 – Python Core (Execution & Memory)
+
+* Python Execution Flow → How Python reads, compiles, and executes code.
+* Functions → Creating, calling, passing, and returning functions.
+* Mutable vs Immutable → Objects that can or cannot be modified after creation.
+* List vs Tuple vs Set vs Dict → Python's core collection data structures.
+* Memory Management → Object creation, references, stack, and heap memory.
+* Garbage Collection → Automatic removal of unused objects from memory.
+* Shallow vs Deep Copy → Copying references vs creating independent objects.
+
+---
+
+## 🚀 Phase 2 – Advanced Python
+
+* Iterators → Objects that return one item at a time using `__iter__()` and `__next__()`.
+* Generators → Memory-efficient iterators created using `yield`.
+* Closures → Inner functions that remember variables from their enclosing scope.
+* Decorators → Functions that extend another function's behavior without modifying it.
+* Context Managers → Resource management using `with`, `__enter__()`, and `__exit__()`.
+
+---
+
+## ⚡ Phase 3 – Concurrency
+
+* Multithreading → Running multiple threads within the same process.
+* GIL → Global Interpreter Lock that allows only one Python thread to execute bytecode at a time.
+* Multiprocessing → Running multiple independent processes for true parallelism.
+* Async vs Sync → Non-blocking execution vs sequential blocking execution.
+* `async` / `await` → Python syntax for asynchronous programming using coroutines.
+
+---
+
+## 🏗️ Phase 4 – OOP & Design
+
+* Composition vs Inheritance → "Has-a" relationship vs "Is-a" relationship.
+* Multiple Inheritance → A class inheriting from more than one parent class.
+* MRO (Method Resolution Order) → The order Python follows to search methods in inheritance.
+* `super()` → Calls methods or constructors of the parent class.
+* SOLID Principles → Five object-oriented design principles for maintainable software.
+* Factory Pattern & Strategy Pattern → Design patterns for object creation and interchangeable behaviors.
+* Dependency Injection (DI) & IoC → Supplying dependencies externally to reduce coupling and improve testability.
+
+</details>
+
 
 #### List comprehension
 | Problem | Normal Loop Version | List Comprehension Version |
