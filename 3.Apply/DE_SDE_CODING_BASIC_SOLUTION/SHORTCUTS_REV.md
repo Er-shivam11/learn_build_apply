@@ -144,7 +144,7 @@ All posts uploaded.
 </details>
 
 <details>
-Absolutely. Here's the same **interview-ready short format** for both.
+<summary>MRO AND SUPER</summary>
 
 ---
 
