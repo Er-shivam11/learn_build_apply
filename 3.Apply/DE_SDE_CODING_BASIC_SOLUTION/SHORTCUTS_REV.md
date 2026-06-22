@@ -46,7 +46,8 @@
 
 </details>
 
-
+<details>
+<summary>List com</summary>
 #### List comprehension
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
@@ -56,7 +57,7 @@
 | **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
-
+</details>
 <details>
 <summary>Decorators</summary>
 
