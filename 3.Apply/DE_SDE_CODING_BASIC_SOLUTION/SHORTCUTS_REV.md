@@ -48,6 +48,8 @@
 
 <details>
 <summary>List comprehension</summary>
+
+### List comprehension
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
 | **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
