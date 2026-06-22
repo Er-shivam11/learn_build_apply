@@ -56,142 +56,98 @@
 | **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
-
 <details>
 <summary>Decorators</summary>
 
-# 0. Definition
+# Decorator
 
-```text
-A decorator is a design pattern in Python used to extend or modify the behavior of a function or class without changing its original source code.
+## Definition
 
-It works because Python treats functions as first-class objects, allowing them to be passed, returned, and assigned like normal variables.
-
-Internally,
-
-def decorator(func):
-    def wrapper():
-        print("Before")
-        func()
-        print("After")
-    return wrapper
-@decorator
-def employee():
-    print("hello")
-    # employee = decorator(employee)=@decorator is knows as syntactic sugar
-employee()
-This follows the Open-Closed Principle:
-
-Open for extension
-Closed for modification
-
-```
-
-# 1. Function Decorator
-
-```python
-from functools import wraps
-
-def logger(func):
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        print("Before")
-        result = func(*args, **kwargs)
-        print("After")
-        return result
-
-    return wrapper
-
-
-@logger
-def employee():
-    print("Employee Working")
-
-
-employee()
-```
-
-**Output**
-
-```text
-Before
-Employee Working
-After
-```
+> **A decorator is a design pattern in Python that allows us to extend or modify the behavior of a function or class without changing its original source code. It is built on first-class functions, higher-order functions, nested functions, and closures. Decorators are commonly used for authentication, authorization, logging, caching, timing, retries, validation, and database transactions.**
 
 ---
 
-# 2. Decorator with Arguments (*args, **kwargs)
+## Real-Life Example (Social Media)
 
 ```python
 from functools import wraps
 
-def logger(func):
+is_logged_in = True
+
+def login_required(func):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-        print("Logging...")
+
+        if not is_logged_in:
+            print("Please login first")
+            return
+
+        print("Login Verified")
         return func(*args, **kwargs)
 
     return wrapper
 
 
-@logger
-def update_salary(emp_id, amount):
-    print(emp_id, amount)
+@login_required
+def upload_post():
+    print("Post uploaded successfully")
 
 
-update_salary(101, 50000)
+upload_post()
 ```
 
-**Output**
+### Output
 
 ```text
-Logging...
-101 50000
+Login Verified
+Post uploaded successfully
 ```
+
+
+</details>
+
+
+<details>
+<summary>Global Interpreter Lock</summary>
+
+# GIL (Global Interpreter Lock)
+
+## Definition
+
+> **The Global Interpreter Lock (GIL) is a mutex in CPython that allows only one thread to execute Python bytecode at a time within a single process. It simplifies memory management and prevents race conditions on Python objects. Multithreading is therefore suitable for I/O-bound tasks, while multiprocessing is preferred for CPU-bound tasks.**
 
 ---
 
-# 3. Parameterized Decorator (Decorator Factory)
+## Real-Life Example (Social Media)
 
 ```python
-from functools import wraps
+import threading
 
-def repeat(times):
-
-    def decorator(func):
-
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-
-            for _ in range(times):
-                func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
+def upload_post(user):
+    print(f"{user} uploaded a post")
 
 
-@repeat(3)
-def welcome():
-    print("Welcome")
+t1 = threading.Thread(target=upload_post, args=("Alice",))
+t2 = threading.Thread(target=upload_post, args=("Bob",))
 
+t1.start()
+t2.start()
 
-welcome()
+t1.join()
+t2.join()
+
+print("All posts uploaded.")
 ```
 
-**Output**
+### Possible Output
 
 ```text
-Welcome
-Welcome
-Welcome
+Alice uploaded a post
+Bob uploaded a post
+All posts uploaded.
 ```
 
-
----
 
 </details>
 
