@@ -143,14 +143,95 @@ All posts uploaded.
 
 </details>
 
-#### List comprehension
-| Problem | Normal Loop Version | List Comprehension Version |
-|---------|----------------------|----------------------------|
-| **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
-| **Even Numbers** | ``` result = []; for x in arr: if x % 2 == 0: result.append(x) ``` | ``` result = [x for x in arr if x % 2 == 0] ``` |
-| **Uppercase Names** | ``` result = []; for x in names: result.append(x.upper()) ``` | ``` result = [x.upper() for x in names] ``` |
-| **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
-| **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
+<details>
+Absolutely. Here's the same **interview-ready short format** for both.
+
+---
+
+# MRO (Method Resolution Order)
+
+## Definition
+
+> **MRO (Method Resolution Order) is the order in which Python searches for methods and attributes in an inheritance hierarchy, especially in multiple inheritance. Python uses the C3 Linearization algorithm to determine a consistent and predictable lookup order.**
+
+---
+
+## Real-Life Example (E-commerce)
+
+```python
+class Payment:
+
+    def process(self):
+        print("Payment Done")
+
+
+class Discount:
+
+    def process(self):
+        print("Discount Applied")
+
+
+class Order(Payment, Discount):
+    pass
+
+
+order = Order()
+
+order.process()
+
+print(Order.mro())
+```
+
+### Output
+
+```text
+Payment Done
+
+[<class '__main__.Order'>,
+ <class '__main__.Payment'>,
+ <class '__main__.Discount'>,
+ <class 'object'>]
+```
+
+---
+
+# `super()`
+
+## Definition
+
+> **`super()` is a built-in Python function used to call methods or constructors of the next class in the Method Resolution Order (MRO). It avoids hardcoding parent class names and supports clean, maintainable, and cooperative inheritance.**
+
+---
+
+## Real-Life Example (E-commerce)
+
+```python
+class Order:
+
+    def __init__(self):
+        print("Order Created")
+
+
+class Payment(Order):
+
+    def __init__(self):
+        super().__init__()
+        print("Payment Completed")
+
+
+payment = Payment()
+```
+
+### Output
+
+```text
+Order Created
+Payment Completed
+```
+
+---
+
+</details>
 
 <details>
 <summary>shortcut rev code</summary>
@@ -193,3 +274,14 @@ All posts uploaded.
 | 34 | Missing Number       | ✅      | `n*(n+1)//2`                          | expected total - actual total                           | missing value through difference                        | Mathematical Formula       |
 | 35 | Merge Lists          | ✅      | `a+b` / `extend()`                    | combine both arrays sequentially                        | merge or concatenate lists                              | Array Merge                |
 </details>
+
+
+#### List comprehension
+| Problem | Normal Loop Version | List Comprehension Version |
+|---------|----------------------|----------------------------|
+| **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
+| **Even Numbers** | ``` result = []; for x in arr: if x % 2 == 0: result.append(x) ``` | ``` result = [x for x in arr if x % 2 == 0] ``` |
+| **Uppercase Names** | ``` result = []; for x in names: result.append(x.upper()) ``` | ``` result = [x.upper() for x in names] ``` |
+| **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
+| **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
+
