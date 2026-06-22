@@ -144,7 +144,9 @@ All posts uploaded.
 </details>
 
 <details>
-<summary>MRO AND SUPER</summary>
+<summary>✅MRO  ✅SUPER ✅ Memory Management
+✅ Mutable vs Immutable
+✅ Shallow vs Deep Copy</summary>
 
 ---
 
@@ -230,7 +232,111 @@ Payment Completed
 ```
 
 ---
+# Memory Management
 
+## Definition
+
+> **Memory Management is the process by which Python allocates, tracks, and releases memory for objects during program execution. In CPython, memory is primarily managed using reference counting and garbage collection, with objects stored in heap memory and local references managed on the call stack.**
+
+## Real-Life Example
+
+```python
+class Order:
+
+    def __init__(self, order_id):
+        self.order_id = order_id
+
+
+order = Order(101)
+
+print(order.order_id)
+print(id(order))
+```
+
+### Output
+
+```text
+101
+140321987654480
+```
+
+---
+
+# Mutable vs Immutable
+
+## Definition
+
+> **Mutable objects can be modified after creation without changing their identity, whereas immutable objects cannot be modified. Any modification to an immutable object creates a new object with a new identity.**
+
+## Real-Life Example
+
+```python
+order_id = 101
+items = ["Laptop", "Mouse"]
+
+print(id(order_id))
+print(id(items))
+
+order_id += 1
+items.append("Keyboard")
+
+print(order_id)
+print(items)
+
+print(id(order_id))
+print(id(items))
+```
+
+### Output
+
+```text
+102
+['Laptop', 'Mouse', 'Keyboard']
+
+id(order_id) → Changed
+id(items)    → Same
+```
+
+---
+
+# Shallow Copy vs Deep Copy
+
+## Definition
+
+> **A shallow copy creates a new outer object but shares references to nested objects with the original, whereas a deep copy creates a completely independent copy of both the outer object and all nested objects recursively.**
+
+## Real-Life Example
+
+```python
+import copy
+
+order = {
+    "id": 101,
+    "items": ["Laptop", "Mouse"]
+}
+
+shallow = copy.copy(order)
+deep = copy.deepcopy(order)
+
+shallow["items"].append("Keyboard")
+deep["items"].append("Monitor")
+
+print("Original :", order)
+print("Shallow :", shallow)
+print("Deep     :", deep)
+```
+
+### Output
+
+```text
+Original : {'id': 101, 'items': ['Laptop', 'Mouse', 'Keyboard']}
+
+Shallow : {'id': 101, 'items': ['Laptop', 'Mouse', 'Keyboard']}
+
+Deep : {'id': 101, 'items': ['Laptop', 'Mouse', 'Monitor']}
+```
+
+---
 </details>
 
 <details>
