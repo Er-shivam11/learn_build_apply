@@ -46,8 +46,8 @@
 
 </details>
 
-
-#### List comprehension
+<details>
+<summary>List comprehension</summary>
 | Problem | Normal Loop Version | List Comprehension Version |
 |---------|----------------------|----------------------------|
 | **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
@@ -57,6 +57,7 @@
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
 
+</details>
 
 <details>
 <summary>Decorators</summary>
@@ -197,7 +198,8 @@ Welcome
 </details>
 
 
-
+<details>
+<summary>shortcut rev code</summary>
 
 | #  | Problem              | Status | Core Shortcut                         | Loop / Condition Flow Memory                            | Key Logic Memory                                        | Approach Type              |
 |----|----------------------|--------|---------------------------------------|---------------------------------------------------------|---------------------------------------------------------|----------------------------|
@@ -236,3 +238,4 @@ Welcome
 | 33 | Find Duplicates      | ✅      | `if i in seen`                        | already seen? duplicate found                           | first seen store, second seen duplicate                 | Hashing / Set              |
 | 34 | Missing Number       | ✅      | `n*(n+1)//2`                          | expected total - actual total                           | missing value through difference                        | Mathematical Formula       |
 | 35 | Merge Lists          | ✅      | `a+b` / `extend()`                    | combine both arrays sequentially                        | merge or concatenate lists                              | Array Merge                |
+</details>
