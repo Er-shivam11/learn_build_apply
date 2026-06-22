@@ -57,6 +57,294 @@
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
 
+
+<details>
+<summary>Decorators</summary>
+# 0. Definition
+```
+A decorator is a design pattern in Python used to extend or modify the behavior of a function or class without changing its original source code.
+
+It works because Python treats functions as first-class objects, allowing them to be passed, returned, and assigned like normal variables.
+
+Internally,
+
+def decorator(func):
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+    return wrapper
+@decorator
+def employee():
+    print("hello")
+    # employee = decorator(employee)=@decorator is knows as syntactic sugar
+employee()
+This follows the Open-Closed Principle:
+
+Open for extension
+Closed for modification
+
+```
+
+```
+# 1. Function Decorator
+
+```python
+from functools import wraps
+
+def logger(func):
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("Before")
+        result = func(*args, **kwargs)
+        print("After")
+        return result
+
+    return wrapper
+
+
+@logger
+def employee():
+    print("Employee Working")
+
+
+employee()
+```
+
+**Output**
+
+```text
+Before
+Employee Working
+After
+```
+
+---
+
+# 2. Decorator with Arguments (*args, **kwargs)
+
+```python
+from functools import wraps
+
+def logger(func):
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("Logging...")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+@logger
+def update_salary(emp_id, amount):
+    print(emp_id, amount)
+
+
+update_salary(101, 50000)
+```
+
+**Output**
+
+```text
+Logging...
+101 50000
+```
+
+---
+
+# 3. Parameterized Decorator (Decorator Factory)
+
+```python
+from functools import wraps
+
+def repeat(times):
+
+    def decorator(func):
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+
+            for _ in range(times):
+                func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+@repeat(3)
+def welcome():
+    print("Welcome")
+
+
+welcome()
+```
+
+**Output**
+
+```text
+Welcome
+Welcome
+Welcome
+```
+
+
+---
+
+# 4. Multiple Decorators
+
+```python
+from functools import wraps
+
+def login(func):
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("Login Verified")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def logger(func):
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("Activity Logged")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+@login
+@logger
+def employee():
+    print("Employee Working")
+
+
+employee()
+```
+
+**Output**
+
+```text
+Login Verified
+Activity Logged
+Employee Working
+```
+
+
+---
+
+# 5. Class Decorator
+
+```python
+def audit(cls):
+
+    class Wrapper(cls):
+
+        def issue_book(self):
+            print("Audit Started")
+            super().issue_book()
+            print("Audit Finished")
+
+    return Wrapper
+
+
+@audit
+class Library:
+
+    def issue_book(self):
+        print("Book Issued")
+
+
+lib = Library()
+lib.issue_book()
+```
+
+**Output**
+
+```text
+Audit Started
+Book Issued
+Audit Finished
+```
+
+---
+
+# 6. Class-Based Decorator
+
+```python
+class Logger:
+
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self):
+        print("Started")
+        self.func()
+        print("Finished")
+
+
+@Logger
+def employee():
+    print("Employee Updated")
+
+
+employee()
+```
+
+**Output**
+
+```text
+Started
+Employee Updated
+Finished
+```
+
+---
+
+# 7. Built-in Decorators
+
+```python
+class Employee:
+
+    company_name = "Google"
+
+    @staticmethod
+    def company():
+        print("Google")
+
+    @classmethod
+    def total(cls):
+        print(cls.company_name)
+
+    @property
+    def department(self):
+        return "Engineering"
+
+
+emp = Employee()
+
+Employee.company()
+Employee.total()
+print(emp.department)
+```
+
+**Output**
+
+```text
+Google
+Google
+Engineering
+```
+</details>
+
+
+
+
 | #  | Problem              | Status | Core Shortcut                         | Loop / Condition Flow Memory                            | Key Logic Memory                                        | Approach Type              |
 |----|----------------------|--------|---------------------------------------|---------------------------------------------------------|---------------------------------------------------------|----------------------------|
 | 1  | Reverse String       | ✅      | `s[::-1]`                             | direct reverse slicing                                  | reverse whole string                                    | String                     |
