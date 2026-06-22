@@ -57,7 +57,6 @@
 | **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
 
-
 <details>
 <summary>Decorators</summary>
 
