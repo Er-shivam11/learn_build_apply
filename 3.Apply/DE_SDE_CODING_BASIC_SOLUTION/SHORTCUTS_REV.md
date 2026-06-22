@@ -60,8 +60,10 @@
 
 <details>
 <summary>Decorators</summary>
+
 # 0. Definition
-```
+
+```text
 A decorator is a design pattern in Python used to extend or modify the behavior of a function or class without changing its original source code.
 
 It works because Python treats functions as first-class objects, allowing them to be passed, returned, and assigned like normal variables.
@@ -86,7 +88,6 @@ Closed for modification
 
 ```
 
-```
 # 1. Function Decorator
 
 ```python
