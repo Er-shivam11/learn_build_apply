@@ -47,14 +47,6 @@
 </details>
 
 >
-#### List comprehension
-| Problem | Normal Loop Version | List Comprehension Version |
-|---------|----------------------|----------------------------|
-| **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
-| **Even Numbers** | ``` result = []; for x in arr: if x % 2 == 0: result.append(x) ``` | ``` result = [x for x in arr if x % 2 == 0] ``` |
-| **Uppercase Names** | ``` result = []; for x in names: result.append(x.upper()) ``` | ``` result = [x.upper() for x in names] ``` |
-| **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
-| **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
 <details>
 <summary>Decorators</summary>
@@ -151,6 +143,14 @@ All posts uploaded.
 
 </details>
 
+#### List comprehension
+| Problem | Normal Loop Version | List Comprehension Version |
+|---------|----------------------|----------------------------|
+| **Square Numbers** | ``` result = []; for x in arr: result.append(x ** 2) ``` | ``` result = [x ** 2 for x in arr] ``` |
+| **Even Numbers** | ``` result = []; for x in arr: if x % 2 == 0: result.append(x) ``` | ``` result = [x for x in arr if x % 2 == 0] ``` |
+| **Uppercase Names** | ``` result = []; for x in names: result.append(x.upper()) ``` | ``` result = [x.upper() for x in names] ``` |
+| **Add 10** | ``` result = []; for x in arr: result.append(x + 10) ``` | ``` result = [x + 10 for x in arr] ``` |
+| **String to List** | ``` result = []; for ch in s: result.append(ch) ``` | ``` result = [ch for ch in s] ``` |
 
 <details>
 <summary>shortcut rev code</summary>
