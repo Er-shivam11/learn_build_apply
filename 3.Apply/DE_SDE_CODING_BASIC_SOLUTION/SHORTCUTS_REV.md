@@ -95,8 +95,15 @@ upload_post()
 Login Verified
 Post uploaded successfully
 ```
+### Iterator
+**"An iterator is an object that returns one element at a time using the __next__() method while maintaining its current position. It is created from an iterable using iter(). Python's for loop internally creates an iterator and repeatedly calls next() until a StopIteration exception is raised. Iterators are memory efficient because they process data lazily, one item at a time."**
 
+### Generator
+**"A generator is a special type of iterator that uses the yield keyword to produce values one at a time instead of returning all values at once. It supports lazy evaluation, making it memory efficient for processing large datasets such as log files, ETL pipelines, database records, and streaming APIs. Since every generator is an iterator, it can be used directly in for loops or with next()."**
 
+### Closure
+
+**"A closure is an inner function that remembers variables from its enclosing scope even after the outer function has completed execution. This preserved state allows functions to maintain data without using global variables. Closures are commonly used in decorators, callbacks, and function factories."**
 </details>
 
 
@@ -380,6 +387,17 @@ Deep : {'id': 101, 'items': ['Laptop', 'Mouse', 'Monitor']}
 | 34 | Missing Number       | ✅      | `n*(n+1)//2`                          | expected total - actual total                           | missing value through difference                        | Mathematical Formula       |
 | 35 | Merge Lists          | ✅      | `a+b` / `extend()`                    | combine both arrays sequentially                        | merge or concatenate lists                              | Array Merge                |
 </details>
+
+LSTD
+
+| Feature    | List          | Tuple      | Set          | Dictionary       |
+| ---------- | ------------- | ---------- | ------------ | ---------------- |
+| Ordered    | ✅             | ✅          | ❌            | ✅                |
+| Mutable    | ✅             | ❌          | ✅            | ✅                |
+| Indexed    | ✅             | ✅          | ❌            | By Key           |
+| Duplicates | ✅             | ✅          | ❌            | Keys ❌, Values ✅ |
+| Syntax     | `[]`          | `()`       | `{}`         | `{key:value}`    |
+| Use Case   | Shopping Cart | Fixed Data | Unique Items | Lookup Data      |
 
 
 #### List comprehension
