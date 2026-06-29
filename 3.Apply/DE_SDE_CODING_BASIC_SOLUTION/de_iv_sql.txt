@@ -1,0 +1,636 @@
+-- =====================================================
+-- 1. SECOND HIGHEST SALARY
+-- =====================================================
+
+-- Method 1: Using MAX()
+
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (
+SELECT MAX(salary)
+FROM employees
+);
+
+---
+
+-- Method 2: Using DENSE_RANK()
+
+WITH salary_rank AS (
+SELECT emp_id,
+salary,
+DENSE_RANK() OVER (
+ORDER BY salary DESC
+) AS rn
+FROM employees
+)
+SELECT emp_id,
+salary
+FROM salary_rank
+WHERE rn = 2;
+
+-- =====================================================
+-- 2. WINDOW FUNCTION EXAMPLE
+-- =====================================================
+
+SELECT emp_id,
+salary,
+ROW_NUMBER() OVER (
+ORDER BY salary DESC
+) AS row_num,
+
+```
+   RANK() OVER (
+       ORDER BY salary DESC
+   ) AS rank_num,
+
+   DENSE_RANK() OVER (
+       ORDER BY salary DESC
+   ) AS dense_rank_num
+```
+
+FROM employees;
+
+-- =====================================================
+-- 3. DIFFERENCE BETWEEN RANK AND DENSE_RANK
+-- =====================================================
+
+SELECT emp_id,
+salary,
+
+```
+   RANK() OVER (
+       ORDER BY salary DESC
+   ) AS rank_num,
+
+   DENSE_RANK() OVER (
+       ORDER BY salary DESC
+   ) AS dense_rank_num
+```
+
+FROM employees;
+
+## -- Example:
+
+-- Salary   Rank   Dense_Rank
+-- 100      1      1
+-- 100      1      1
+-- 90       3      2
+-- 80       4      3
+
+-- =====================================================
+-- 4. SECOND HIGHEST SALARY PER BRANCH
+-- =====================================================
+
+WITH branch_salary_rank AS (
+SELECT emp_id,
+branch_id,
+salary,
+
+```
+       DENSE_RANK() OVER (
+           PARTITION BY branch_id
+           ORDER BY salary DESC
+       ) AS rn
+
+FROM employees
+```
+
+)
+
+SELECT emp_id,
+branch_id,
+salary
+
+FROM branch_salary_rank
+
+WHERE rn = 2;
+
+-- =====================================================
+-- 5. FIND DUPLICATES
+-- =====================================================
+
+SELECT email,
+COUNT(*) AS duplicate_count
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+-- =====================================================
+-- 6. REMOVE DUPLICATES
+-- =====================================================
+
+WITH duplicate_cte AS (
+SELECT *,
+ROW_NUMBER() OVER (
+PARTITION BY email
+ORDER BY id
+) AS rn
+FROM users
+)
+
+DELETE FROM users
+WHERE id IN (
+SELECT id
+FROM duplicate_cte
+WHERE rn > 1
+);
+
+-- =====================================================
+-- 7. WHERE vs HAVING
+-- =====================================================
+
+-- WHERE = Before Aggregation
+
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+---
+
+-- HAVING = After Aggregation
+
+SELECT department,
+COUNT(*) AS employee_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5;
+
+=====================================================
+1. WINDOW FUNCTION SHORTCUT TABLE
+=====================================================
+
+INPUT SALARY:
+100
+100
+90
+80
+
+-----------------------------------------------------
+FUNCTION         OUTPUT          SIMPLE DEFINITION
+-----------------------------------------------------
+
+ROW_NUMBER()     1,2,3,4         Gives unique number to every row
+
+RANK()           1,1,3,4         Same rank for ties, skips next rank
+
+DENSE_RANK()     1,1,2,3         Same rank for ties, no skipping
+
+
+MEMORY TRICK:
+ROW_NUMBER  = unique
+RANK        = gaps
+DENSE_RANK  = no gaps
+
+
+
+=====================================================
+2. JOIN SHORTCUT TABLE
+=====================================================
+
+T1.ID            T2.ID
+-----            -----
+1                 1
+2                 2
+NULL              3
+
+
+-----------------------------------------------------
+JOIN TYPE         OUTPUT
+-----------------------------------------------------
+
+INNER JOIN        1,2
+                  (matching only)
+
+LEFT JOIN         1,2,NULL
+                  (all left + matching)
+
+RIGHT JOIN        1,2,3
+                  (all right + matching)
+
+FULL OUTER JOIN   1,2,3,NULL
+                  (everything)
+
+CROSS JOIN        every possible combination
+                  (cartesian product)
+
+SELF JOIN         table joined with itself
+
+
+REAL LIFE ANALOGY:
+
+INNER JOIN
+Only students who paid fees AND attended class
+
+LEFT JOIN
+All students, even absent ones
+
+RIGHT JOIN
+All class records, even unmatched students
+
+FULL OUTER JOIN
+Everything from both sides
+
+CROSS JOIN
+Every shirt with every pant combination
+
+
+
+=====================================================
+3. SQL EXECUTION ORDER
+=====================================================
+
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+LIMIT
+
+
+MEMORY:
+Rows -> Filter -> Group -> Aggregate Filter -> Select
+
+
+
+=====================================================
+4. GROUP BY vs HAVING
+=====================================================
+
+WHERE
+Filters rows before grouping
+
+HAVING
+Filters groups after aggregation
+
+
+ANALOGY:
+WHERE  = checking students before exam
+HAVING = checking department result after exam
+
+
+
+=====================================================
+5. UNION vs UNION ALL
+=====================================================
+
+UNION
+Removes duplicates
+
+UNION ALL
+Keeps duplicates
+
+
+ANALOGY:
+UNION      = unique guest list
+UNION ALL  = raw attendance sheet
+
+
+
+=====================================================
+6. EXISTS
+=====================================================
+
+Checks whether related record exists
+
+
+ANALOGY:
+Employee has at least one order
+
+
+
+=====================================================
+7. CTE
+=====================================================
+
+CTE = temporary named result
+
+
+SYNTAX:
+WITH temp AS (
+   query
+)
+SELECT * FROM temp;
+
+
+ANALOGY:
+Temporary notebook page before final answer
+
+
+
+=====================================================
+8. SUBQUERY
+=====================================================
+
+Query inside another query
+
+
+ANALOGY:
+Mini question inside main question
+
+
+
+=====================================================
+9. PARTITION BY
+=====================================================
+
+Creates groups inside window function
+
+
+ANALOGY:
+Ranking students class-wise instead of whole school
+
+
+
+=====================================================
+10. LEAD vs LAG
+=====================================================
+
+LEAD = next row
+LAG  = previous row
+
+
+ANALOGY:
+Next student's marks / previous student's marks
+
+
+
+=====================================================
+11. COALESCE
+=====================================================
+
+Replaces NULL with value
+
+
+EXAMPLE:
+COALESCE(salary,0)
+
+
+ANALOGY:
+If salary missing, show 0 instead
+
+
+
+=====================================================
+12. NULLIF
+=====================================================
+
+If both values same -> returns NULL
+
+
+EXAMPLE:
+NULLIF(100,100) = NULL
+
+
+
+=====================================================
+13. VIEW
+=====================================================
+
+Virtual table created from query
+
+Does NOT store actual data
+
+
+WHY USED?
+- simplify complex query
+- security
+- reusable logic
+
+
+ANALOGY:
+Saved camera angle on live data
+
+
+
+=====================================================
+14. MATERIALIZED VIEW
+=====================================================
+
+Stores query result physically
+
+
+WHY USED?
+- faster reads
+- heavy analytics
+- dashboard performance
+
+
+ANALOGY:
+Pre-cooked food instead of cooking every time
+
+
+VIEW vs MATERIALIZED VIEW:
+
+VIEW
+- live data
+- slower
+- no storage
+
+MATERIALIZED VIEW
+- stored result
+- faster
+- takes storage
+
+
+
+=====================================================
+15. INDEX
+=====================================================
+
+Speeds up searching
+
+
+ANALOGY:
+Book index page
+
+
+WITHOUT INDEX
+Full table scan
+
+WITH INDEX
+Direct lookup
+
+
+
+=====================================================
+16. PRIMARY KEY
+=====================================================
+
+Unique identifier
+Cannot be NULL
+
+
+ANALOGY:
+Aadhaar number
+
+
+
+=====================================================
+17. FOREIGN KEY
+=====================================================
+
+Connects two tables
+
+
+ANALOGY:
+Employee ID linked to department table
+
+
+
+=====================================================
+18. NORMALIZATION
+=====================================================
+
+Reducing duplicate data
+
+
+ANALOGY:
+Keeping one master contact instead of copying everywhere
+
+
+
+=====================================================
+19. DENORMALIZATION
+=====================================================
+
+Adding duplicate data for faster reads
+
+
+ANALOGY:
+Keeping photocopies for quick access
+
+
+
+=====================================================
+20. OLTP vs OLAP
+=====================================================
+
+OLTP
+Transactional system
+Example: banking app
+
+OLAP
+Analytics/reporting system
+Example: business dashboard
+
+
+
+=====================================================
+21. ETL
+=====================================================
+
+Extract -> Transform -> Load
+
+
+ANALOGY:
+Collect raw vegetables -> cook -> serve food
+
+
+
+=====================================================
+22. SCD TYPE 1
+=====================================================
+
+Overwrite old data
+
+
+ANALOGY:
+Changing old address permanently
+
+
+
+=====================================================
+23. SCD TYPE 2
+=====================================================
+
+Keeps history
+
+
+ANALOGY:
+Maintaining address history
+
+
+
+=====================================================
+24. CDC
+=====================================================
+
+Capture changed data only
+
+
+ANALOGY:
+Only updating changed WhatsApp messages
+
+
+
+=====================================================
+25. PARTITIONING
+=====================================================
+
+Splitting huge data into smaller pieces
+
+
+ANALOGY:
+Files arranged month-wise in folders
+
+
+
+=====================================================
+26. PYSPARK
+=====================================================
+
+Distributed data processing engine
+
+
+ANALOGY:
+100 workers processing huge data together
+
+
+
+=====================================================
+27. AIRFLOW
+=====================================================
+
+Workflow orchestration tool
+
+
+ANALOGY:
+Factory manager controlling pipeline steps
+
+
+
+=====================================================
+28. KAFKA
+=====================================================
+
+Real-time streaming platform
+
+
+ANALOGY:
+Live news channel continuously sending updates
+
+
+
+=====================================================
+29. SNOWFLAKE
+=====================================================
+
+Cloud data warehouse
+
+
+ANALOGY:
+Massive online storage + analytics engine
+
+
+
+=====================================================
+30. DATA WAREHOUSE
+=====================================================
+
+Central analytics storage
+
+
+ANALOGY:
+Company's historical data library
+```
