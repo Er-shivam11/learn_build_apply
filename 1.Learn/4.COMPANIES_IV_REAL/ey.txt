@@ -1,4 +1,4 @@
-#context manager,mro,multiple inheritance,multithreading,memory concupmtion,mro,jwt,pagination and its type and ,url and how we can optmize 
+#context manager,mro,multiple inheritance,multithreading,memory concupmtion,mro,super(),jwt,pagination and its type and ,url and how we can optmize 
 # You are given an integer array nums consisting of n elements, and an integer
 # k.
 # Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value
