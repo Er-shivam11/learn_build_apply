@@ -1,0 +1,227 @@
+# Mastek Interview Notes (Questions Asked So Far + Short Answers)
+
+## 1. Find customers who placed more than 3 orders after 1st June 2026
+
+```sql
+SELECT customer_id,
+       COUNT(order_id) AS order_count
+FROM orders
+WHERE order_date > '2026-06-01'
+GROUP BY customer_id
+HAVING COUNT(order_id) > 3;
+```
+
+**Concept:** `GROUP BY`, `HAVING`, Aggregation.
+
+---
+
+## 2. Explain your ELT flow.
+
+**Answer:**
+
+> We followed ELT instead of ETL. Data was first extracted and loaded into Snowflake, and transformations were performed inside Snowflake using dbt models.
+
+---
+
+## 3. Explain your dbt structure.
+
+**Answer:**
+
+```text
+Raw Source
+    ↓
+Staging Models
+    ↓
+Intermediate Models
+    ↓
+Mart/Core Models
+```
+
+* **Staging:** Cleaning, renaming, standardization.
+* **Intermediate:** Business logic and joins.
+* **Mart:** Reporting and analytics datasets.
+
+---
+
+## 4. What transformations did you perform?
+
+**Answer:**
+
+* `UPPER()`
+* `LOWER()`
+* `CASE WHEN`
+* Currency conversion
+* Aggregations
+* Derived columns
+
+Example:
+
+```sql
+SELECT
+    customer_name,
+    amount_gbp * 1.25 AS amount_usd
+FROM transactions;
+```
+
+---
+
+## 5. Why did you use Snowpark?
+
+**Answer:**
+
+> Snowpark was used for Python-based transformations and DataFrame operations that were difficult or less maintainable in SQL.
+
+---
+
+## 6. Why use alias?
+
+```python
+df.select(
+    col("cust_id").alias("Customer ID")
+)
+```
+
+**Answer:**
+
+> Alias provides business-friendly column names without changing the underlying schema.
+
+---
+
+## 7. How did you use OpenAI?
+
+**Answer:**
+
+> We integrated OpenAI to summarize large reports and generate business insights using optimized prompt templates to reduce token consumption.
+
+---
+
+## 8. Explain your Streamlit dashboard.
+
+**Answer:**
+
+> We built a Customer 360 dashboard showing customer profile, transaction history, KPIs, and revenue trends.
+
+Widgets used:
+
+```python
+st.selectbox()
+st.text_input()
+st.button()
+st.dataframe()
+st.line_chart()
+```
+
+---
+
+## 9. What is `st.session_state`?
+
+**Answer:**
+
+> `st.session_state` stores values across reruns and preserves user selections.
+
+Example:
+
+```python
+if "count" not in st.session_state:
+    st.session_state.count = 0
+```
+
+---
+
+## 10. Which visualization libraries did you use?
+
+**Answer:**
+
+* Matplotlib
+* Seaborn
+
+Used for:
+
+* Revenue trends
+* Transaction trends
+* Customer analytics
+
+---
+
+## 11. How did Streamlit connect to Snowflake?
+
+**Answer:**
+
+> Credentials were stored in a third-party configuration system and passed securely as parameters during runtime.
+
+General approach:
+
+```python
+import snowflake.connector
+
+conn = snowflake.connector.connect(
+    user="...",
+    password="...",
+    account="..."
+)
+```
+
+---
+
+## 12. Tell me about a production issue you solved.
+
+**Answer (STAR):**
+
+**Situation:** Customer required 4 decimal places instead of 2.
+
+**Action:** Updated metadata YAML from:
+
+```yaml
+NUMBER(10,2)
+```
+
+to
+
+```yaml
+NUMBER(10,4)
+```
+
+Validated in Dev → QA → Prod.
+
+**Result:** Customer confirmed issue was resolved.
+
+---
+
+## 13. Explain LEAD and LAG.
+
+**Answer:**
+
+* `LAG()` returns previous row value.
+* `LEAD()` returns next row value.
+
+Example:
+
+```sql
+SELECT
+    month,
+    sales,
+    LAG(sales) OVER(ORDER BY month) AS previous_sales,
+    LEAD(sales) OVER(ORDER BY month) AS next_sales
+FROM sales;
+```
+
+---
+
+## 14. Extract domain from email.
+
+Example:
+
+```text
+abc@gmail.com → gmail.com
+```
+
+Snowflake solution:
+
+```sql
+SELECT SPLIT_PART(email, '@', 2) AS domain
+FROM users;
+```
+
+---
+
+These are the exact Mastek-style questions and answers covered so far in your mock interview.

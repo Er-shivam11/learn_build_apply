@@ -150,3 +150,338 @@ For the next month, focus on these five topics:
 5. **System design** (scalable backend services, caching with Redis, queues, load balancing, observability).
 
 With your current experience and a stronger interview style on these topics, you'll be much more competitive for senior Python backend roles.
+
+
+# Python Backend Interview Revision Notes
+
+## 1. Why are tuples immutable?
+
+**Answer:**
+A tuple is immutable because once it is created, its elements and structure cannot be modified. The immutability comes from the tuple data type itself, not from the use of parentheses `()`.
+
+---
+
+## 2. Can we modify elements inside a tuple?
+
+**Answer:**
+The tuple itself cannot be modified, but if it contains mutable objects like lists or dictionaries, those objects can be changed.
+
+Example:
+
+```python
+t = ([1, 2], 3)
+t[0].append(99)
+
+print(t)
+# ([1, 2, 99], 3)
+```
+
+---
+
+## 3. What is Garbage Collection in Python?
+
+**Answer:**
+Python primarily uses reference counting for memory management. When an object's reference count reaches zero, its memory is released.
+
+To handle circular references, Python also uses a cyclic garbage collector.
+
+---
+
+## 4. What are circular references?
+
+**Answer:**
+Circular references occur when two or more objects reference each other, preventing their reference count from reaching zero.
+
+The cyclic garbage collector detects and removes these unreachable object graphs.
+
+---
+
+## 5. Difference between `if` and `==`
+
+**Answer:**
+
+* `==` compares two values and returns a boolean.
+* `if` uses a boolean value to decide whether a block of code should execute.
+
+Example:
+
+```python
+if x == 10:
+    print("Equal")
+```
+
+---
+
+## 6. Difference between List and Tuple
+
+**Answer:**
+
+| List                      | Tuple                              |
+| ------------------------- | ---------------------------------- |
+| Mutable                   | Immutable                          |
+| More memory overhead      | More memory efficient              |
+| Cannot be dictionary keys | Can be dictionary keys if hashable |
+| Slower                    | Slightly faster                    |
+
+---
+
+## 7. When is a tuple hashable?
+
+**Answer:**
+A tuple is hashable if all of its elements are hashable.
+
+Duplicate values do not affect hashability.
+
+Example:
+
+```python
+t = (1, "python", 1)
+hash(t)
+```
+
+---
+
+## 8. Difference between `is` and `==`
+
+**Answer:**
+
+* `==` compares values.
+* `is` compares object identity (memory location).
+
+Example:
+
+```python
+a = [1,2]
+b = [1,2]
+
+a == b  # True
+a is b  # False
+```
+
+---
+
+## 9. Difference between Primary Key and Unique Constraint
+
+**Answer:**
+
+| Primary Key               | Unique Constraint            |
+| ------------------------- | ---------------------------- |
+| Only one per table        | Multiple allowed             |
+| Cannot be NULL            | NULL allowed depending on DB |
+| Identifies a row uniquely | Enforces uniqueness          |
+
+---
+
+## 10. Composite Index vs Separate Indexes
+
+**Answer:**
+
+* Composite indexes are useful when queries frequently use multiple columns together.
+* Separate indexes are useful when columns are queried independently.
+
+Example:
+
+```sql
+CREATE INDEX idx_customer_date
+ON orders(customer_id, order_date);
+```
+
+---
+
+## 11. How do you design safe database migrations?
+
+**Answer:**
+
+* Keep migrations small and incremental.
+* Use `transaction.atomic()`.
+* Test in staging.
+* Keep backups before production deployment.
+* Separate schema migrations from data migrations.
+
+---
+
+## 12. What if a migration fails in production?
+
+**Answer:**
+
+* Use transactions for rollback.
+* Restore from backups if necessary.
+* Fix and redeploy the migration.
+* Validate data consistency afterward.
+
+---
+
+## 13. What is P95 Latency?
+
+**Answer:**
+P95 latency means 95% of requests complete within a certain time, while the slowest 5% take longer.
+
+---
+
+## 14. API latency increased, CPU normal, DB connections near maximum. What will you do?
+
+**Answer:**
+Investigate:
+
+* Connection pool exhaustion
+* Slow queries
+* Missing indexes
+* Locks and long transactions
+* Connection leaks
+
+---
+
+## 15. What is GIL?
+
+**Answer:**
+The Global Interpreter Lock allows only one thread to execute Python bytecode at a time in a CPython process.
+
+---
+
+## 16. Multithreading vs Multiprocessing
+
+**Answer:**
+
+| Multithreading          | Multiprocessing         |
+| ----------------------- | ----------------------- |
+| Best for I/O-bound work | Best for CPU-bound work |
+| Shares memory           | Separate memory space   |
+| Affected by GIL         | Not affected by GIL     |
+
+---
+
+## 17. Explain Concurrency in Python
+
+**Answer:**
+Concurrency means handling multiple tasks efficiently.
+
+* Use multithreading or async for I/O-bound tasks.
+* Use multiprocessing for CPU-bound tasks.
+* Multiprocessing achieves true parallelism because each process has its own GIL.
+
+---
+
+## 18. Explain your deployment architecture
+
+**Answer:**
+
+* Containerized using Docker.
+* Services defined in `docker-compose.yml`.
+* Deployment performed on AWS EC2.
+* Media files stored in Amazon S3.
+* Deployment automated using scripts with:
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+---
+
+## 19. Why use S3 instead of EC2 storage?
+
+**Answer:**
+
+* Durable
+* Scalable
+* Persistent storage
+* Independent of EC2 lifecycle
+
+---
+
+## 20. Why are broadcasts missed across pods?
+
+**Answer:**
+Pods have isolated memory.
+
+Use:
+
+* Redis Pub/Sub
+* Kafka
+* RabbitMQ
+
+to distribute events across all pods.
+
+---
+
+## 21. Common causes of API latency
+
+**Answer:**
+
+* Slow SQL queries
+* Missing indexes
+* Connection pool exhaustion
+* Network latency
+* CPU bottlenecks
+* Garbage collection pauses
+* Slow third-party APIs
+
+---
+
+## 22. How do you optimize backend performance?
+
+**Answer:**
+
+* Avoid `SELECT *`
+* Add proper indexes
+* Use Redis caching
+* Use connection pooling
+* Keep services stateless
+* Use asynchronous processing
+* Scale horizontally
+
+---
+
+## 23. Explain trade-offs in system design
+
+**Answer:**
+
+### Caching
+
+* Faster reads
+
+- Stale data risk
+
+### Indexes
+
+* Faster queries
+
+- Slower writes
+
+### Microservices
+
+* Independent scaling
+
+- Operational complexity
+
+### Async Processing
+
+* Better responsiveness
+
+- More complexity
+
+---
+
+## 24. Explain Docker commands
+
+**Answer:**
+
+```bash
+docker compose build
+```
+
+Builds images.
+
+```bash
+docker compose up -d
+```
+
+Starts containers in detached mode.
+
+---
+
+## 25. Short interviewer-friendly answer for concurrency
+
+**Answer:**
+
+"Concurrency is handling multiple tasks efficiently. In Python, I use multithreading or async for I/O-bound work and multiprocessing for CPU-bound work because the GIL prevents true parallel execution of CPU-bound threads."

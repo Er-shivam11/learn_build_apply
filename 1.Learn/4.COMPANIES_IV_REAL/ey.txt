@@ -1,3 +1,227 @@
+# Senior Python Interview Questions & Answers Covered
+
+## 1. How does `super()` work in Python? What is its relation with MRO?
+
+### Interview Answer
+
+`super()` calls the next class in the Method Resolution Order (MRO), not necessarily the direct parent class. Python computes MRO using the C3 Linearization algorithm, which becomes especially important in multiple inheritance scenarios.
+
+### Key Points
+
+* `super()` follows MRO.
+* Supports cooperative inheritance.
+* Avoids duplicate method calls in multiple inheritance.
+* Preferred over direct parent calls like `Parent.__init__(self)`.
+
+### Example
+
+```python
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    def show(self):
+        print("B")
+        super().show()
+
+class C(A):
+    def show(self):
+        print("C")
+        super().show()
+
+class D(B, C):
+    def show(self):
+        print("D")
+        super().show()
+
+D().show()
+```
+
+Output:
+
+```
+D
+B
+C
+A
+```
+
+---
+
+## 2. What is a Context Manager in Python?
+
+### Interview Answer
+
+A context manager is an object that manages resource acquisition and release automatically using the `with` statement. It implements `__enter__()` and `__exit__()` methods.
+
+### Common Use Cases
+
+* File handling
+* Database connections
+* Locks
+* Transactions
+* Network connections
+
+### Example
+
+```python
+with open("data.txt") as file:
+    data = file.read()
+```
+
+### ORM Example
+
+```python
+from django.db import transaction
+
+with transaction.atomic():
+    # database operations
+    pass
+```
+
+---
+
+## 3. What are the different types of pagination in Django REST Framework?
+
+### Interview Answer
+
+Pagination divides large datasets into smaller chunks to improve performance and reduce response payload size.
+
+### Types
+
+#### PageNumberPagination
+
+```text
+/products/?page=2
+```
+
+#### LimitOffsetPagination
+
+```text
+/products/?limit=10&offset=20
+```
+
+#### CursorPagination
+
+```text
+/products/?cursor=abc123
+```
+
+### Senior-Level Insight
+
+For very large datasets, `CursorPagination` is generally preferred because offset queries become slower as offsets increase.
+
+---
+
+## 4. Explain your Camera Surveillance Project.
+
+### Recommended Structure
+
+Problem → Architecture → Contribution → Challenges → Results
+
+### Project Summary
+
+* Smart surveillance for bus stations in the Vasai-Virar region.
+* Integrated multiple IP cameras using RTSP.
+* Initially used OpenCV streaming.
+* Migrated to FFmpeg due to lower latency and better multi-camera handling.
+* Django backend managed camera metadata and operators.
+* Supported timestamp-based video retrieval.
+* Extracted frames from recordings.
+* Used YOLOv8 for object detection.
+* Used MoviePy for video metadata operations.
+* Personally extended the system with HLS adaptive streaming.
+
+### Your Contributions
+
+* RTSP camera integration
+* FFmpeg pipeline
+* Django backend APIs
+* Frame extraction
+* YOLO integration
+* HLS experimentation
+
+---
+
+## 5. Why FFmpeg instead of OpenCV for Streaming?
+
+### Interview Answer
+
+OpenCV is primarily a computer vision library, while FFmpeg is optimized for media streaming, decoding, encoding, and handling multiple concurrent video streams.
+
+### Advantages of FFmpeg
+
+* Lower latency
+* Better RTSP handling
+* Hardware acceleration support
+* Better scalability for multiple streams
+
+---
+
+## 6. Explain your YOLO Usage.
+
+### Interview Answer
+
+YOLOv8 was used to detect buses, people, and vehicle movement in surveillance footage.
+
+### Important Clarification
+
+* Standard COCO-trained YOLO models support 80 classes.
+* Your use case only required approximately 20 classes.
+* You used a subset relevant to surveillance.
+
+---
+
+## 7. Sliding Window: Maximum Average Subarray
+
+### Problem
+
+Find the contiguous subarray of length `k` with the maximum average value.
+
+### Interview Clarification
+
+"Just to confirm my understanding, we need to find the contiguous subarray of size `k` that has the maximum average value."
+
+### Approach
+
+Use Sliding Window because the window size is fixed.
+
+### Complexity
+
+* Time Complexity: `O(n)`
+* Space Complexity: `O(1)`
+
+### Code
+
+```python
+def findMaxAverage(nums, k):
+    window_sum = sum(nums[:k])
+    max_sum = window_sum
+
+    for i in range(k, len(nums)):
+        window_sum += nums[i] - nums[i-k]
+        max_sum = max(max_sum, window_sum)
+
+    return max_sum / k
+```
+
+---
+
+# Senior Interview Principles We Agreed To
+
+For every question:
+
+1. Give a concise interview answer first.
+2. Explain internals if asked.
+3. Write clean production-style code.
+4. Mention complexity where applicable.
+5. Explain trade-offs and alternatives.
+6. Mention real-world usage.
+
+This is generally the level expected for Senior Python or Lead Backend Engineer interviews.
+
+
 #context manager,mro,multiple inheritance,multithreading,memory concupmtion,mro,super(),jwt,pagination and its type and ,url and how we can optmize 
 # You are given an integer array nums consisting of n elements, and an integer
 # k.
@@ -19,3 +243,4 @@ def  findavgmax(nums,k):
 k = 4
 nums = [1,12,-5,-6,50,3]
 print(findavgmax(nums,k))
+
