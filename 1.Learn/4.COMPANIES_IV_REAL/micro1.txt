@@ -485,3 +485,543 @@ Starts containers in detached mode.
 **Answer:**
 
 "Concurrency is handling multiple tasks efficiently. In Python, I use multithreading or async for I/O-bound work and multiprocessing for CPU-bound work because the GIL prevents true parallel execution of CPU-bound threads."
+# Micro1 Python Backend Interview Questions & Answers Covered So Far
+
+---
+
+## 1. Process vs Thread
+
+### Answer
+
+* A **process** is an independent execution unit with its own memory space.
+* A **thread** is the smallest unit of execution within a process and shares memory with other threads in the same process.
+
+### Python GIL Impact
+
+* Python's **Global Interpreter Lock (GIL)** allows only one thread to execute Python bytecode at a time in a process.
+* Because of this:
+
+| Use Case        | Preferred       |
+| --------------- | --------------- |
+| I/O Bound Tasks | Multithreading  |
+| CPU Bound Tasks | Multiprocessing |
+
+Examples:
+
+* I/O Bound → API calls, DB calls, file I/O
+* CPU Bound → Image processing, ML training, large computations
+
+---
+
+## 2. Async Programming for APIs
+
+### Question
+
+How do you handle concurrent inbound and outbound requests in Python APIs?
+
+### Answer
+
+Use:
+
+* `asyncio`
+* `async def`
+* `await`
+
+This allows the event loop to process other requests while waiting for I/O operations.
+
+Example frameworks:
+
+* FastAPI
+* aiohttp
+
+Best for:
+
+* API calls
+* Database calls
+* File operations
+
+---
+
+## 3. `def` vs `async def`
+
+| Feature          | `def`       | `async def`  |
+| ---------------- | ----------- | ------------ |
+| Execution        | Synchronous | Asynchronous |
+| Blocking         | Yes         | No           |
+| Uses Event Loop  | No          | Yes          |
+| Supports `await` | No          | Yes          |
+
+Use:
+
+* `def` → CPU work
+* `async def` → I/O work
+
+---
+
+## 4. Blocking Calls in Async Functions
+
+### Answer
+
+Blocking operations inside `async def` stall the event loop.
+
+Bad:
+
+```python
+time.sleep(5)
+requests.get(url)
+```
+
+Good:
+
+```python
+await asyncio.sleep(5)
+await client.get(url)
+```
+
+Use:
+
+* `httpx.AsyncClient`
+* `aiohttp`
+
+---
+
+## 5. Retry Policy for Third-Party APIs
+
+### Retriable Errors
+
+* Timeout
+* Connection errors
+* HTTP 500
+* HTTP 502
+* HTTP 503
+* HTTP 504
+* HTTP 429
+
+### Non-Retriable Errors
+
+* HTTP 400
+* HTTP 401
+* HTTP 403
+* HTTP 404
+
+### Best Practices
+
+* Timeouts
+* Retries
+* Exponential Backoff
+* Jitter
+* Circuit Breakers
+
+---
+
+## 6. Circuit Breaker Pattern
+
+### States
+
+1. Closed
+2. Open
+3. Half Open
+
+Purpose:
+
+Prevent overwhelming unhealthy downstream services.
+
+---
+
+## 7. Idempotency for POST Endpoints
+
+### Solution
+
+Use an:
+
+```text
+Idempotency-Key
+```
+
+Flow:
+
+* Request arrives.
+* Check if key already exists.
+* If yes → return previous response.
+* If no → process request.
+
+Common Use Cases:
+
+* Payments
+* Orders
+* Transactions
+
+---
+
+## 8. Atomicity vs Idempotency
+
+| Concept     | Purpose                               |
+| ----------- | ------------------------------------- |
+| Atomicity   | All succeed or all fail               |
+| Idempotency | Multiple requests produce same result |
+
+---
+
+## 9. Pagination for High Write Systems
+
+### Offset Pagination
+
+```text
+?offset=100&limit=20
+```
+
+Problems:
+
+* Slow for large datasets.
+* Missing records.
+* Duplicate records.
+
+---
+
+### Cursor Pagination
+
+```text
+?cursor=12345&limit=20
+```
+
+Benefits:
+
+* Faster.
+* Stable ordering.
+* Better for high-write systems.
+
+Preferred for:
+
+* Feeds
+* Transactions
+* Activity streams
+
+---
+
+## 10. GraphQL N+1 Problem
+
+Example:
+
+```text
+1 query for orders
+100 queries for items
+100 queries for products
+```
+
+Total:
+
+```text
+201 queries
+```
+
+Solution:
+
+* DataLoader
+* Batch loading
+* Caching
+
+---
+
+## 11. Production Validation of GraphQL Performance
+
+Monitor:
+
+* Query count
+* Latency
+* Slow queries
+* DB CPU
+* DB connections
+
+Tools:
+
+* Datadog
+* New Relic
+* Grafana
+* Prometheus
+* OpenTelemetry
+
+---
+
+## 12. Structured Validation Errors
+
+Example:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Input validation failed",
+    "details": [
+      {
+        "field": "email",
+        "message": "Invalid email"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## 13. Status Codes
+
+| Scenario         | Status    |
+| ---------------- | --------- |
+| Success          | 200       |
+| Created          | 201       |
+| Validation Error | 400 / 422 |
+| Unauthorized     | 401       |
+| Forbidden        | 403       |
+| Not Found        | 404       |
+| Conflict         | 409       |
+| Rate Limited     | 429       |
+| Server Error     | 500       |
+
+---
+
+## 14. Authentication vs Authorization
+
+| Concept        | Meaning          |
+| -------------- | ---------------- |
+| Authentication | Who are you?     |
+| Authorization  | What can you do? |
+
+Examples:
+
+* JWT
+* Session Auth
+* OAuth
+
+---
+
+## 15. Prevent Access to Other User's Data
+
+Use:
+
+* RBAC
+* Object-level permissions
+
+Example:
+
+```python
+if order.user_id != request.user.id:
+    raise PermissionDenied()
+```
+
+---
+
+## 16. Ownership Checks
+
+Example endpoints:
+
+```text
+GET /orders/123
+PATCH /orders/123
+DELETE /orders/123
+```
+
+Check:
+
+```python
+obj.user_id == request.user.id
+```
+
+In DRF:
+
+```python
+has_object_permission()
+```
+
+---
+
+## 17. Overposting / Mass Assignment
+
+Prevent clients from setting:
+
+* user_id
+* role
+* status
+* is_admin
+* approved_by
+
+Bad:
+
+```json
+{
+    "user_id": 99,
+    "is_admin": true
+}
+```
+
+Good:
+
+```python
+order.user = request.user
+order.status = "PENDING"
+```
+
+---
+
+## 18. Foreign Key Ownership Validation
+
+Example:
+
+Client sends:
+
+```json
+{
+    "address_id": 10
+}
+```
+
+Verify:
+
+```python
+address.user_id == request.user.id
+```
+
+---
+
+## 19. Rate Limiting
+
+Common Strategies:
+
+* Fixed Window
+* Sliding Window
+* Token Bucket
+* Leaky Bucket
+
+Preferred:
+
+* Sliding Window
+* Token Bucket
+
+Response:
+
+```text
+429 Too Many Requests
+```
+
+Headers:
+
+```text
+X-RateLimit-Limit
+X-RateLimit-Remaining
+Retry-After
+```
+
+---
+
+## 20. Flask Debugging Exercise
+
+### Bug #1
+
+Flask route params are strings:
+
+```python
+users.get("2")
+```
+
+Dictionary keys were integers:
+
+```python
+2
+```
+
+Result:
+
+```json
+null
+```
+
+---
+
+### Bug #2
+
+Invalid input:
+
+```text
+/users/abc
+```
+
+Causes:
+
+```python
+int("abc")
+```
+
+Result:
+
+```text
+500 Internal Server Error
+```
+
+Expected:
+
+```text
+400 Bad Request
+```
+
+---
+
+### Fixed Endpoint
+
+```python
+@app.route('/users/<user_id>')
+def get_user(user_id):
+
+    if not user_id.isdigit():
+        return jsonify({
+            "error": "Invalid user id"
+        }), 400
+
+    user_id = int(user_id)
+
+    user = users.get(user_id)
+
+    if user is None:
+        return jsonify({
+            "error": "User not found"
+        }), 404
+
+    return jsonify(user), 200
+```
+
+---
+
+## 21. Debugging Approach
+
+Interview answer:
+
+> I reproduced the issue using valid and invalid inputs, traced the request flow, inspected data types and boundary cases, identified the root cause, implemented fail-fast validation, and returned clear error messages with proper HTTP status codes.
+
+---
+
+# Topics Most Likely Still Coming in Micro1
+
+* GIL internals
+* Decorators
+* Context Managers
+* Generators
+* Iterators
+* MRO
+* Monkey Patching
+* Metaclasses
+* Memory Management
+* Shallow vs Deep Copy
+* `*args` and `**kwargs`
+* SOLID principles
+* Dependency Injection
+* Caching
+* Redis
+* Celery
+* Kafka
+* Database Transactions
+* Isolation Levels
+* ACID
+* CAP Theorem
+* Docker
+* Kubernetes basics
+* System Design for APIs
+
+This is already a strong set of backend topics for a Micro1 Python interview.

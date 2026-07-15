@@ -1,3 +1,11 @@
+At Modulr, my role was divided into three major areas.
+
+First, I worked on data ingestion where we onboarded data from PostgreSQL and external systems such as Salesforce into Snowflake using Matillion ETL pipelines. My responsibility included source analysis, schema understanding, job monitoring, and validating successful ingestion into Snowflake raw tables.
+
+Second, I worked on transformation logic using DBT. Once the data landed in Snowflake, DBT models transformed raw datasets into business-ready tables. I mainly handled business rule updates, pricing changes, and modifications to existing SQL models.
+
+Third, I supported analytical use cases by building Customer 360 solutions using Snowpark Python and Streamlit. We combined curated datasets, implemented business logic using Snowpark, and delivered stakeholder-facing reporting applications, including OpenAI-powered insights for business users.
+
 -- =====================================================
 -- 1. SECOND HIGHEST SALARY
 -- =====================================================
