@@ -84,3 +84,618 @@
     Stock 2: 185, 14, ?, 360
     Index: 900, 20, 700, 1200, 1800
 ```
+Here's a consolidated list of all the questions and answers from the beginning of this conversation:
+
+| #  | Question                                                                                            | Correct Answer                                |
+| -- | --------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| 1  | Which component is responsible for checking authentication and permission of an endpoint in Django? | ✅ **View**                                    |
+| 2  | Where is a JSON payload sent in a PUT/POST request?                                                 | ✅ **In the request body**                     |
+| 3  | Which Django model field attribute maps a field to a database column?                               | ✅ **`db_column`**                             |
+| 4  | Best way to represent common fields for different course types?                                     | ✅ **Abstract base model (`abstract=True`)**   |
+| 5  | Which class-based view displays a list of objects?                                                  | ✅ **`ListView`**                              |
+| 6  | Which decorator restricts access to authenticated users?                                            | ✅ **`@login_required`**                       |
+| 7  | Logging formatter for timestamp, level, and message                                                 | ✅ `%(asctime)s - %(levelname)s - %(message)s` |
+| 8  | Best way to store passwords securely in Django?                                                     | ✅ **Hashing algorithm**                       |
+| 9  | Django language-related question                                                                    | ✅ **`set_language`**                          |
+| 10 | Stock X was half of Y; X triples, Y doubles. Ratio in 2022?                                         | ✅ **3 : 4**                                   |
+| 11 | Which fraction is closest to 25%? (3/11, 1/7, 2/9, 4/17)                                            | ✅ **4/17**                                    |
+| 12 | Person 1 is twice as efficient as Person 2 and 150% of Person 3. Ratio Person2 : Person3            | ✅ **3 : 4**                                   |
+| 13 | Sequence: 19, 37, 55, ?                                                                             | ✅ **73**                                      |
+| 14 | Sequence: 17, 37, 65, ?                                                                             | ✅ **101**                                     |
+| 15 | Matrix: 13,27,5 / 21,64,11 / 31,125,19. Next row?                                                   | ✅ **43, 216, 29**                             |
+| 16 | Salary: 75,000 → 82,000 → 90,000. Year 4?                                                           | ✅ **99,000**                                  |
+| 17 | Team A + B = 10, B is 50% higher than A; both increase by 2. New B : A ratio                        | ✅ **4 : 3**                                   |
+| 18 | Pubs sales = 40,000; company sales increase by 30%. Next year's pubs sales                          | ✅ **52,000**                                  |
+| 19 | Ratio of 38 and 78                                                                                  | ✅ **19 : 39**                                 |
+
+### Quick Answers (for revision)
+
+1. View
+2. Request Body
+3. `db_column`
+4. Abstract Model
+5. `ListView`
+6. `@login_required`
+7. `%(asctime)s - %(levelname)s - %(message)s`
+8. Hashing Algorithm
+9. `set_language`
+10. 3:4
+11. 4/17
+12. 3:4
+13. 73
+14. 101
+15. 43, 216, 29
+16. 99,000
+17. 4:3
+18. 52,000
+19. 19:39
+## Interview Questions & Answers (Complete Revision Sheet)
+
+### 1. Process vs Thread vs GIL
+
+**Q:** Explain Process, Thread, and GIL.
+
+**A:**
+
+* A **Process** has its own memory space and is suitable for **CPU-bound** tasks.
+* A **Thread** shares the same memory within a process and is suitable for **I/O-bound** tasks.
+* Python's **Global Interpreter Lock (GIL)** allows only one thread to execute Python bytecode at a time.
+* Use **threading** for network calls, file I/O, APIs.
+* Use **multiprocessing** for CPU-intensive work.
+
+---
+
+### 2. CPU Heavy Work
+
+**Q:** How do you handle CPU-heavy work?
+
+**A:**
+
+* Use **multiprocessing** or **ProcessPoolExecutor**.
+* Offload heavy tasks to worker queues (Celery/RQ).
+* Measure performance using profiling and benchmarking.
+
+---
+
+### 3. Multiple Workers
+
+**Q:** What should you consider while using multiple workers?
+
+**A:**
+
+* Shared cache consistency
+* Race conditions
+* Memory usage
+* Rate limiting
+* Synchronization (Locks/Semaphores)
+
+---
+
+### 4. Concurrency vs Parallelism
+
+**A:**
+
+* **Concurrency:** Multiple tasks make progress together.
+* **Parallelism:** Multiple tasks execute simultaneously on multiple CPU cores.
+
+---
+
+### 5. asyncio.to_thread vs ProcessPoolExecutor
+
+**A:**
+`asyncio.to_thread()`
+
+* Blocking I/O
+* File operations
+* Network requests
+
+`ProcessPoolExecutor`
+
+* CPU-bound work
+* Image processing
+* ML inference
+* Heavy computation
+
+---
+
+### 6. Dictionary & Set Complexity
+
+**A:**
+
+* Implemented using **Hash Tables**
+* Average:
+
+```
+Insert O(1)
+Search O(1)
+Delete O(1)
+```
+
+Worst Case:
+
+```
+O(n)
+```
+
+Due to hash collisions.
+
+---
+
+### 7. Merge vs Rebase
+
+**Merge**
+
+* Preserves branch history
+* Creates merge commit
+
+**Rebase**
+
+* Creates clean linear history
+* Rewrites commit history
+
+---
+
+### 8. Before Push Steps
+
+1. git fetch
+2. git pull --rebase
+3. Resolve conflicts
+4. Run tests
+5. Push
+
+---
+
+### 9. git fetch, reflog, reset, cherry-pick
+
+**git fetch**
+
+* Downloads latest changes
+
+**git reflog**
+
+* Recover lost commits
+
+**git reset --hard**
+
+* Restore previous state
+
+**git rebase**
+
+* Replay commits
+
+**git cherry-pick**
+
+* Copy specific commit
+
+---
+
+### 10. git bisect
+
+**A:**
+Binary search to find the commit introducing a bug.
+
+Commands:
+
+```
+git bisect start
+git bisect bad
+git bisect good
+git bisect skip
+git bisect reset
+```
+
+---
+
+### 11. Working in Monorepo
+
+**A:**
+
+* Small feature branches
+* Frequent rebasing
+* Small PRs
+* Pass CI
+* Coordinate changes
+
+---
+
+### 12. Squash Merge vs Rebase Merge
+
+**Squash Merge**
+
+* Combine many small commits
+* Clean history
+
+**Rebase Merge**
+
+* Preserve meaningful commits
+* Linear history
+
+---
+
+### 13. CI/CD Pipeline
+
+Stages:
+
+* Lint
+* Format
+* Unit Tests
+* Integration Tests
+* Security Scan
+* Build
+* Deploy
+
+---
+
+### 14. Fine-tuning vs LoRA vs QLoRA vs Prompt Engineering
+
+**Prompt Engineering**
+
+* No training
+* Cheapest
+
+**LoRA**
+
+* Efficient fine-tuning
+
+**QLoRA**
+
+* Low GPU memory
+
+**Full Fine-tuning**
+
+* Best accuracy
+* Highest compute
+
+---
+
+### 15. Earliest Green Second Problem
+
+**Solution**
+
+```
+max(start)
+min(end)
+
+If max<=min
+return max
+Else
+return -1
+```
+
+Complexity:
+
+```
+O(N)
+```
+
+---
+
+### 16. SerializerMethodField
+
+```python
+days_since_joining = serializers.SerializerMethodField()
+
+def get_days_since_joining(self,obj):
+    return (timezone.now().date()-obj.joining_date).days
+```
+
+---
+
+### 17. @property in Model
+
+```python
+@property
+def days_since_joining(self):
+    ...
+```
+
+Access:
+
+```python
+employee.days_since_joining
+```
+
+---
+
+### 18. ModelSerializer Important Methods
+
+```
+is_valid()
+
+save()
+
+create()
+
+update()
+
+validate()
+
+validate_<field>()
+
+to_representation()
+
+to_internal_value()
+```
+
+Properties
+
+```
+data
+
+errors
+
+validated_data
+
+instance
+
+initial_data
+```
+
+---
+
+### 19. LimitOffsetPagination
+
+Query
+
+```
+?limit=10&offset=20
+```
+
+Methods
+
+```
+get_limit()
+
+get_offset()
+
+paginate_queryset()
+
+get_paginated_response()
+```
+
+---
+
+### 20. DRF Route Methods
+
+HTTP
+
+```
+GET
+POST
+PUT
+PATCH
+DELETE
+HEAD
+OPTIONS
+```
+
+ViewSet Actions
+
+```
+list()
+
+retrieve()
+
+create()
+
+update()
+
+partial_update()
+
+destroy()
+```
+
+---
+
+### 21. DRF Views
+
+```
+APIView
+
+GenericAPIView
+
+Mixins
+
+Generic Views
+
+ViewSet
+
+ModelViewSet
+
+ReadOnlyModelViewSet
+```
+
+---
+
+### 22. Mixins
+
+```
+CreateModelMixin
+
+ListModelMixin
+
+RetrieveModelMixin
+
+UpdateModelMixin
+
+DestroyModelMixin
+```
+
+---
+
+### 23. Return First Five Records
+
+```python
+TravelDestination.objects.all()[:5]
+```
+
+SQL
+
+```sql
+LIMIT 5
+```
+
+---
+
+### 24. ForeignKey on_delete
+
+```
+CASCADE
+
+PROTECT
+
+RESTRICT
+
+SET_NULL
+
+SET_DEFAULT
+
+SET()
+
+DO_NOTHING
+```
+
+---
+
+### 25. Aggregate Total Duration
+
+```python
+Song.objects.aggregate(
+    total=Sum("duration")
+)
+```
+
+---
+
+### 26. URL Naming
+
+Good
+
+```
+blog-posts/
+```
+
+Name
+
+```
+blog_posts
+```
+
+Use:
+
+* URL → Hyphen (-)
+* Python → Underscore (_)
+
+---
+
+### 27. Sequence
+
+```
+25
+49
+97
+?
+```
+
+Answer
+
+```
+193
+```
+
+Rule
+
+```
+x2-1
+```
+
+---
+
+### 28. Work & Time
+
+5 people × 5 hr × 10 days = 30 units
+
+For 10 people × 10 hr/day producing 10 units:
+
+Answer
+
+```
+0.83 day
+```
+
+(Options given were incorrect.)
+
+---
+
+### 29. Test Cases Problem
+
+30%
+
+20%
+
+Remaining
+
+50%
+
+Given
+
+50%=45
+
+Total
+
+```
+90
+```
+
+---
+
+### 30. Sequence
+
+```
+1
+6
+16
+?
+51
+26
+```
+
+No unique answer.
+
+Need options.
+
+---
+
+### 31. Sequence
+
+```
+17
+37
+65
+?
+155
+```
+
+Question appears inconsistent; likely typo. Need options.
+
+---
+
+### 32. Salary Problem
+
+Initial
+
+```
+50000
+```
+
+15% increment
+
+```
+57500
+```
+
+(Question mentioned both 15% and 10%, which is contradictory. Standard answer: **$57,500**.)
+
+---
+
+This covers **all the interview questions and aptitude questions** discussed from the start of this conversation in one consolidated revision sheet.
