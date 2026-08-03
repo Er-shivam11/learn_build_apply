@@ -4,6 +4,17 @@
 📁 02_Build → Practice, PYQs, MCQs, Tests, Assignments medium to hard
 📁 03_Apply → Revision, Mock Tests, Exam Simulation, Weak Areas
 
+| Mode                               | Priority Flow                                               |
+| ---------------------------------- | ----------------------------------------------------------- |
+| 🟢 **Green** (Full Energy)         | **Health → Learn → Build → Practice → Apply → Govt Backup** |
+| 🟡 **Yellow** (Average Day)        | **Health → Practice → Build → Apply**                       |
+| 🟠 **Orange** (Low Focus / Stress) | **Health → Revision → Mock Interview → Apply**              |
+| 🔴 **Red** (Sick / Recovery)       | **Health → Recover → 30–60 min Revision → Sleep**           |
+
+
+This approach is more sustainable than expecting every day to be a maximum-output day. It keeps your preparation moving forward while accounting for illness, burnout, or disruptions at home.
+
+
 ## 📚 Coding Practice Resources
 
 | Resource | Link |
