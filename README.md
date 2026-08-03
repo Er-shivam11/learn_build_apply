@@ -11,6 +11,9 @@
 | 🐍 DE & SDE Python – 60 Coding Questions | [📄 Open PDF](https://github.com/Er-shivam11/learn_build_apply/blob/main/3.Apply/DE_SDE_CODING_BASIC_SOLUTION/0.DEIV_PY60_CODING.pdf) |
 | 🧠 DE & SDE SQL – 60 Coding Questions | [📄 Open PDF](https://github.com/Er-shivam11/learn_build_apply/blob/main/3.Apply/DE_SDE_CODING_BASIC_SOLUTION/1.DEIV_SQL60_CODING.pdf) |
 
+## DSA 
+https://github.com/Er-shivam11/learn_build_apply/blob/main/3.Apply/DE_SDE_AI_IV_KIT/4.CODING_IV_READY/1.PYTHON_CODE.md
+
 ## leetcode sql
 https://leetcode.com/studyplan/top-sql-50/
 
