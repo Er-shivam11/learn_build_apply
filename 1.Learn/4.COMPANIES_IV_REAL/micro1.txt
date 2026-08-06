@@ -1025,3 +1025,3019 @@ Interview answer:
 * System Design for APIs
 
 This is already a strong set of backend topics for a Micro1 Python interview.
+Perfect. We'll make this like an interview handbook. Here's **Part 1 (Python Core)** and **Part 2 (Django)** in depth.
+
+---
+
+# PART 1 — PYTHON CORE
+
+---
+
+# 1. List vs Tuple vs Set
+
+## Definition
+
+### List
+
+A **list** is an ordered, mutable collection.
+
+* Ordered ✅
+* Mutable ✅
+* Duplicates allowed ✅
+
+```python
+nums = [1,2,3]
+nums.append(4)
+nums[0]=100
+```
+
+---
+
+### Tuple
+
+A tuple is an ordered immutable collection.
+
+* Ordered ✅
+* Mutable ❌
+* Duplicates allowed ✅
+
+```python
+point=(10,20)
+```
+
+Cannot
+
+```python
+point[0]=100
+```
+
+---
+
+### Set
+
+A set stores only unique elements.
+
+* Ordered ❌
+* Mutable ✅
+* Duplicate ❌
+
+```python
+s={1,2,3}
+s.add(5)
+```
+
+---
+
+## Memory
+
+List
+
+```
++----+----+----+
+|ptr |ptr |ptr |
++----+----+----+
+```
+
+Dynamic Array
+
+---
+
+Tuple
+
+Exactly same layout
+
+But immutable
+
+No resizing
+
+---
+
+Set
+
+Implemented using Hash Table
+
+```
+Hash
+ ↓
+Bucket
+```
+
+---
+
+## Time Complexity
+
+| Operation    | List | Tuple | Set         |
+| ------------ | ---- | ----- | ----------- |
+| Access       | O(1) | O(1)  | No indexing |
+| Append       | O(1) | No    | No          |
+| Search       | O(n) | O(n)  | O(1) Avg    |
+| Insert Front | O(n) | No    | No          |
+
+---
+
+## Backend Example
+
+List
+
+```
+API Responses
+Order Items
+Queue
+```
+
+Tuple
+
+```
+Latitude
+Longitude
+
+(x,y)
+
+Configuration
+```
+
+Set
+
+```
+Unique User IDs
+
+Emails
+
+Permissions
+
+Duplicate Detection
+```
+
+---
+
+## Interview Answer (30 sec)
+
+> List is mutable and ordered. Tuple is immutable and ordered. Set stores unique unordered values and provides O(1) average lookup.
+
+---
+
+## Senior Answer
+
+Mention
+
+* Dynamic array
+* Hash table
+* Memory efficiency
+* Immutability
+* Lookup complexity
+
+---
+
+# Follow-up
+
+Why tuple faster?
+
+Because immutable.
+
+Python performs fewer checks.
+
+Less memory overhead.
+
+---
+
+# Common Mistake
+
+❌ Saying tuple is stored differently.
+
+Actually both list and tuple store references.
+
+Difference is mutability.
+
+---
+
+# 2. Shallow Copy vs Deep Copy
+
+---
+
+## Shallow Copy
+
+Copies only outer object.
+
+Nested objects remain shared.
+
+```
+Original
+
+↓
+
+List
+
+↓
+
+Nested List
+```
+
+Copied List
+
+↓
+
+Same Nested List
+
+---
+
+Example
+
+```python
+import copy
+
+a=[[1],[2]]
+
+b=copy.copy(a)
+
+b[0][0]=100
+
+print(a)
+```
+
+Output
+
+```
+[[100],[2]]
+```
+
+---
+
+## Deep Copy
+
+Copies everything recursively.
+
+```python
+c=copy.deepcopy(a)
+```
+
+Now
+
+```
+Original
+
+↓
+
+Nested List
+
+Copy
+
+↓
+
+Different Nested List
+```
+
+---
+
+## Complexity
+
+Shallow
+
+```
+O(n)
+```
+
+Deep
+
+```
+Depends on whole object graph
+```
+
+---
+
+## Real Bug
+
+Configuration dictionary
+
+```
+config.copy()
+```
+
+Nested values modified
+
+Original changed
+
+Fix
+
+```
+copy.deepcopy()
+```
+
+---
+
+## Interview Answer
+
+Shallow copies outer object only.
+
+Deep copy recursively copies nested objects.
+
+---
+
+# Follow-up
+
+When use shallow?
+
+When nested objects are immutable.
+
+---
+
+# 3. Python List Resize in Memory
+
+Python List = Dynamic Array
+
+Suppose
+
+```
+[10][20][30]
+```
+
+Capacity
+
+```
+4
+```
+
+Append
+
+```
+40
+```
+
+Still fits.
+
+Append
+
+```
+50
+```
+
+No space.
+
+Python
+
+Allocates
+
+```
+Larger Memory
+```
+
+Copies
+
+Only references
+
+```
+Old
+
+ptr
+ptr
+ptr
+
+↓
+
+New
+
+ptr
+ptr
+ptr
+ptr
+ptr
+```
+
+Objects are NOT copied.
+
+Only references.
+
+---
+
+Why?
+
+To achieve
+
+```
+append()
+
+Average O(1)
+```
+
+---
+
+Interview Answer
+
+Python allocates a larger contiguous array and copies object references to the new memory block.
+
+---
+
+# 4. Dictionary Hash Collision
+
+Dictionary
+
+```
+Hash(Key)
+
+↓
+
+Bucket
+```
+
+Suppose
+
+```
+hash("A")
+
+↓
+
+5
+```
+
+Already occupied.
+
+Collision.
+
+Python
+
+Uses
+
+Open Addressing
+
+Perturb Probing
+
+Searches
+
+```
+5
+
+↓
+
+8
+
+↓
+
+12
+
+↓
+
+...
+```
+
+Until empty slot.
+
+---
+
+Complexity
+
+Average
+
+```
+O(1)
+```
+
+Worst
+
+```
+O(n)
+```
+
+---
+
+Interview Answer
+
+Python dictionaries use open addressing with perturbation probing.
+
+---
+
+# 5. Dummy Marker (Tombstone)
+
+Suppose
+
+```
+A
+
+↓
+
+Bucket 5
+```
+
+B collides
+
+Stored
+
+Bucket 6
+
+Delete A.
+
+If Bucket 5 becomes empty
+
+Search for B
+
+Stops early.
+
+Wrong.
+
+Instead Python writes
+
+```
+Dummy Marker
+```
+
+Search continues.
+
+Insertions later reuse dummy.
+
+---
+
+Interview Answer
+
+Python leaves a dummy marker after deletion to preserve the probe sequence.
+
+---
+
+# 6. List vs deque
+
+List
+
+```
+[1][2][3][4]
+```
+
+pop(0)
+
+Every element shifts.
+
+```
+2→1
+
+3→2
+
+4→3
+```
+
+O(n)
+
+---
+
+Deque
+
+```
+← Head
+
+Block
+
+Block
+
+Tail →
+```
+
+popleft()
+
+Moves pointer.
+
+No shifting.
+
+O(1)
+
+---
+
+Use deque
+
+* Queue
+* BFS
+* Producer Consumer
+
+---
+
+Use list
+
+* Random Access
+* Stack
+
+---
+
+# 7. Doubly Linked List
+
+Typical Node
+
+```
+Prev Pointer
+
+↓
+
+Data
+
+↓
+
+Next Pointer
+```
+
+Memory
+
+```
++-------+
+Prev
+Data
+Next
++-------+
+```
+
+Extra memory
+
+Two pointers
+
+Poor cache locality
+
+---
+
+Python deque
+
+Actually
+
+Linked Blocks
+
+Not one node per element.
+
+---
+
+# 8. Heap Implementation
+
+Heap
+
+Stored
+
+Inside List
+
+```
+Index
+
+0
+
+1
+
+2
+
+3
+
+4
+```
+
+Tree
+
+```
+        1
+      /   \
+     3     5
+    / \
+   7   9
+```
+
+No node objects.
+
+No pointers.
+
+---
+
+heappush()
+
+Append
+
+↓
+
+Bubble Up
+
+↓
+
+Swap
+
+↓
+
+Done
+
+Complexity
+
+```
+O(log n)
+```
+
+---
+
+# 9. Heap Parent Child Formula
+
+For index
+
+```
+i
+```
+
+Parent
+
+```
+(i-1)//2
+```
+
+Left
+
+```
+2*i+1
+```
+
+Right
+
+```
+2*i+2
+```
+
+---
+
+# 10. Heapify Invariant
+
+Min Heap
+
+```
+Parent
+
+<=
+
+Children
+```
+
+During heapify
+
+Compare
+
+↓
+
+Swap
+
+↓
+
+Continue
+
+Until property restored.
+
+---
+
+# 11. Python String Hashing
+
+Python uses
+
+```
+SipHash
+```
+
+Why?
+
+* Fast
+* Secure
+* Prevent Hash DoS Attack
+
+Every Python run
+
+Different Seed
+
+So
+
+```python
+hash("abc")
+```
+
+Can change across executions.
+
+---
+
+Interview Answer
+
+Python uses SipHash with randomized seeds to securely hash strings and bytes.
+
+---
+
+# PART 2 — DJANGO
+
+---
+
+# 12. ForeignKey vs ManyToMany
+
+ForeignKey
+
+One Author
+
+↓
+
+Many Books
+
+```
+Author
+
+↓
+
+Book
+
+↓
+
+Book
+
+↓
+
+Book
+```
+
+Each Book
+
+Only one Author.
+
+---
+
+ManyToMany
+
+Student
+
+↓
+
+Course
+
+Student
+
+↓
+
+Course
+
+Many on both sides.
+
+Django creates
+
+Intermediate Table.
+
+---
+
+Interview Answer
+
+ForeignKey → One-to-Many.
+
+ManyToMany → Many-to-Many using a junction table.
+
+---
+
+# 13. select_related() vs prefetch_related()
+
+## select_related()
+
+Works with
+
+* ForeignKey
+* OneToOne
+
+Uses
+
+SQL JOIN
+
+One Query
+
+```python
+Book.objects.select_related("author")
+```
+
+---
+
+## prefetch_related()
+
+Works with
+
+* ManyToMany
+* Reverse FK
+
+Runs
+
+Separate Queries
+
+Joins
+
+In Python
+
+```python
+Course.objects.prefetch_related("students")
+```
+
+---
+
+Interview Answer
+
+`select_related()` performs SQL JOINs for FK/OneToOne. `prefetch_related()` performs separate queries and joins results in Python for ManyToMany and reverse relationships.
+
+---
+
+# 14. QuerySet Lazy Evaluation
+
+```python
+users=User.objects.filter(active=True)
+```
+
+Database Hit?
+
+❌ No
+
+Only builds query.
+
+Runs SQL when
+
+```
+for user in users
+```
+
+or
+
+```
+list(users)
+
+count()
+
+exists()
+
+first()
+
+get()
+```
+
+---
+
+Benefits
+
+* Fewer queries
+* Query optimization
+* Method chaining
+
+---
+
+Problem
+
+Repeated evaluation
+
+↓
+
+Multiple DB hits.
+
+---
+
+# 15. Correlation ID Middleware
+
+Purpose
+
+Trace one request
+
+Across
+
+```
+Gateway
+
+↓
+
+Service A
+
+↓
+
+Service B
+
+↓
+
+Database
+```
+
+Flow
+
+Incoming Request
+
+↓
+
+Read
+
+```
+X-Correlation-ID
+```
+
+If absent
+
+Generate UUID
+
+↓
+
+Store in request
+
+↓
+
+Inject into Logs
+
+↓
+
+Pass downstream
+
+↓
+
+Return in response
+
+Benefits
+
+* Easier debugging
+* Distributed tracing
+* Log correlation
+
+---
+
+## Django Middleware (Concept)
+
+```python
+class CorrelationIdMiddleware:
+    def __call__(self, request):
+        # Read or create X-Correlation-ID
+        # Store in request
+        # Add to logs
+        # Return in response
+```
+
+---
+
+## Common Django Interview Questions
+
+* Difference between `get()` and `filter()`
+* `select_related()` vs `prefetch_related()`
+* What is lazy evaluation?
+* What is middleware?
+* What is ORM?
+* How do you prevent the N+1 query problem?
+* Difference between `ModelSerializer` and `Serializer`?
+* `ForeignKey` vs `OneToOneField` vs `ManyToManyField`
+* How does Django handle transactions?
+* What is `ATOMIC`?
+* What is CSRF?
+* Authentication vs Authorization?
+
+---
+
+These two parts cover the Python internals and Django concepts that are most frequently asked in Python Backend interviews. The remaining parts will cover **Backend Concurrency, Authentication, AWS, Data Engineering, Linux, and the Greedy coding problem** in the same level of depth.
+# PART 3 — Backend Concurrency & Authentication
+
+---
+
+# 16. Asyncio vs Threading vs Multiprocessing
+
+This is one of the most common Python backend interview topics.
+
+---
+
+## Why do we need concurrency?
+
+Imagine your API does:
+
+* Read Database
+* Call Payment API
+* Call Email API
+
+Each call waits.
+
+CPU sits idle.
+
+Concurrency helps utilize this waiting time.
+
+---
+
+## 1. Threading
+
+Threading means multiple threads inside one process.
+
+```text
+Process
+
+├── Thread 1
+├── Thread 2
+├── Thread 3
+```
+
+Example
+
+```python
+import threading
+
+def worker():
+    print("Running")
+
+t=threading.Thread(target=worker)
+t.start()
+```
+
+---
+
+### Best For
+
+✅ Blocking I/O
+
+* File reading
+* Network requests
+* Database calls
+* Legacy libraries
+
+---
+
+### Problem
+
+Python has
+
+## GIL
+
+Global Interpreter Lock
+
+Only ONE thread executes Python bytecode at a time.
+
+Therefore
+
+CPU-bound work
+
+❌ Doesn't become faster.
+
+---
+
+## 2. asyncio
+
+Instead of many threads
+
+One thread
+
+Many Tasks
+
+```text
+Task A
+↓
+
+Waiting
+
+↓
+
+Task B
+
+↓
+
+Waiting
+
+↓
+
+Task C
+```
+
+Whenever one task waits
+
+Another starts.
+
+---
+
+Example
+
+```python
+import asyncio
+
+async def fetch():
+    await asyncio.sleep(2)
+    print("Done")
+
+asyncio.run(fetch())
+```
+
+---
+
+Best For
+
+* APIs
+* HTTP Requests
+* WebSockets
+* Async DB Drivers
+* FastAPI
+* Microservices
+
+---
+
+Advantages
+
+Very low memory
+
+Thousands of connections
+
+No thread switching
+
+---
+
+Disadvantages
+
+Must use async libraries
+
+Different programming style
+
+---
+
+## 3. Multiprocessing
+
+Creates
+
+Separate Processes
+
+```text
+Process 1
+
+CPU Core 1
+
+Process 2
+
+CPU Core 2
+
+Process 3
+
+CPU Core 3
+```
+
+Each process
+
+Own Python Interpreter
+
+Own Memory
+
+No GIL issue.
+
+---
+
+Example
+
+```python
+from multiprocessing import Process
+
+def work():
+    print("Working")
+
+p=Process(target=work)
+p.start()
+```
+
+---
+
+Best For
+
+* Machine Learning
+* Image Processing
+* Video Encoding
+* Heavy Calculations
+
+---
+
+Comparison
+
+| Feature           | Thread   | Asyncio    | Multiprocessing |
+| ----------------- | -------- | ---------- | --------------- |
+| Memory            | Medium   | Very Low   | High            |
+| CPU-bound         | Poor     | Poor       | Excellent       |
+| I/O-bound         | Good     | Excellent  | Good            |
+| Parallel          | No (GIL) | No         | Yes             |
+| Context Switching | OS       | Event Loop | OS              |
+
+---
+
+Interview Answer
+
+> I use asyncio for high-concurrency I/O workloads, threading for blocking synchronous libraries, and multiprocessing for CPU-intensive tasks because it bypasses the GIL.
+
+---
+
+Common Follow-up
+
+What is GIL?
+
+Global Interpreter Lock.
+
+Only one thread executes Python bytecode at a time.
+
+---
+
+Real Backend Example
+
+Payment Service
+
+```text
+Receive Request
+
+↓
+
+DB Query
+
+↓
+
+Payment API
+
+↓
+
+Notification API
+```
+
+Perfect candidate
+
+For
+
+asyncio
+
+---
+
+# 17. OAuth vs JWT vs API Keys
+
+These are NOT competitors.
+
+OAuth
+
+↓
+
+Issues
+
+↓
+
+JWT
+
+---
+
+## API Key
+
+Simple String
+
+```text
+X-API-Key
+
+abcd123456
+```
+
+Advantages
+
+Simple
+
+Easy
+
+Fast
+
+Disadvantages
+
+No User Identity
+
+No Expiry
+
+Hard to Rotate
+
+---
+
+Used For
+
+Internal APIs
+
+Third-party integrations
+
+---
+
+## JWT
+
+JSON Web Token
+
+Structure
+
+```text
+Header
+
+.
+
+Payload
+
+.
+
+Signature
+```
+
+Example
+
+```text
+xxxxx.yyyyy.zzzzz
+```
+
+Payload
+
+```json
+{
+"id":1,
+"role":"admin"
+}
+```
+
+Advantages
+
+Stateless
+
+Scalable
+
+No DB lookup
+
+Disadvantages
+
+Cannot modify after issued
+
+Need expiration
+
+---
+
+## OAuth 2.0
+
+Framework
+
+Not Token.
+
+OAuth defines
+
+How user logs in
+
+How token issued
+
+How permission granted.
+
+Example
+
+Login with Google
+
+↓
+
+OAuth
+
+↓
+
+Returns JWT
+
+---
+
+Comparison
+
+| Feature           | API Key    | JWT      | OAuth     |
+| ----------------- | ---------- | -------- | --------- |
+| Identity          | No         | Yes      | Yes       |
+| Authorization     | Limited    | Yes      | Yes       |
+| Expiry            | Usually No | Yes      | Yes       |
+| Revocation        | Manual     | Possible | Supported |
+| Third-party Login | No         | No       | Yes       |
+
+---
+
+Interview Answer
+
+User APIs
+
+↓
+
+OAuth + JWT
+
+Internal Services
+
+↓
+
+JWT
+
+Simple Internal Tool
+
+↓
+
+API Key
+
+---
+
+Follow-up
+
+Authentication
+
+↓
+
+Who are you?
+
+Authorization
+
+↓
+
+What can you access?
+
+---
+
+# 18. Refresh Token Rotation
+
+Suppose
+
+Access Token
+
+Expires
+
+15 minutes
+
+Refresh Token
+
+30 days
+
+---
+
+Flow
+
+Login
+
+↓
+
+Access Token
+
+*
+
+Refresh Token
+
+↓
+
+Access Expires
+
+↓
+
+Send Refresh Token
+
+↓
+
+Receive
+
+New Access
+
+*
+
+New Refresh
+
+↓
+
+Old Refresh Deleted
+
+---
+
+Database
+
+```text
+UserID
+
+RefreshTokenHash
+
+Expiry
+
+Device
+
+CreatedAt
+```
+
+Never
+
+Store
+
+Plain Token
+
+Always Hash
+
+---
+
+Replay Attack
+
+Suppose
+
+Old Refresh Token
+
+Used Again
+
+Means
+
+Possibly
+
+Stolen
+
+Immediately
+
+Logout
+
+All Sessions
+
+---
+
+Best Practice
+
+Access Token
+
+15 minutes
+
+Refresh Token
+
+7–30 Days
+
+Rotate Every Use
+
+Store Hash
+
+---
+
+Interview Answer
+
+Use short-lived JWT access tokens and hashed refresh tokens. Rotate refresh tokens on every use, invalidate the old token immediately, and revoke sessions if an old token is reused.
+
+---
+
+# PART 4 — AWS Backend Deployment
+
+---
+
+# 19. EC2 + ALB Deployment
+
+Architecture
+
+```text
+Internet
+
+↓
+
+Application Load Balancer
+
+↓
+
+EC2 (AZ-1)
+
+↓
+
+EC2 (AZ-2)
+
+↓
+
+RDS
+```
+
+---
+
+Deployment Steps
+
+1.
+
+Package Application
+
+Docker
+
+or
+
+Gunicorn
+
+---
+
+2.
+
+Deploy
+
+EC2
+
+---
+
+3.
+
+Create
+
+Auto Scaling Group
+
+Benefits
+
+* High Availability
+
+* Auto Scaling
+
+---
+
+4.
+
+Attach
+
+Application Load Balancer
+
+ALB
+
+Responsibilities
+
+* HTTPS
+
+* SSL Termination
+
+* Routing
+
+* Health Checks
+
+---
+
+5.
+
+Health Check
+
+Example
+
+```text
+GET
+
+/health
+```
+
+If unhealthy
+
+Traffic removed.
+
+---
+
+6.
+
+IAM Role
+
+Never
+
+Hardcode AWS Keys
+
+EC2
+
+↓
+
+IAM Role
+
+↓
+
+Temporary Credentials
+
+---
+
+7.
+
+Logs
+
+CloudWatch
+
+↓
+
+Metrics
+
+↓
+
+Alarms
+
+---
+
+Deployment Strategies
+
+Rolling Deployment
+
+Old Instance
+
+↓
+
+New Instance
+
+↓
+
+Remove Old
+
+No Downtime
+
+---
+
+Blue Green
+
+Blue
+
+↓
+
+Green
+
+↓
+
+Switch Traffic
+
+Rollback Easy
+
+---
+
+Interview Answer
+
+Deploy stateless APIs on EC2 instances inside an Auto Scaling Group behind an ALB, use IAM roles, CloudWatch monitoring, health checks, and rolling or blue-green deployments for zero downtime.
+
+---
+
+# 20. S3 Presigned URLs
+
+Problem
+
+User uploads
+
+2GB file
+
+Should it pass
+
+Through EC2?
+
+No.
+
+Waste of bandwidth.
+
+---
+
+Correct Flow
+
+```text
+Client
+
+↓
+
+Request Upload URL
+
+↓
+
+Backend
+
+↓
+
+Generate Presigned URL
+
+↓
+
+Client uploads directly
+
+↓
+
+Amazon S3
+```
+
+Backend
+
+Never
+
+Handles File
+
+---
+
+Download
+
+Generate
+
+Temporary URL
+
+↓
+
+Client Downloads
+
+---
+
+Benefits
+
+✔ Less EC2 Load
+
+✔ Faster Upload
+
+✔ More Secure
+
+✔ Stateless
+
+---
+
+Security
+
+Private Bucket
+
+IAM Role
+
+Expiry
+
+File Size Validation
+
+Content-Type Validation
+
+Server-side Encryption
+
+---
+
+Interview Answer
+
+Generate presigned URLs so clients upload directly to S3 while the backend stores only the object key and metadata.
+
+---
+
+# 21. RDS Production
+
+Production Checklist
+
+Multi-AZ
+
+Read Replicas
+
+Automated Backups
+
+Encryption
+
+Monitoring
+
+Private Subnet
+
+---
+
+## Multi-AZ
+
+Primary
+
+↓
+
+Standby
+
+Automatic Failover
+
+---
+
+## Read Replica
+
+Primary
+
+↓
+
+Replica 1
+
+↓
+
+Replica 2
+
+Read Queries
+
+Go Here
+
+---
+
+## Backup
+
+Automated
+
+Point In Time Recovery
+
+Manual Snapshots
+
+---
+
+Security
+
+Private VPC
+
+Security Groups
+
+Encryption
+
+IAM
+
+---
+
+Monitoring
+
+CloudWatch
+
+CPU
+
+Connections
+
+Storage
+
+Latency
+
+Replication Lag
+
+---
+
+Interview Answer
+
+Use Multi-AZ for high availability, Read Replicas for scaling reads, automated backups with point-in-time recovery, encryption, CloudWatch monitoring, and private networking.
+
+---
+
+# 22. Secrets Manager vs IAM DB Authentication
+
+Never
+
+Hardcode
+
+```python
+password="admin123"
+```
+
+---
+
+## Secrets Manager
+
+Stores
+
+Database Password
+
+Automatically Rotates
+
+Application
+
+Reads Secret
+
+Creates New DB Connection
+
+New Credentials
+
+Used Automatically
+
+---
+
+Rotation
+
+Lambda
+
+↓
+
+Updates DB Password
+
+↓
+
+Updates Secret
+
+↓
+
+Application Reads New Secret
+
+---
+
+## IAM DB Authentication
+
+Even Better
+
+No Password
+
+Application
+
+↓
+
+IAM Role
+
+↓
+
+Temporary Auth Token
+
+↓
+
+Database
+
+Token
+
+Expires
+
+15 minutes
+
+---
+
+Advantages
+
+No Password Rotation
+
+Temporary Credentials
+
+Least Privilege
+
+---
+
+Comparison
+
+| Feature  | Secrets Manager | IAM Auth         |
+| -------- | --------------- | ---------------- |
+| Password | Yes             | No               |
+| Rotation | Automatic       | Not Needed       |
+| Security | Excellent       | Best             |
+| Setup    | Easy            | Slightly Complex |
+
+---
+
+Interview Answer
+
+Use Secrets Manager with automatic rotation or IAM Database Authentication when supported. Fetch credentials dynamically and rely on connection pooling so new connections use updated credentials without downtime.
+
+---
+
+## Common AWS Backend Interview Questions
+
+* Difference between ALB and NLB?
+* Why Auto Scaling?
+* What is Security Group?
+* IAM Role vs IAM User?
+* Why use S3 Presigned URLs?
+* Difference between Multi-AZ and Read Replica?
+* How does Secrets Manager rotate credentials?
+* Blue-Green vs Rolling Deployment?
+* CloudWatch vs CloudTrail?
+* Stateless API means what?
+
+---
+
+These two parts cover the **Backend, Authentication, and AWS** topics that are commonly asked in Python backend interviews. The final part will cover **Data Engineering, Linux, and the coding problem**, including practical examples, SQL validation techniques, `strace`, ETL testing, and the greedy parcel scheduling solution.
+# PART 5 — Data Engineering & Testing
+
+This section is extremely important for **Data Engineer**, **Backend**, and **Python Developer** interviews.
+
+---
+
+# 23. Testing Framework for ETL Pipelines
+
+## Why do we need ETL testing?
+
+Suppose your pipeline is
+
+```text
+PostgreSQL
+      ↓
+Python
+      ↓
+Raw Layer
+      ↓
+Snowflake
+      ↓
+dbt
+      ↓
+Mart
+```
+
+Questions:
+
+* Did every record reach Snowflake?
+* Did any duplicate occur?
+* Did any transformation fail?
+* Was data corrupted?
+* Did incremental loading miss records?
+
+Testing ensures **data quality** and **pipeline reliability**.
+
+---
+
+# Types of ETL Testing
+
+### 1. Source-to-Target Validation
+
+Compare
+
+```text
+Source Table
+
+↓
+
+Target Table
+```
+
+Verify
+
+* Row count
+* Schema
+* Data types
+
+Example SQL
+
+Source
+
+```sql
+SELECT COUNT(*)
+FROM users;
+```
+
+Target
+
+```sql
+SELECT COUNT(*)
+FROM raw.users;
+```
+
+Counts should match.
+
+---
+
+## 2. Primary Key Validation
+
+No duplicate IDs.
+
+```sql
+SELECT id,
+COUNT(*)
+FROM raw.users
+GROUP BY id
+HAVING COUNT(*)>1;
+```
+
+Result
+
+```text
+0 Rows
+```
+
+Good.
+
+---
+
+## 3. NOT NULL Validation
+
+```sql
+SELECT *
+FROM users
+WHERE email IS NULL;
+```
+
+---
+
+## 4. Data Type Validation
+
+Age
+
+Should always be Integer
+
+Never
+
+```text
+Twenty
+```
+
+---
+
+## 5. Schema Validation
+
+Ensure
+
+```text
+Source
+
+↓
+
+Destination
+```
+
+Columns match.
+
+---
+
+## 6. Business Rule Validation
+
+Example
+
+Salary
+
+Cannot be negative.
+
+```sql
+salary>0
+```
+
+---
+
+## 7. Incremental Load Testing
+
+Only new records.
+
+Suppose
+
+Yesterday
+
+1000 Rows
+
+Today
+
+1010 Rows
+
+Pipeline
+
+Should process
+
+Only
+
+10 Rows.
+
+---
+
+## 8. Failure Recovery Testing
+
+Airflow crashes.
+
+Restart.
+
+Pipeline should
+
+Resume safely.
+
+---
+
+# My Project Answer
+
+> I validated ETL pipelines using reconciliation queries, primary key validation, dbt tests, row count comparisons, duplicate checks, schema validation, and manual sampling. This ensured no missing or duplicate records reached Snowflake.
+
+---
+
+# Common Interview Question
+
+How do you test ETL?
+
+Answer
+
+* Row Count
+* PK Validation
+* Schema Validation
+* Business Rules
+* Incremental Load
+* Data Quality Tests
+* End-to-End Reconciliation
+
+---
+
+# 24. Data Reconciliation & Row-Level Hashing
+
+One of the most asked senior questions.
+
+---
+
+## Problem
+
+Suppose
+
+Source
+
+```text
+Name
+
+John
+```
+
+Target
+
+```text
+Jon
+```
+
+Row Count
+
+Still
+
+100
+
+PK
+
+Still
+
+Correct
+
+But
+
+Data changed.
+
+Need
+
+Field-Level Validation.
+
+---
+
+## Row Count Validation
+
+```sql
+SELECT COUNT(*)
+```
+
+Only detects
+
+Missing Rows.
+
+Not
+
+Wrong Values.
+
+---
+
+## Primary Key Validation
+
+Detects
+
+Duplicates
+
+Missing IDs
+
+Not
+
+Changed Fields.
+
+---
+
+## Better
+
+Row Hashing
+
+Create
+
+Hash
+
+For every row.
+
+Example
+
+```text
+John
+
+Smith
+
+1000
+```
+
+↓
+
+```
+SHA256
+
+↓
+
+A7D234...
+```
+
+Source
+
+↓
+
+Hash
+
+Target
+
+↓
+
+Hash
+
+Compare
+
+Different?
+
+Investigate.
+
+---
+
+## SQL Example
+
+```sql
+SELECT
+MD5(
+CONCAT(
+first_name,
+last_name,
+salary
+)
+)
+FROM employee;
+```
+
+---
+
+## Why Normalize?
+
+Before Hashing
+
+Trim Spaces
+
+Uppercase
+
+Timezone Conversion
+
+Round Decimal
+
+Otherwise
+
+False Difference.
+
+---
+
+## Watermark
+
+Incremental Pipelines
+
+Usually
+
+```text
+updated_at
+```
+
+Pipeline
+
+Reads
+
+```sql
+updated_at>
+
+Last Watermark
+```
+
+---
+
+## Benefits
+
+Detect
+
+✔ Missing Rows
+
+✔ Duplicate Rows
+
+✔ Silent Corruption
+
+✔ Incorrect Transformation
+
+---
+
+## Interview Answer
+
+I primarily used reconciliation queries and PK validation. For production-scale field validation, I would implement normalized row-level hashing to detect silent data corruption.
+
+---
+
+# 25. Favorite Python Libraries
+
+Interviewer usually asks
+
+Which libraries do you like?
+
+Never
+
+Just list names.
+
+Explain
+
+Why.
+
+---
+
+## Django
+
+Purpose
+
+Backend Development
+
+Used For
+
+* REST APIs
+* Authentication
+* Admin Panel
+* ORM
+
+---
+
+## Pandas
+
+Purpose
+
+Data Cleaning
+
+Example
+
+```python
+df.drop_duplicates()
+```
+
+---
+
+## Airflow
+
+Purpose
+
+Workflow Scheduling
+
+Example
+
+```text
+Extract
+
+↓
+
+Transform
+
+↓
+
+Load
+```
+
+---
+
+## dbt
+
+Purpose
+
+SQL Transformations
+
+Benefits
+
+* Version Control
+* Tests
+* Documentation
+
+---
+
+## Snowpark
+
+Purpose
+
+Run Python
+
+Inside Snowflake
+
+---
+
+## psycopg2
+
+Connect Python
+
+↓
+
+PostgreSQL
+
+---
+
+## boto3
+
+AWS SDK
+
+Upload
+
+S3
+
+Create EC2
+
+Read Secrets
+
+---
+
+## requests
+
+HTTP API Calls
+
+```python
+requests.get(url)
+```
+
+---
+
+## Docker
+
+Not Python
+
+But
+
+Containerization
+
+---
+
+Interview Answer
+
+> My most-used libraries are Django, Pandas, Airflow, dbt, Snowpark, psycopg2, boto3, and requests. I use them to build backend APIs, ETL pipelines, automate workflows, integrate with AWS, and process data efficiently.
+
+---
+
+# PART 6 — Linux & Coding
+
+---
+
+# 26. strace
+
+One of the favorite Linux interview questions.
+
+---
+
+## What is strace?
+
+Linux utility
+
+Shows
+
+Every
+
+System Call
+
+Made
+
+By Process.
+
+Application
+
+↓
+
+Kernel
+
+Everything
+
+Visible.
+
+---
+
+## Example
+
+```bash
+strace python app.py
+```
+
+Output
+
+```text
+open()
+
+read()
+
+write()
+
+close()
+
+connect()
+
+recv()
+
+send()
+```
+
+---
+
+## Attach
+
+Running Process
+
+```bash
+strace -p 12345
+```
+
+---
+
+## Trace Only File Calls
+
+```bash
+strace -e trace=file python app.py
+```
+
+---
+
+## Save Output
+
+```bash
+strace -o output.log python app.py
+```
+
+---
+
+## Real Use Case
+
+API
+
+Returns
+
+500
+
+No Logs
+
+Use
+
+strace
+
+Find
+
+```text
+Permission Denied
+
+↓
+
+Config Missing
+
+↓
+
+Wrong File Path
+```
+
+---
+
+## Interview Answer
+
+strace traces every system call made by a Linux process and is commonly used to debug file I/O, networking, permissions, and process execution.
+
+---
+
+# 27. Maximum Parcels Delivered
+
+---
+
+## Problem
+
+Given
+
+```python
+deadlines=[
+3,2,2,1,4
+]
+```
+
+Deliver
+
+Maximum
+
+One Parcel
+
+Per Day.
+
+---
+
+## Observation
+
+Always
+
+Deliver
+
+Earliest
+
+Deadline
+
+First.
+
+Sort
+
+Array.
+
+---
+
+Input
+
+```text
+3 2 2 1 4
+```
+
+Sorted
+
+```text
+1 2 2 3 4
+```
+
+---
+
+Day
+
+1
+
+Deadline
+
+1
+
+Deliver
+
+Day=2
+
+---
+
+Deadline
+
+2
+
+Deliver
+
+Day=3
+
+---
+
+Deadline
+
+2
+
+Cannot
+
+Skip
+
+---
+
+Deadline
+
+3
+
+Deliver
+
+Day=4
+
+---
+
+Deadline
+
+4
+
+Deliver
+
+Day=5
+
+Answer
+
+4
+
+---
+
+## Code
+
+```python
+def maxParcels(deadlines):
+    deadlines.sort()
+
+    day = 1
+
+    for deadline in deadlines:
+        if deadline >= day:
+            day += 1
+
+    return day - 1
+
+
+arr = [3, 2, 2, 1, 4]
+print(maxParcels(arr))
+```
+
+Output
+
+```text
+4
+```
+
+---
+
+## Complexity
+
+Sorting
+
+```
+O(n log n)
+```
+
+Loop
+
+```
+O(n)
+```
+
+Overall
+
+```
+O(n log n)
+```
+
+Space
+
+```
+O(1)
+```
+
+---
+
+# Final Rapid Revision (30 Seconds)
+
+### Python
+
+* List → Mutable
+* Tuple → Immutable
+* Set → Unique
+* Dict → Hash Table + Open Addressing
+* List → Dynamic Array
+* Heap → List-based Binary Heap
+* `deque` → O(1) front operations
+* SipHash → String hashing
+
+### Django
+
+* `select_related()` → FK/OneToOne + SQL JOIN
+* `prefetch_related()` → ManyToMany + Separate Queries
+* QuerySet → Lazy Evaluation
+* Middleware → Cross-cutting concerns (logging, auth, correlation IDs)
+
+### Concurrency
+
+* `asyncio` → I/O-bound
+* Threads → Blocking I/O
+* Multiprocessing → CPU-bound
+
+### Security
+
+* OAuth2 → Authorization framework
+* JWT → Stateless authentication
+* API Key → Simple service authentication
+* Refresh Tokens → Rotate and revoke on reuse
+
+### AWS
+
+* EC2 + ALB + Auto Scaling
+* S3 Presigned URLs
+* RDS Multi-AZ + Read Replicas + Backups
+* Secrets Manager / IAM DB Authentication
+
+### Data Engineering
+
+* Reconciliation Queries
+* Row-Level Hashing
+* dbt Tests
+* Watermark-based Incremental Loads
+
+### Linux
+
+* `strace` → Trace system calls
+
+---
+
+## Next Recommended Topics (Most Frequently Asked)
+
+Since you've covered these 27 topics, the next high-impact interview areas are:
+
+1. **Python OOP** (inheritance, polymorphism, SOLID)
+2. **Python Memory Management** (reference counting, garbage collection)
+3. **Decorators and Closures**
+4. **Generators and Iterators**
+5. **Context Managers (`with`)**
+6. **Django REST Framework**
+7. **SQL optimization and indexing**
+8. **Redis and caching**
+9. **Docker internals**
+10. **System Design for Python backend services**
+
+These topics commonly appear in interviews for Python Backend and Data Engineering roles with 3–5 years of experience.
