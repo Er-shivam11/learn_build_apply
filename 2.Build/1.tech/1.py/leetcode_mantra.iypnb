@@ -1,0 +1,44 @@
+# Problem: Two Sum
+
+#### Step 1 → Read the question once.
+#### Step 2 → What do they want? → Find TWO numbers.
+#### Step 3 → What should those two numbers do? → Their sum = target.
+#### Step 4 → What should I return? → Their INDEXES, not the numbers.
+#### Step 5 → Since I need BOTH index and value → use `for i, num in enumerate(nums):`
+#### Step 6 → Can I check every pair? → Yes (Brute Force), but it is slow (O(n²)).
+#### Step 7 → Can I do it in one pass? → Yes.
+#### Step 8 → Ask: "Have I already seen the number I need?" → Use a HashMap because it is like a small notebook where I can instantly check if a number has already appeared.
+#### Step 9 → What number do I need? → `complement = target - current_number`
+#### Step 10 → Is complement already in my notebook (HashMap)? → If yes, I found the answer.
+#### Step 11 → If not, write the current number and its index into the notebook.
+#### Step 12 → Move to the next number.
+#### Step 13 → Repeat until the answer is found.
+
+#### Recognition:
+
+#### ✓ Array
+#### → Because the input is a list of numbers.
+
+#### ✓ Traversal
+#### → Because I must look at each number at least once.
+
+#### ✓ HashMap
+#### → Because I need to remember numbers I have already seen and find them instantly.
+
+#### ✓ enumerate()
+#### → Because the answer asks for indexes, so I need both the position (index) and the number (value).
+
+#### Templates Loaded:
+
+nums = [2,7,11,15]
+target = 9
+
+
+seen = {}
+for i, num in enumerate(nums):
+    complement = target - num
+
+    if complement in seen:
+        print([seen[complement], i])
+
+    seen[num] = i
